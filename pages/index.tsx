@@ -12,9 +12,13 @@ export default function Home() {
       </Head>
       <Spacer size={50} />
       <Box size={1280} gap={16}>
-        <Heading level={1}>
+        <Heading level={1} weight={700}>
           <em>Jogging</em> Beats
         </Heading>
+        <Heading level={4}>
+          Find the perfect playlist for your run or ride
+        </Heading>
+        <Spacer size={16} />
       </Box>
     </>
   );
