@@ -25,5 +25,22 @@ module.exports = {
     "react/jsx-filename-extension": ["warn", { extensions: [".tsx", ".jsx"] }],
     "no-unused-vars": "warn",
     "import/prefer-default-export": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never",
+      },
+    ],
+  },
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+    },
   },
 };
