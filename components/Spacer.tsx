@@ -8,7 +8,12 @@ interface SpacerProps {
   delegated?: any;
 }
 
-const Spacer = ({ size, axis = "", style = {}, ...delegated }: SpacerProps) => {
+export const Spacer = ({
+  size,
+  axis = "",
+  style = {},
+  ...delegated
+}: SpacerProps) => {
   const width = axis === "vertical" ? 1 : size;
   const height = axis === "horizontal" ? 1 : size;
   return (
@@ -25,4 +30,3 @@ const Spacer = ({ size, axis = "", style = {}, ...delegated }: SpacerProps) => {
     />
   );
 };
-export default Spacer;
