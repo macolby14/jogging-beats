@@ -36,6 +36,16 @@ module.exports = {
       },
     ],
     "react/require-default-props": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        labelComponents: [],
+        labelAttributes: [],
+        controlComponents: [],
+        assert: "either",
+        depth: 5,
+      },
+    ],
   },
   settings: {
     "import/resolver": {
