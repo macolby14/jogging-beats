@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Box } from "../components/Box";
 import { Spacer } from "../components/Spacer";
 import { Heading } from "../components/Heading";
+import { BeatsInput } from "../components/BeatsInput";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
           Find the perfect playlist for your run or ride
         </Heading>
         <Spacer size={16} />
+        <BeatsInput />
       </Box>
     </>
   );
