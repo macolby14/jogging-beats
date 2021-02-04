@@ -1,6 +1,6 @@
 {
-  "name": "markalancolby.com",
-  "version": "0.1.0",
+  "name": "jogging-beats",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
