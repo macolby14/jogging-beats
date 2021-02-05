@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { Heading } from "./Heading";
 
@@ -36,6 +37,10 @@ const FormStyle = styled.form`
 `;
 
 export function BeatsInput() {
+  const [pace, setPace] = useState("0");
+  const [bpm, setBpm] = useState("0");
+  const [time, setTime] = useState("0");
+
   return (
     <BeatsInputStyle>
       <InputOptions>
@@ -48,11 +53,26 @@ export function BeatsInput() {
       </InputOptions>
       <FormStyle>
         <label htmlFor="pace">Pace</label>
-        <input type="number" name="pace" />
+        <input
+          type="number"
+          name="pace"
+          value={pace}
+          onChange={(e) => setPace(e.target.value)}
+        />
         <label htmlFor="bpm">Beats per Minute</label>
-        <input type="number" name="bpm" />
+        <input
+          type="number"
+          name="bpm"
+          value={bpm}
+          onChange={(e) => setBpm(e.target.value)}
+        />
         <label htmlFor="workoutTime">Total Workout Time</label>
-        <input type="number" name="workoutTime" />
+        <input
+          type="number"
+          name="workoutTime"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+        />
       </FormStyle>
     </BeatsInputStyle>
   );
