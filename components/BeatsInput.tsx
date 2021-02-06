@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { Heading } from "./Heading";
 
@@ -36,13 +36,36 @@ const FormStyle = styled.form`
   }
 `;
 
-export function BeatsInput() {
+async function sleep(time: number) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+async function fetchSongs(bpm: string, time: string): Promise<string> {
+  await sleep(1000);
+  console.log("Set timeout complete");
+  return "test";
+}
+
+interface BeatsInputProps {
+  resultsHandler: Function;
+}
+
+export function BeatsInput({ resultsHandler }: BeatsInputProps) {
   const [pace, setPace] = useState("0");
   const [bpm, setBpm] = useState("0");
   const [time, setTime] = useState("0");
+  const [loading, setLoading] = useState(false);
 
-  return (
-    <BeatsInputStyle>
+  async function handleSubmission(e: FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    const results = await fetchSongs(bpm, time);
+    setLoading(false);
+    resultsHandler(results);
+  }
+
+  const inputForm = (
+    <>
       <InputOptions>
         <InputOption>
           <Heading level={4}>Target Pace</Heading>
@@ -51,7 +74,7 @@ export function BeatsInput() {
           <Heading level={4}>Target Beats Per Minute (BPM)</Heading>
         </InputOption>
       </InputOptions>
-      <FormStyle>
+      <FormStyle onSubmit={handleSubmission}>
         <label htmlFor="pace">Pace</label>
         <input
           type="number"
@@ -73,7 +96,12 @@ export function BeatsInput() {
           value={time}
           onChange={(e) => setTime(e.target.value)}
         />
+        <input type="submit" value="Search" />
       </FormStyle>
-    </BeatsInputStyle>
+    </>
   );
+
+  const displayComp = loading ? <div>Loading...</div> : inputForm;
+
+  return <BeatsInputStyle>{displayComp}</BeatsInputStyle>;
 }
