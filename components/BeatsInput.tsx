@@ -1,6 +1,7 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import styled from "styled-components";
 import { Heading } from "./Heading";
+import { TokenContext } from "./TokenProvider";
 
 const BeatsInputStyle = styled.div`
   width: 100%;
@@ -55,6 +56,9 @@ export function BeatsInput({ resultsHandler }: BeatsInputProps) {
   const [bpm, setBpm] = useState("0");
   const [time, setTime] = useState("0");
   const [loading, setLoading] = useState(false);
+  const token = useContext(TokenContext);
+
+  console.log(`Beat Inputs has the token ${token}`);
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
