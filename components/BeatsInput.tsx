@@ -37,14 +37,22 @@ const FormStyle = styled.form`
   }
 `;
 
-async function sleep(time: number) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
-
-async function fetchSongs(bpm: string, time: string): Promise<string> {
-  await sleep(1000);
-  console.log("Set timeout complete");
-  return "test";
+async function fetchSongs(
+  token: string,
+  bpm: string,
+  time: string
+): Promise<string> {
+  const results = await fetch(
+    "https://api.spotify.com/v1/recommendations?market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_tracks=0c6xIDDpzE81m2q797ordA&min_energy=0.4&min_popularity=50",
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  ).then((response) => response.json());
+  return results;
 }
 
 interface BeatsInputProps {
@@ -63,7 +71,7 @@ export function BeatsInput({ resultsHandler }: BeatsInputProps) {
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const results = await fetchSongs(bpm, time);
+    const results = await fetchSongs(token, bpm, time);
     setLoading(false);
     resultsHandler(results);
   }
