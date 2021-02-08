@@ -6,18 +6,18 @@ import { PageHeader } from "../components/PageHeader";
 import { BeatsResults } from "../components/BeatsResults";
 
 export default function Home() {
-  const [tracks, setTracks] = useState<any>(null);
+  const [recommendations, setRecommendations] = useState<any>(null);
 
   function songResultsHandler(results: any) {
     console.log(`songResults:`);
     console.log(results);
-    setTracks(results);
+    setRecommendations(results);
   }
 
-  const displayComponent = !tracks ? (
+  const displayComponent = !recommendations ? (
     <BeatsInput resultsHandler={songResultsHandler} />
   ) : (
-    <BeatsResults tracks={tracks} />
+    <BeatsResults recommendations={recommendations} />
   );
 
   return (

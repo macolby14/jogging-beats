@@ -43,7 +43,7 @@ async function fetchSongs(
   time: string
 ): Promise<string> {
   const results = await fetch(
-    "https://api.spotify.com/v1/recommendations?market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_tracks=0c6xIDDpzE81m2q797ordA&min_energy=0.4&min_popularity=50",
+    `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&min_energy=0.5&min_popularity=50&target_tempo=${bpm}`,
     {
       headers: {
         Accept: "application/json",
@@ -61,8 +61,8 @@ interface BeatsInputProps {
 
 export function BeatsInput({ resultsHandler }: BeatsInputProps) {
   const [pace, setPace] = useState("0");
-  const [bpm, setBpm] = useState("0");
-  const [time, setTime] = useState("0");
+  const [bpm, setBpm] = useState("170");
+  const [time, setTime] = useState("20000");
   const [loading, setLoading] = useState(false);
   const token = useContext(TokenContext);
 
