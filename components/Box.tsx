@@ -9,6 +9,8 @@ export const Box = styled.div<BoxProps>`
   max-width: ${(props) => (props.size ? `${props.size}px` : "100%")};
   margin-left: auto;
   margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
   display: flex;
   flex-direction: column;
   gap: ${(props) => (props.gap ? `${props.gap}px` : 0)};
