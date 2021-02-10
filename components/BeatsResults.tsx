@@ -5,6 +5,7 @@ import { Track, TrackProps } from "./Track";
 
 /* eslint-disable camelcase */
 interface Results {
+  targetDuration: number;
   recommendations: {
     tracks: TrackProps[];
   };

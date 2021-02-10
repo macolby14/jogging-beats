@@ -22,7 +22,10 @@ export default function Home() {
       setTargetDuration={setTargetDuration}
     />
   ) : (
-    <BeatsResults recommendations={recommendations} />
+    <BeatsResults
+      recommendations={recommendations}
+      targetDuration={targetDuration}
+    />
   );
 
   return (
