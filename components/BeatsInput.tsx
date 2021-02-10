@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+// eslint-disable-next-line no-use-before-define
+import React, { FormEvent, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { useAuthFetch } from "../utilities/useAuthFetch";
 import { Heading } from "./Heading";
@@ -39,12 +40,18 @@ const FormStyle = styled.form`
 
 interface BeatsInputProps {
   resultsHandler: Function;
+  targetDuration: number;
+  setTargetDuration: React.Dispatch<SetStateAction<number>>;
 }
 
-export function BeatsInput({ resultsHandler }: BeatsInputProps) {
+export function BeatsInput({
+  resultsHandler,
+  targetDuration,
+  setTargetDuration,
+}: BeatsInputProps) {
   const [pace, setPace] = useState("0");
   const [bpm, setBpm] = useState(170);
-  const [time, setTime] = useState("20000");
+  // const [targetDuration, setTargetDuration] = useState(20000);
   const [loading, setLoading] = useState(false);
   const authFetch = useAuthFetch();
 
@@ -94,8 +101,8 @@ export function BeatsInput({ resultsHandler }: BeatsInputProps) {
         <input
           type="number"
           name="workoutTime"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
+          value={targetDuration}
+          onChange={(e) => setTargetDuration(parseInt(e.target.value, 10))}
         />
         <input type="submit" value="Search" />
       </FormStyle>

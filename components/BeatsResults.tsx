@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { durationFormat } from "../utilities/durationFormat";
 import { Heading } from "./Heading";
-import { Spacer } from "./Spacer";
 import { Track, TrackProps } from "./Track";
 
 /* eslint-disable camelcase */
@@ -28,7 +27,6 @@ export function BeatsResults({ recommendations: { tracks } }: Results) {
       <Heading level={4}>
         Playlist Length: {durationFormat(playlistDuration)}
       </Heading>
-      <Spacer size={16} />
       <ResultsGrid>
         {tracks.map((track) => (
           // eslint-disable-next-line react/jsx-props-no-spreading

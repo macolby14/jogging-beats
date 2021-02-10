@@ -7,6 +7,7 @@ import { BeatsResults } from "../components/BeatsResults";
 
 export default function Home() {
   const [recommendations, setRecommendations] = useState<any>(null);
+  const [targetDuration, setTargetDuration] = useState(60000);
 
   function songResultsHandler(results: any) {
     console.log(`songResults:`);
@@ -15,7 +16,11 @@ export default function Home() {
   }
 
   const displayComponent = !recommendations ? (
-    <BeatsInput resultsHandler={songResultsHandler} />
+    <BeatsInput
+      resultsHandler={songResultsHandler}
+      targetDuration={targetDuration}
+      setTargetDuration={setTargetDuration}
+    />
   ) : (
     <BeatsResults recommendations={recommendations} />
   );
