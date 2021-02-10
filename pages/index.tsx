@@ -7,7 +7,7 @@ import { BeatsResults } from "../components/BeatsResults";
 
 export default function Home() {
   const [recommendations, setRecommendations] = useState<any>(null);
-  const [targetDuration, setTargetDuration] = useState(60000);
+  const [targetDuration, setTargetDuration] = useState(600000);
 
   function songResultsHandler(results: any) {
     console.log(`songResults:`);

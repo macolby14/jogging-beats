@@ -97,12 +97,14 @@ export function BeatsInput({
           value={bpm}
           onChange={(e) => setBpm(parseInt(e.target.value, 10))}
         />
-        <label htmlFor="workoutTime">Total Workout Time</label>
+        <label htmlFor="workoutTime">Workout Time (min)</label>
         <input
           type="number"
           name="workoutTime"
-          value={targetDuration}
-          onChange={(e) => setTargetDuration(parseInt(e.target.value, 10))}
+          value={Math.floor(targetDuration / 1000 / 60)}
+          onChange={(e) =>
+            setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
+          }
         />
         <input type="submit" value="Search" />
       </FormStyle>
