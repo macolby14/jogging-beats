@@ -18,6 +18,7 @@ const ResultsGrid = styled.div`
 `;
 
 export function BeatsResults({ recommendations: { tracks } }: Results) {
+  console.log(tracks);
   return (
     <>
       <Heading level={4}>Beats Results</Heading>

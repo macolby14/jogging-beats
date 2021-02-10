@@ -1,7 +1,7 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
+import { useAuthFetch } from "../utilities/useAuthFetch";
 import { Heading } from "./Heading";
-import { TokenContext } from "./TokenProvider";
 
 const BeatsInputStyle = styled.div`
   width: 100%;
@@ -37,24 +37,6 @@ const FormStyle = styled.form`
   }
 `;
 
-async function fetchSongs(
-  token: string,
-  bpm: string,
-  time: string
-): Promise<string> {
-  const results = await fetch(
-    `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&min_energy=0.5&min_popularity=50&target_tempo=${bpm}`,
-    {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }
-  ).then((response) => response.json());
-  return results;
-}
-
 interface BeatsInputProps {
   resultsHandler: Function;
 }
@@ -64,14 +46,19 @@ export function BeatsInput({ resultsHandler }: BeatsInputProps) {
   const [bpm, setBpm] = useState("170");
   const [time, setTime] = useState("20000");
   const [loading, setLoading] = useState(false);
-  const token = useContext(TokenContext);
+  const authFetch = useAuthFetch();
 
-  console.log(`Beat Inputs has the token ${token}`);
+  async function fetchSongs(): Promise<string> {
+    const results = await authFetch(
+      `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&min_energy=0.5&min_popularity=50&target_tempo=${bpm}`
+    ).then((response) => response.json());
+    return results;
+  }
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const results = await fetchSongs(token, bpm, time);
+    const results = await fetchSongs();
     setLoading(false);
     resultsHandler(results);
   }
