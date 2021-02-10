@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import styled, { css } from "styled-components";
+import { AudioPlayer } from "./AudioPlayer";
 
 const center = css`
   display: flex;
@@ -82,7 +83,7 @@ export function Track({
 
   return (
     <TrackStyle>
-      <div className="play">Play</div>
+      <AudioPlayer url={preview_url} className="play" />
       <div className="pic">
         <img src={album?.images[2].url} alt="Album cover" />
       </div>
