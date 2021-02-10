@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+import { durationFormat } from "../utilities/durationFormat";
 import { useAuthFetch } from "../utilities/useAuthFetch";
 import { AudioPlayer } from "./AudioPlayer";
 
@@ -60,7 +61,7 @@ const TrackStyle = styled.div`
     "play pic artist tempo";
 `;
 
-interface TrackProps {
+export interface TrackProps {
   album: {
     images: { height: number; width: number; url: string }[];
   };
@@ -98,11 +99,6 @@ export function Track({
       });
   }, []);
 
-  const durMin = Math.floor(duration_ms / 1000 / 60);
-  const durSec = Math.floor((duration_ms / 1000) % 60)
-    .toString()
-    .padStart(2, "0");
-
   return (
     <TrackStyle>
       <AudioPlayer url={preview_url} className="play" />
@@ -113,7 +109,7 @@ export function Track({
       <div className="artist">
         {artists.map((artist) => artist.name).join(", ")}
       </div>
-      <div className="time">{`${durMin} min ${durSec} sec`}</div>
+      <div className="time">{durationFormat(duration_ms)}</div>
       <div className="tempo">{tempo ? `${tempo} bpm` : "Loading..."}</div>
     </TrackStyle>
   );

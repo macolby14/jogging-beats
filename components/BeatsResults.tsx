@@ -1,12 +1,13 @@
 import styled from "styled-components";
+import { durationFormat } from "../utilities/durationFormat";
 import { Heading } from "./Heading";
 import { Spacer } from "./Spacer";
-import { Track } from "./Track";
+import { Track, TrackProps } from "./Track";
 
 /* eslint-disable camelcase */
 interface Results {
   recommendations: {
-    tracks: any[];
+    tracks: TrackProps[];
   };
 }
 
@@ -18,10 +19,15 @@ const ResultsGrid = styled.div`
 `;
 
 export function BeatsResults({ recommendations: { tracks } }: Results) {
-  console.log(tracks);
+  const playlistDuration = tracks.reduce(
+    (totalLen, track) => totalLen + track.duration_ms,
+    0
+  );
   return (
     <>
-      <Heading level={4}>Beats Results</Heading>
+      <Heading level={4}>
+        Playlist Length: {durationFormat(playlistDuration)}
+      </Heading>
       <Spacer size={16} />
       <ResultsGrid>
         {tracks.map((track) => (
