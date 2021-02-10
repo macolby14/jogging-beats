@@ -1,4 +1,13 @@
 import { useRef, useState } from "react";
+import styled from "styled-components";
+
+const AudioPlayerStyle = styled.div`
+  button {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+  }
+`;
 
 export function AudioPlayer({
   url,
@@ -26,15 +35,20 @@ export function AudioPlayer({
 
   const notAvailable = <div>Preview Not Available</div>;
 
-  const playButton = (
-    <div className={className}>
+  const playButtonImg = <img src="/play_circle_outline-24px.svg" alt="Play" />;
+  const pauseButtonImg = (
+    <img src="/pause_circle_outline-24px.svg" alt="Pause" />
+  );
+
+  const audioButton = (
+    <AudioPlayerStyle className={className}>
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio src={url} ref={audioRef} />
       <button type="button" onClick={playAudioHandler}>
-        {playing ? "Pause" : "Play"}
+        {playing ? pauseButtonImg : playButtonImg}
       </button>
-    </div>
+    </AudioPlayerStyle>
   );
 
-  return <div className="play">{url ? playButton : notAvailable}</div>;
+  return <div className="play">{url ? audioButton : notAvailable}</div>;
 }
