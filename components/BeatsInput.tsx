@@ -43,14 +43,16 @@ interface BeatsInputProps {
 
 export function BeatsInput({ resultsHandler }: BeatsInputProps) {
   const [pace, setPace] = useState("0");
-  const [bpm, setBpm] = useState("170");
+  const [bpm, setBpm] = useState(170);
   const [time, setTime] = useState("20000");
   const [loading, setLoading] = useState(false);
   const authFetch = useAuthFetch();
 
   async function fetchSongs(): Promise<string> {
     const results = await authFetch(
-      `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&min_energy=0.5&min_popularity=50&target_tempo=${bpm}`
+      `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&target_tempo=${bpm}&min_tempo=${
+        bpm - 5
+      }&max_tempo=${bpm + 5}`
     ).then((response) => response.json());
     return results;
   }
@@ -86,7 +88,7 @@ export function BeatsInput({ resultsHandler }: BeatsInputProps) {
           type="number"
           name="bpm"
           value={bpm}
-          onChange={(e) => setBpm(e.target.value)}
+          onChange={(e) => setBpm(parseInt(e.target.value, 10))}
         />
         <label htmlFor="workoutTime">Total Workout Time</label>
         <input

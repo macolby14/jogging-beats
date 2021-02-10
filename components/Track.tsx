@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
+import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+import { useAuthFetch } from "../utilities/useAuthFetch";
 import { AudioPlayer } from "./AudioPlayer";
 
 const center = css`
@@ -8,32 +10,40 @@ const center = css`
   justify-content: center;
 `;
 
+const centerVertically = css`
+  display: flex;
+  align-items: center;
+`;
+
 const TrackStyle = styled.div`
   .play {
-    ${center}
     grid-area: play;
+    ${center}
   }
 
   .pic {
-    ${center}
     grid-area: pic;
+    ${center}
   }
 
   .name {
-    display: grid;
-    align-items: center;
     grid-area: name;
+    ${centerVertically}
   }
 
   .artist {
-    display: grid;
-    align-items: center;
     grid-area: artist;
+    ${centerVertically}
   }
 
   .time {
-    ${center}
     grid-area: time;
+    ${centerVertically}
+  }
+
+  .tempo {
+    grid-area: tempo;
+    ${centerVertically}
   }
 
   border: 1px black solid;
@@ -43,11 +53,11 @@ const TrackStyle = styled.div`
   width: 100%;
   display: grid;
   place-content: center;
-  grid-template-columns: 50px 100px 1fr 50px;
+  grid-template-columns: 50px 100px 1fr 100px;
   grid-template-rows: 50px 50px;
   grid-template-areas:
     "play pic name time"
-    "play pic artist time";
+    "play pic artist tempo";
 `;
 
 interface TrackProps {
@@ -67,6 +77,7 @@ interface TrackProps {
 }
 
 export function Track({
+  id,
   name,
   artists,
   duration_ms,
@@ -74,8 +85,19 @@ export function Track({
   preview_url,
 }: Pick<
   TrackProps,
-  "name" | "artists" | "duration_ms" | "album" | "preview_url"
+  "name" | "artists" | "duration_ms" | "album" | "preview_url" | "id"
 >) {
+  const authFetch = useAuthFetch();
+  const [tempo, setTempo] = useState("");
+
+  useEffect(() => {
+    authFetch(`https://api.spotify.com/v1/audio-features/${id}`)
+      .then((resp) => resp.json())
+      .then((resp) => {
+        setTempo(`${Math.floor(resp.tempo)}`);
+      });
+  }, []);
+
   const durMin = Math.floor(duration_ms / 1000 / 60);
   const durSec = Math.floor((duration_ms / 1000) % 60)
     .toString()
@@ -85,13 +107,14 @@ export function Track({
     <TrackStyle>
       <AudioPlayer url={preview_url} className="play" />
       <div className="pic">
-        <img src={album?.images[2].url} alt="Album cover" />
+        <img src={album.images[2].url} alt="Album cover" />
       </div>
       <div className="name">{name}</div>
       <div className="artist">
         {artists.map((artist) => artist.name).join(", ")}
       </div>
-      <div className="time">{`${durMin} : ${durSec}`}</div>
+      <div className="time">{`${durMin} min ${durSec} sec`}</div>
+      <div className="tempo">{tempo ? `${tempo} bpm` : "Loading..."}</div>
     </TrackStyle>
   );
 }
