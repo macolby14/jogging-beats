@@ -21,9 +21,14 @@ interface TrackStyleProps {
 }
 
 const TrackStyle = styled.div<TrackStyleProps>`
-  .play {
-    grid-area: play;
-    ${center}
+  .play-preview {
+    grid-area: play-preview;
+    ${centerVertically}
+  }
+
+  .play-spotify {
+    grid-area: play-spotify;
+    ${centerVertically}
   }
 
   .pic {
@@ -59,11 +64,11 @@ const TrackStyle = styled.div<TrackStyleProps>`
   width: 100%;
   display: grid;
   place-content: center;
-  grid-template-columns: 50px 100px 1fr 100px;
+  grid-template-columns: 100px 100px 1fr 100px;
   grid-template-rows: 50px 50px;
   grid-template-areas:
-    "play pic name time"
-    "play pic artist tempo";
+    "play-preview pic name time"
+    "play-spotify pic artist tempo";
 `;
 
 export interface TrackData {
@@ -107,7 +112,8 @@ export function Track({
 
   return (
     <TrackStyle selected={selected}>
-      <AudioPlayer url={preview_url} className="play" />
+      <AudioPlayer url={preview_url} className="play-preview" />
+      <div className="play-spotify">Play on Spotify</div>
       <div className="pic">
         <img src={album.images[2].url} alt="Album cover" />
       </div>

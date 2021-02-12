@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 const AudioPlayerStyle = styled.div`
   button {
-    background-color: inherit;
-    border: none;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -33,7 +33,7 @@ export function AudioPlayer({
     }
   }
 
-  const notAvailable = <div>Preview Not Available</div>;
+  const notAvailable = <div className={className}>Preview Not Available</div>;
 
   const playButtonImg = <img src="/play_circle_outline-24px.svg" alt="Play" />;
   const pauseButtonImg = (
@@ -46,9 +46,10 @@ export function AudioPlayer({
       <audio src={url} ref={audioRef} />
       <button type="button" onClick={playAudioHandler}>
         {playing ? pauseButtonImg : playButtonImg}
+        Preview
       </button>
     </AudioPlayerStyle>
   );
 
-  return <div className="play">{url ? audioButton : notAvailable}</div>;
+  return <>{url ? audioButton : notAvailable}</>;
 }
