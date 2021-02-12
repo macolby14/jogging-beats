@@ -61,21 +61,24 @@ const TrackStyle = styled.div`
     "play pic artist tempo";
 `;
 
-export interface TrackProps {
+export interface TrackData {
   album: {
     images: { height: number; width: number; url: string }[];
   };
   artists: { name: string }[];
   duration_ms: number;
   explicit: boolean;
-  external_urls: {
-    spotify: string;
-  };
+  // external_urls: {
+  //   spotify: string;
+  // };
   id: string;
   name: string;
   preview_url: string;
-  type: "track";
 }
+
+type TrackProps = TrackData & {
+  selected: boolean;
+};
 
 export function Track({
   id,
@@ -84,10 +87,8 @@ export function Track({
   duration_ms,
   album,
   preview_url,
-}: Pick<
-  TrackProps,
-  "name" | "artists" | "duration_ms" | "album" | "preview_url" | "id"
->) {
+  selected = false,
+}: TrackProps) {
   const authFetch = useAuthFetch();
   const [tempo, setTempo] = useState("");
 
@@ -105,7 +106,9 @@ export function Track({
       <div className="pic">
         <img src={album.images[2].url} alt="Album cover" />
       </div>
-      <div className="name">{name}</div>
+      <div className="name">
+        {name} - Selected: {`${selected}`}
+      </div>
       <div className="artist">
         {artists.map((artist) => artist.name).join(", ")}
       </div>
