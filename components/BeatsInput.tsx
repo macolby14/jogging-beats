@@ -51,7 +51,6 @@ export function BeatsInput({
 }: BeatsInputProps) {
   const [pace, setPace] = useState("0");
   const [bpm, setBpm] = useState(170);
-  // const [targetDuration, setTargetDuration] = useState(20000);
   const [loading, setLoading] = useState(false);
   const authFetch = useAuthFetch();
 

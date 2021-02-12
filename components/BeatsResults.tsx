@@ -21,7 +21,7 @@ const ResultsGrid = styled.div`
 
 interface SelectedState {
   selectedTracks: Record<string, TrackData>;
-  selectedTracksLength: number;
+  duration: number;
 }
 
 export function BeatsResults({
@@ -30,19 +30,17 @@ export function BeatsResults({
 }: Results) {
   const [selected, setSelected] = useState<SelectedState>({
     selectedTracks: {},
-    selectedTracksLength: 0,
+    duration: 0,
   });
 
-  const playlistDuration = tracks.reduce(
-    (totalLen, track) => totalLen + track.duration_ms,
-    0
-  );
-
   useEffect(() => {
-    let length = selected.selectedTracksLength;
+    let length = 0;
     const newSelectedTracks: Record<string, TrackData> = {};
+
+    const bufferTime = 1 * 60 * 1000; // 1 min buffer
+
     for (let i = 0; i < tracks.length; i += 1) {
-      if (length >= targetDuration) {
+      if (length + tracks[i].duration_ms >= targetDuration + bufferTime) {
         break;
       }
       newSelectedTracks[tracks[i].id] = tracks[i];
@@ -50,18 +48,19 @@ export function BeatsResults({
     }
     setSelected({
       selectedTracks: newSelectedTracks,
-      selectedTracksLength: length,
+      duration: length,
     });
   }, []);
 
   return (
     <>
       <Heading level={4}>
-        Playlist Length: {durationFormat(playlistDuration)}
+        Playlist Length: {durationFormat(selected.duration)}
       </Heading>
       <ResultsGrid>
         {tracks.map((track) => {
-          const isSelected = selected.selectedTracks[track.id] !== null;
+          const isSelected = Boolean(selected.selectedTracks[track.id]);
+          console.log(`${track.id}: isSelected: ${isSelected}`);
           // eslint-disable-next-line react/jsx-props-no-spreading
           return <Track key={track.id} {...track} selected={isSelected} />;
         })}
