@@ -16,7 +16,11 @@ const centerVertically = css`
   align-items: center;
 `;
 
-const TrackStyle = styled.div`
+interface TrackStyleProps {
+  selected: boolean;
+}
+
+const TrackStyle = styled.div<TrackStyleProps>`
   .play {
     grid-area: play;
     ${center}
@@ -47,6 +51,7 @@ const TrackStyle = styled.div`
     ${centerVertically}
   }
 
+  background-color: ${(props) => (props.selected ? "inherit" : "lightgrey")};
   border: 1px black solid;
   padding: 16px;
   height: 100px;
@@ -101,14 +106,12 @@ export function Track({
   }, []);
 
   return (
-    <TrackStyle>
+    <TrackStyle selected={selected}>
       <AudioPlayer url={preview_url} className="play" />
       <div className="pic">
         <img src={album.images[2].url} alt="Album cover" />
       </div>
-      <div className="name">
-        {name} - Selected: {`${selected}`}
-      </div>
+      <div className="name">{name}</div>
       <div className="artist">
         {artists.map((artist) => artist.name).join(", ")}
       </div>
