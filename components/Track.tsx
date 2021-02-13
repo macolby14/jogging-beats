@@ -47,8 +47,7 @@ const TrackStyle = styled.div<TrackStyleProps>`
 
   background-color: ${(props) => (props.selected ? "inherit" : "lightgrey")};
   border: 1px black solid;
-  padding: 16px;
-  height: 100px;
+  padding: 8px 16px;
   max-width: 800px;
   width: 100%;
   display: grid;
