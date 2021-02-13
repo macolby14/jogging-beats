@@ -1,20 +1,11 @@
 /* eslint-disable camelcase */
 import { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { center, centerVertically } from "../styles/globalCss";
 import { durationFormat } from "../utilities/durationFormat";
 import { useAuthFetch } from "../utilities/useAuthFetch";
 import { AudioPlayer } from "./AudioPlayer";
-
-const center = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const centerVertically = css`
-  display: flex;
-  align-items: center;
-`;
+import SpotifyPlayButton from "./SpotifyPlayButton";
 
 interface TrackStyleProps {
   selected: boolean;
@@ -24,6 +15,7 @@ const TrackStyle = styled.div<TrackStyleProps>`
   .play-preview {
     grid-area: play-preview;
     ${centerVertically}
+    font-size: var(--text-size-7);
   }
 
   .play-spotify {
@@ -113,7 +105,7 @@ export function Track({
   return (
     <TrackStyle selected={selected}>
       <AudioPlayer url={preview_url} className="play-preview" />
-      <div className="play-spotify">Play on Spotify</div>
+      <SpotifyPlayButton className="play-spotify" />
       <div className="pic">
         <img src={album.images[2].url} alt="Album cover" />
       </div>
