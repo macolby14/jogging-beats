@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
+import { trackButtonStyle } from "./Track";
 
 const AudioPlayerStyle = styled.div`
+  ${trackButtonStyle}
   button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    gap: 10px;
   }
 `;
 
@@ -33,7 +33,11 @@ export function AudioPlayer({
     }
   }
 
-  const notAvailable = <div className={className}>Preview Not Available</div>;
+  const notAvailable = (
+    <AudioPlayerStyle className={className}>
+      Preview Not Available
+    </AudioPlayerStyle>
+  );
 
   const playButtonImg = <img src="/play_circle_outline-24px.svg" alt="Play" />;
   const pauseButtonImg = (

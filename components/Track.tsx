@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { center, centerVertically } from "../styles/globalCss";
 import { durationFormat } from "../utilities/durationFormat";
 import { useAuthFetch } from "../utilities/useAuthFetch";
@@ -11,16 +11,26 @@ interface TrackStyleProps {
   selected: boolean;
 }
 
+export const trackButtonStyle = css`
+  font-size: var(--text-size-7);
+  display: flex;
+  align-items: center;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+`;
+
 const TrackStyle = styled.div<TrackStyleProps>`
   .play-preview {
     grid-area: play-preview;
-    ${centerVertically}
-    font-size: var(--text-size-7);
   }
 
   .play-spotify {
     grid-area: play-spotify;
-    ${centerVertically}
   }
 
   .pic {

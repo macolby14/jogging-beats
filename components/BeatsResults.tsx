@@ -60,7 +60,6 @@ export function BeatsResults({
       <ResultsGrid>
         {tracks.map((track) => {
           const isSelected = Boolean(selected.selectedTracks[track.id]);
-          console.log(`${track.id}: isSelected: ${isSelected}`);
           // eslint-disable-next-line react/jsx-props-no-spreading
           return <Track key={track.id} {...track} selected={isSelected} />;
         })}
