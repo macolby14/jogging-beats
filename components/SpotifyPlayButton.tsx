@@ -1,5 +1,11 @@
+import styled from "styled-components";
 import { PlayButton } from "./PlayButton";
-// import { trackButtonStyle } from "./Track";
+import { Tooltip } from "./Tooltip";
+
+const SpotifyPlayButtonStyle = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 interface SpotifyPlayButtonProps {
   className?: string;
@@ -18,13 +24,21 @@ export default function SpotifyPlayButton({
   }
 
   return (
-    <PlayButton
-      gap={2}
-      className={className}
-      onClick={clickSpotifyButtonHandler}
-    >
-      <img src="/Spotify_Icon_RGB_Green-21px.png" alt="Spotify Logo" />
-      Play on Spotify
-    </PlayButton>
+    <SpotifyPlayButtonStyle>
+      <Tooltip
+        direction="bottom"
+        gap={5}
+        text="Open the Spotify player to play this song"
+      >
+        <PlayButton
+          gap={2}
+          className={className}
+          onClick={clickSpotifyButtonHandler}
+        >
+          <img src="/Spotify_Icon_RGB_Green-21px.png" alt="Spotify Logo" />
+          Play on Spotify
+        </PlayButton>
+      </Tooltip>
+    </SpotifyPlayButtonStyle>
   );
 }

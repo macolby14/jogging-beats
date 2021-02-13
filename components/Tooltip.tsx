@@ -1,10 +1,11 @@
 import React from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 
-type TooltipDirections = "top" | "bottom";
+type TooltipDirections = "top" | "bottom" | "left" | "right";
 
 interface TooltipsStylesProps {
   dir: TooltipDirections;
+  gap: number;
 }
 
 const ToolTipStyles = styled.div<TooltipsStylesProps>`
@@ -29,13 +30,13 @@ const ToolTipStyles = styled.div<TooltipsStylesProps>`
     visibility: visible;
   }
 
-  ${({ dir }) => {
+  ${({ dir, gap }) => {
     switch (dir) {
       case "top":
         return `
         .tooltiptext{
             width: 120px;
-            bottom: 120%;
+            bottom: calc(100% + ${gap}px);
             left: 50%;
             margin-left: -60px;
         }
@@ -55,7 +56,7 @@ const ToolTipStyles = styled.div<TooltipsStylesProps>`
         return `
         .tooltiptext{
             width: 120px;
-            top: 120%;
+            top: calc(100% + ${gap}px);
             left: 50%;
             margin-left: -60px;
         }
@@ -70,7 +71,42 @@ const ToolTipStyles = styled.div<TooltipsStylesProps>`
             border-style: solid;
             border-color: transparent transparent black transparent;
         }
-        
+        `;
+      case "right":
+        return `
+        .tooltiptext{
+            top: -5px;
+            left: calc(100% + ${gap}px);
+        }
+
+        .tooltiptext::after {
+            content: " ";
+            position: absolute;
+            right: 100%; /* At the top of the tooltip */
+            top: 50%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent black transparent transparent;
+        }
+        `;
+      case "left":
+        return `
+        .tooltiptext{
+            top: -5px;
+            right: calc(100% + ${gap}px);
+        }
+
+        .tooltiptext::after {
+            content: " ";
+            position: absolute;
+            left: 100%; /* At the top of the tooltip */
+            top: 50%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent transparent black;
+        }
         `;
       default:
         return ``;
@@ -81,12 +117,13 @@ const ToolTipStyles = styled.div<TooltipsStylesProps>`
 interface TooltipProps {
   children: React.ReactNode;
   text: string;
-  dir: TooltipDirections;
+  direction: TooltipDirections;
+  gap?: number;
 }
 
-export function Tooltip({ children, text, dir }: TooltipProps) {
+export function Tooltip({ children, text, direction, gap = 0 }: TooltipProps) {
   return (
-    <ToolTipStyles dir={dir}>
+    <ToolTipStyles dir={direction} gap={gap}>
       {children}
       <span className="tooltiptext">{text}</span>
     </ToolTipStyles>

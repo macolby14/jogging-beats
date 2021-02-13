@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-use-before-define
 import React from "react";
 import styled from "styled-components";
+import { Tooltip } from "./Tooltip";
 
 interface TrackSelectProps {
   className?: string;
@@ -22,17 +23,22 @@ export function TrackSelect({
 
   if (selected) {
     selectIcon = (
-      <IconStyle
-        src="/remove_circle_outline-24px.svg"
-        alt="Add Track to Playlist"
-      />
+      <Tooltip direction="right" gap={5} text="Remove from your playlist">
+        <IconStyle
+          src="/remove_circle_outline-24px.svg"
+          alt="
+        Add Track to Playlist"
+        />
+      </Tooltip>
     );
   } else {
     selectIcon = (
-      <IconStyle
-        src="/add_circle_outline-24px.svg"
-        alt="Add Track to Playlist"
-      />
+      <Tooltip direction="right" gap={5} text="Add song to your playlist">
+        <IconStyle
+          src="/add_circle_outline-24px.svg"
+          alt="Add Track to Playlist"
+        />
+      </Tooltip>
     );
   }
 

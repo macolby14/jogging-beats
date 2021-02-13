@@ -36,10 +36,18 @@ export function AudioPreviewButton({
 
   const notAvailable = (
     <AudioPlayerStyle className={className}>
-      <PlayButton gap={10} disabled>
-        <img src="/not_available-24px.svg" alt="Audio Preview not available" />
-        No Preview
-      </PlayButton>
+      <Tooltip
+        direction="top"
+        text="No preview available. You can play it on Spotify instead."
+      >
+        <PlayButton gap={10} disabled>
+          <img
+            src="/not_available-24px.svg"
+            alt="Audio Preview not available"
+          />
+          No Preview
+        </PlayButton>
+      </Tooltip>
     </AudioPlayerStyle>
   );
 
@@ -52,7 +60,7 @@ export function AudioPreviewButton({
     <AudioPlayerStyle className={className}>
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio src={url} ref={audioRef} />
-      <Tooltip dir="top" text="Play a preview on this page">
+      <Tooltip direction="top" text="Play a preview on this page">
         <PlayButton gap={10} type="button" onClick={playAudioHandler}>
           {playing ? pauseButtonImg : playButtonImg}
           Preview
