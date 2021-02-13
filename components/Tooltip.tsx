@@ -13,7 +13,7 @@ const ToolTipStyles = styled.div<TooltipsStylesProps>`
   display: inline-block;
 
   .tooltiptext {
-    visibility: hidden;
+    opacity: 0%;
     width: 120px;
     background-color: black;
     color: white;
@@ -24,10 +24,12 @@ const ToolTipStyles = styled.div<TooltipsStylesProps>`
 
     position: absolute;
     z-index: 1;
+    transition: opacity 0s ease-out;
   }
 
   :hover .tooltiptext {
-    visibility: visible;
+    opacity: 100%;
+    transition-delay: 0.5s;
   }
 
   ${({ dir, gap }) => {
