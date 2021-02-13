@@ -9,7 +9,7 @@ const AudioPlayerStyle = styled.div`
   align-items: center;
 `;
 
-export function AudioPlayer({
+export function AudioPreviewButton({
   url,
   className = "",
 }: {

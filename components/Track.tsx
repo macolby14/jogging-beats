@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { center, centerVertically } from "../styles/globalCss";
 import { durationFormat } from "../utilities/durationFormat";
 import { useAuthFetch } from "../utilities/useAuthFetch";
-import { AudioPlayer } from "./AudioPlayer";
+import { AudioPreviewButton } from "./AudioPreviewButton";
 import SpotifyPlayButton from "./SpotifyPlayButton";
 
 interface TrackStyleProps {
@@ -102,7 +102,7 @@ export function Track({
 
   return (
     <TrackStyle selected={selected}>
-      <AudioPlayer url={preview_url} className="play-preview" />
+      <AudioPreviewButton url={preview_url} className="play-preview" />
       <SpotifyPlayButton link={spotifyLink} className="play-spotify" />
       <div className="pic">
         <img src={album.images[2].url} alt="Album cover" />
