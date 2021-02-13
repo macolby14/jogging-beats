@@ -10,4 +10,9 @@ export const PlayButton = styled.button<PlayButtonStyles>`
   align-items: center;
   justify-content: center;
   gap: ${(props) => `${props.gap}px`};
+
+  :disabled {
+    color: inherit;
+    cursor: not-allowed;
+  }
 `;

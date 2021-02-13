@@ -35,7 +35,10 @@ export function AudioPreviewButton({
 
   const notAvailable = (
     <AudioPlayerStyle className={className}>
-      Preview Not Available
+      <PlayButton gap={10} disabled>
+        <img src="/not_available-24px.svg" alt="Audio Preview not available" />
+        No Preview
+      </PlayButton>
     </AudioPlayerStyle>
   );
 
