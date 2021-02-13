@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import { PlayButton } from "./PlayButton";
+import { Tooltip } from "./Tooltip";
 // import { trackButtonStyle } from "./Track";
 
 const AudioPlayerStyle = styled.div`
@@ -51,10 +52,12 @@ export function AudioPreviewButton({
     <AudioPlayerStyle className={className}>
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio src={url} ref={audioRef} />
-      <PlayButton gap={10} type="button" onClick={playAudioHandler}>
-        {playing ? pauseButtonImg : playButtonImg}
-        Preview
-      </PlayButton>
+      <Tooltip dir="top" text="Play a preview on this page">
+        <PlayButton gap={10} type="button" onClick={playAudioHandler}>
+          {playing ? pauseButtonImg : playButtonImg}
+          Preview
+        </PlayButton>
+      </Tooltip>
     </AudioPlayerStyle>
   );
 
