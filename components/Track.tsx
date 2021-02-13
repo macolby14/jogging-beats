@@ -1,11 +1,12 @@
 /* eslint-disable camelcase */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import { center, centerVertically } from "../styles/globalCss";
 import { durationFormat } from "../utilities/durationFormat";
 import { useAuthFetch } from "../utilities/useAuthFetch";
 import { AudioPreviewButton } from "./AudioPreviewButton";
 import SpotifyPlayButton from "./SpotifyPlayButton";
+import { TrackSelect } from "./TrackSelect";
 
 interface TrackStyleProps {
   selected: boolean;
@@ -45,6 +46,11 @@ const TrackStyle = styled.div<TrackStyleProps>`
     ${centerVertically}
   }
 
+  .select {
+    grid-area: select;
+    ${center}
+  }
+
   background-color: ${(props) => (props.selected ? "inherit" : "lightgrey")};
   border: 1px black solid;
   padding: 8px 16px;
@@ -52,11 +58,11 @@ const TrackStyle = styled.div<TrackStyleProps>`
   width: 100%;
   display: grid;
   place-content: center;
-  grid-template-columns: 100px 100px 1fr 100px;
+  grid-template-columns: 100px 100px 1fr 100px 50px;
   grid-template-rows: 50px 50px;
   grid-template-areas:
-    "play-preview pic name time"
-    "play-spotify pic artist tempo";
+    "play-preview pic name time select"
+    "play-spotify pic artist tempo select";
 `;
 
 export interface TrackData {
@@ -76,6 +82,7 @@ export interface TrackData {
 
 type TrackProps = TrackData & {
   selected: boolean;
+  selectHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void; // eslint-disable-line no-unused-vars
 };
 
 export function Track({
@@ -87,6 +94,7 @@ export function Track({
   preview_url,
   external_urls: { spotify: spotifyLink },
   selected = false,
+  selectHandler,
 }: TrackProps) {
   const authFetch = useAuthFetch();
   const [tempo, setTempo] = useState("");
@@ -112,6 +120,11 @@ export function Track({
       </div>
       <div className="time">{durationFormat(duration_ms)}</div>
       <div className="tempo">{tempo ? `${tempo} bpm` : "Loading..."}</div>
+      <TrackSelect
+        className="select"
+        selected={selected}
+        selectHandler={selectHandler}
+      />
     </TrackStyle>
   );
 }
