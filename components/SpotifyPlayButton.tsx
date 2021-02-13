@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import { trackButtonStyle } from "./Track";
+// import { trackButtonStyle } from "./Track";
 
 interface SpotifyPlayButtonProps {
   className?: string;
 }
 
 const SpotifyPlayButtonStyles = styled.button`
-  ${trackButtonStyle}
+  font-size: var(--text-size-7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
 `;
 
 export default function SpotifyPlayButton({

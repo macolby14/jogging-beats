@@ -1,10 +1,16 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { trackButtonStyle } from "./Track";
+// import { trackButtonStyle } from "./Track";
 
 const AudioPlayerStyle = styled.div`
-  ${trackButtonStyle}
+  font-size: var(--text-size-7);
+  display: flex;
+  align-items: center;
+
   button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
   }
 `;
