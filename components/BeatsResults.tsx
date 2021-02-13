@@ -54,7 +54,7 @@ export function BeatsResults({
 
   return (
     <>
-      <Heading level={4}>
+      <Heading level={5}>
         Playlist Length: {durationFormat(selected.duration)}
       </Heading>
       <ResultsGrid>
