@@ -19,23 +19,17 @@ const ResultsGrid = styled.div`
   gap: 16px;
 `;
 
-interface SelectedState {
-  selectedTracks: Record<string, TrackData | null>;
-  duration: number;
-}
-
 export function BeatsResults({
   targetDuration,
   recommendations: { tracks },
 }: Results) {
-  const [selected, setSelected] = useState<SelectedState>({
-    selectedTracks: {},
-    duration: 0,
-  });
+  const [selectedTracks, setSelectedTracks] = useState<
+    Record<string, TrackData>
+  >({});
 
   useEffect(() => {
     let length = 0;
-    const newSelectedTracks: typeof selected.selectedTracks = {};
+    const newSelectedTracks: typeof selectedTracks = {};
 
     const bufferTime = 1 * 60 * 1000; // 1 min buffer
 
@@ -46,43 +40,35 @@ export function BeatsResults({
       newSelectedTracks[tracks[i].id] = tracks[i];
       length += tracks[i].duration_ms;
     }
-    setSelected({
-      selectedTracks: newSelectedTracks,
-      duration: length,
-    });
+    setSelectedTracks(newSelectedTracks);
   }, []);
 
   function setSelectedHandler(track: TrackData) {
-    const isSelected = selected.selectedTracks[track.id];
-
-    let newValue;
-    let newDuration = selected.duration;
+    const isSelected = selectedTracks[track.id];
+    const newSelectedTracks: typeof selectedTracks = { ...selectedTracks };
 
     if (!isSelected) {
-      newValue = track;
-      newDuration += track.duration_ms;
+      newSelectedTracks[track.id] = track;
     } else {
-      newValue = null;
-      newDuration -= track.duration_ms;
+      delete newSelectedTracks[track.id];
     }
 
-    setSelected({
-      selectedTracks: {
-        ...selected.selectedTracks,
-        [track.id]: newValue,
-      },
-      duration: newDuration,
-    });
+    setSelectedTracks(newSelectedTracks);
   }
+
+  const selectedTracksDuration = Object.values(selectedTracks).reduce(
+    (sum, track) => sum + track.duration_ms,
+    0
+  );
 
   return (
     <>
       <Heading level={5}>
-        Playlist Length: {durationFormat(selected.duration)}
+        Playlist Length: {durationFormat(selectedTracksDuration)}
       </Heading>
       <ResultsGrid>
         {tracks.map((track) => {
-          const isSelected = Boolean(selected.selectedTracks[track.id]);
+          const isSelected = Boolean(selectedTracks[track.id]);
           return (
             <Track
               key={track.id}
