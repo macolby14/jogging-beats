@@ -1,18 +1,12 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
+import { PlayButton } from "./PlayButton";
 // import { trackButtonStyle } from "./Track";
 
 const AudioPlayerStyle = styled.div`
   font-size: var(--text-size-7);
   display: flex;
   align-items: center;
-
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
 `;
 
 export function AudioPlayer({
@@ -54,10 +48,10 @@ export function AudioPlayer({
     <AudioPlayerStyle className={className}>
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio src={url} ref={audioRef} />
-      <button type="button" onClick={playAudioHandler}>
+      <PlayButton gap={10} type="button" onClick={playAudioHandler}>
         {playing ? pauseButtonImg : playButtonImg}
         Preview
-      </button>
+      </PlayButton>
     </AudioPlayerStyle>
   );
 

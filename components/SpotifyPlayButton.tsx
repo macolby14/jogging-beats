@@ -1,25 +1,30 @@
-import styled from "styled-components";
+import { PlayButton } from "./PlayButton";
 // import { trackButtonStyle } from "./Track";
 
 interface SpotifyPlayButtonProps {
   className?: string;
+  link: string;
 }
-
-const SpotifyPlayButtonStyles = styled.button`
-  font-size: var(--text-size-7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-`;
 
 export default function SpotifyPlayButton({
   className = "",
+  link,
 }: SpotifyPlayButtonProps) {
+  function clickSpotifyButtonHandler() {
+    window.open(
+      link,
+      "_blank" // <- This is what makes it open in a new window.
+    );
+  }
+
   return (
-    <SpotifyPlayButtonStyles className={className}>
+    <PlayButton
+      gap={2}
+      className={className}
+      onClick={clickSpotifyButtonHandler}
+    >
       <img src="/Spotify_Icon_RGB_Green-21px.png" alt="Spotify Logo" />
       Play on Spotify
-    </SpotifyPlayButtonStyles>
+    </PlayButton>
   );
 }

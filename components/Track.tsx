@@ -67,9 +67,9 @@ export interface TrackData {
   artists: { name: string }[];
   duration_ms: number;
   explicit: boolean;
-  // external_urls: {
-  //   spotify: string;
-  // };
+  external_urls: {
+    spotify: string;
+  };
   id: string;
   name: string;
   preview_url: string;
@@ -86,6 +86,7 @@ export function Track({
   duration_ms,
   album,
   preview_url,
+  external_urls: { spotify: spotifyLink },
   selected = false,
 }: TrackProps) {
   const authFetch = useAuthFetch();
@@ -102,7 +103,7 @@ export function Track({
   return (
     <TrackStyle selected={selected}>
       <AudioPlayer url={preview_url} className="play-preview" />
-      <SpotifyPlayButton className="play-spotify" />
+      <SpotifyPlayButton link={spotifyLink} className="play-spotify" />
       <div className="pic">
         <img src={album.images[2].url} alt="Album cover" />
       </div>
