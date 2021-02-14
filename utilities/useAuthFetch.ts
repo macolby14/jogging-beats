@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TokenContext } from "../components/TokenProvider";
+import { TokenContext } from "../components/context/TokenProvider";
 
 export function useAuthFetch() {
   const token = useContext(TokenContext);
