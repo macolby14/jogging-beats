@@ -61,8 +61,19 @@ export function BeatsResults({
     0
   );
 
+  async function loginSpotifyHandler() {
+    const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
+    const response_type = "code";
+    const callback = encodeURI("http://localhost:3000/authCallback");
+    const scope = "";
+    window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=${response_type}&redirect_uri=${callback}&scope=${scope}`;
+  }
+
   return (
     <>
+      <button type="button" onClick={loginSpotifyHandler}>
+        <Heading level={4}>Add to your Spotify</Heading>
+      </button>
       <Heading level={5}>
         Playlist Length: {durationFormat(selectedTracksDuration)}
       </Heading>
