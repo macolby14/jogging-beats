@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { TokenProvider } from "../components/context/TokenProvider";
+import { ImplicitAuthProvider } from "../components/context/ImplicitAuthProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,9 +17,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         />
       </Head>
-      <TokenProvider>
-        <Component {...pageProps} />
-      </TokenProvider>
+      <ImplicitAuthProvider>
+        <TokenProvider>
+          <Component {...pageProps} />
+        </TokenProvider>
+      </ImplicitAuthProvider>
     </>
   );
 }

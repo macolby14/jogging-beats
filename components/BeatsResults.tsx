@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { durationFormat } from "../utilities/durationFormat";
+import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
 import { Heading } from "./Heading";
 import { Track, TrackData } from "./Track";
 
@@ -26,6 +27,7 @@ export function BeatsResults({
   const [selectedTracks, setSelectedTracks] = useState<
     Record<string, TrackData>
   >({});
+  const userToken = useContext(ImplicitAuthContext);
 
   useEffect(() => {
     let length = 0;
