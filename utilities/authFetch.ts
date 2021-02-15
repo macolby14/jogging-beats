@@ -1,27 +1,32 @@
 interface Params {
   url: string;
   token: string;
-  headers?: Record<any, any>;
-  body?: Record<any, any>;
+  body?: Record<any, any> | null;
+  method?: "GET" | "POST";
 }
 
 export async function authFetch({
   url,
   token,
-  headers = {},
-  body = {},
+  method = "GET",
+  body = null,
 }: Params) {
   if (!token) {
     throw new Error("Trying to use authFetch without token defined");
   }
 
-  return fetch(url, {
+  const fetchOptions: any = {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
-      ...headers,
     },
-    body: JSON.stringify(body),
-  });
+    method,
+  };
+
+  if (body) {
+    fetchOptions.body = JSON.stringify(body);
+  }
+
+  return fetch(url, fetchOptions);
 }

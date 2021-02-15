@@ -35,7 +35,7 @@ export function BeatsResults({
   const [selectedTracks, setSelectedTracks] = useState<
     Record<string, TrackData>
   >({});
-  const { setUserToken } = useContext(ImplicitAuthContext);
+  const { setUserToken, userId, userToken } = useContext(ImplicitAuthContext);
   const token = useContext(TokenContext);
   const [tempos, setTempos] = useState<Record<string, number>>({});
 
@@ -57,7 +57,10 @@ export function BeatsResults({
 
   useEffect(() => {
     const ids = encodeURIComponent(tracks.map((track) => track.id).join(","));
-    authFetch(`https://api.spotify.com/v1/audio-features?ids=${ids}`, token)
+    authFetch({
+      url: `https://api.spotify.com/v1/audio-features?ids=${ids}`,
+      token,
+    })
       .then((resp) => resp.json())
       .then((resp) => {
         if (!resp.audio_features) {
@@ -99,7 +102,9 @@ export function BeatsResults({
   const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
   const response_type = "token";
   const callback = encodeURI("http://localhost:3000/auth");
-  const scope = "";
+  const scope = encodeURIComponent(
+    "playlist-modify-public playlist-modify-private"
+  );
   const popupUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=${response_type}&redirect_uri=${callback}&scope=${scope}`;
 
   return (
@@ -107,7 +112,6 @@ export function BeatsResults({
       <OauthPopup
         url={popupUrl}
         onCode={(code: string) => {
-          console.log(`User Code is: ${code}`);
           setUserToken(code);
         }}
         onClose={() => {}}
@@ -115,9 +119,30 @@ export function BeatsResults({
         storageName="userSpotifyToken"
       >
         <LoginButtonStyle type="button">
-          <Heading level={4}>Add to your Spotify</Heading>
+          <Heading level={4}>Login to your Spotify</Heading>
         </LoginButtonStyle>
       </OauthPopup>
+
+      <Heading level={4}>
+        <button
+          disabled={!userId}
+          type="button"
+          onClick={async () => {
+            await authFetch({
+              url: `https://api.spotify.com/v1/users/${userId}/playlists`,
+              token: userToken,
+              method: "POST",
+              body: {
+                name: "New Playlist",
+                description: "New playlist description",
+                public: false,
+              },
+            });
+          }}
+        >
+          Add to your playlist
+        </button>
+      </Heading>
 
       <Heading level={5}>
         Playlist Length: {durationFormat(selectedTracksDuration)}

@@ -56,12 +56,12 @@ export function BeatsInput({
   const [loading, setLoading] = useState(false);
 
   async function fetchSongs(): Promise<string> {
-    const results = await authFetch(
-      `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&target_tempo=${bpm}&min_tempo=${
+    const results = await authFetch({
+      url: `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&target_tempo=${bpm}&min_tempo=${
         bpm - 5
       }&max_tempo=${bpm + 5}`,
-      token
-    ).then((response) => response.json());
+      token,
+    }).then((response) => response.json());
     return results;
   }
 
