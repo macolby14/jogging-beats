@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { durationFormat } from "../utilities/durationFormat";
+import { useAuthFetch } from "../utilities/useAuthFetch";
 import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
 import OauthPopup from "./context/OAuthPop";
 import { Heading } from "./Heading";
@@ -29,6 +30,8 @@ export function BeatsResults({
     Record<string, TrackData>
   >({});
   const userToken = useContext(ImplicitAuthContext);
+  const authFetch = useAuthFetch();
+  const [tempos, setTempos] = useState<Record<string, number>>({});
 
   useEffect(() => {
     let length = 0;
@@ -44,6 +47,29 @@ export function BeatsResults({
       length += tracks[i].duration_ms;
     }
     setSelectedTracks(newSelectedTracks);
+  }, []);
+
+  useEffect(() => {
+    const ids = encodeURIComponent(tracks.map((track) => track.id).join(","));
+    authFetch(`https://api.spotify.com/v1/audio-features?ids=${ids}`)
+      .then((resp) => resp.json())
+      .then((resp) => {
+        if (!resp.audio_features) {
+          throw new Error("Audio features fetch failed");
+        }
+        const audioFeatures: any[] = resp.audio_features;
+        const newTempos: typeof tempos = {};
+        audioFeatures.forEach((track: any) => {
+          newTempos[track.id] = track.tempo;
+        });
+        setTempos(newTempos);
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(
+          `Error in BeatsResuts when fetching audio-features: ${err}`
+        );
+      });
   }, []);
 
   function setSelectedHandler(track: TrackData) {
@@ -94,6 +120,7 @@ export function BeatsResults({
           const isSelected = Boolean(selectedTracks[track.id]);
           return (
             <Track
+              tempo={tempos[track.id]}
               key={track.id}
               {...track} // eslint-disable-line react/jsx-props-no-spreading
               selected={isSelected}

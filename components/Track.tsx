@@ -1,9 +1,8 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useState } from "react"; // eslint-disable-line no-use-before-define
+import React from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import { center, centerVertically } from "../styles/globalCss";
 import { durationFormat } from "../utilities/durationFormat";
-import { useAuthFetch } from "../utilities/useAuthFetch";
 import { AudioPreviewButton } from "./AudioPreviewButton";
 import SpotifyPlayButton from "./SpotifyPlayButton";
 import { TrackSelect } from "./TrackSelect";
@@ -83,10 +82,10 @@ export interface TrackData {
 type TrackProps = TrackData & {
   selected: boolean;
   selectHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void; // eslint-disable-line no-unused-vars
+  tempo: number | null;
 };
 
 export function Track({
-  id,
   name,
   artists,
   duration_ms,
@@ -95,18 +94,8 @@ export function Track({
   external_urls: { spotify: spotifyLink },
   selected = false,
   selectHandler,
+  tempo = null,
 }: TrackProps) {
-  const authFetch = useAuthFetch();
-  const [tempo, setTempo] = useState("");
-
-  useEffect(() => {
-    authFetch(`https://api.spotify.com/v1/audio-features/${id}`)
-      .then((resp) => resp.json())
-      .then((resp) => {
-        setTempo(`${Math.floor(resp.tempo)}`);
-      });
-  }, []);
-
   return (
     <TrackStyle selected={selected}>
       <AudioPreviewButton url={preview_url} className="play-preview" />
@@ -119,7 +108,9 @@ export function Track({
         {artists.map((artist) => artist.name).join(", ")}
       </div>
       <div className="time">{durationFormat(duration_ms)}</div>
-      <div className="tempo">{tempo ? `${tempo} bpm` : "Loading..."}</div>
+      <div className="tempo">
+        {tempo ? `${Math.round(tempo)} bpm` : "Loading..."}
+      </div>
       <TrackSelect
         className="select"
         selected={selected}
