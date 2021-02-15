@@ -6,19 +6,15 @@ export default function Auth() {
 
   useEffect(() => {
     if (!router) {
-      /* do nothing */
-      console.log("No router");
-    } else if (router && !router.query.code) {
-      console.log(router.query.code);
-      //   router.push("/");
+      // Do Nothing
     } else {
-      if (Array.isArray(router.query.code)) {
-        throw new Error("Error in code in auth page");
+      const re = new RegExp(`${router.pathname}#access_token=(.+?)&`, "g");
+      const res = re.exec(router.asPath);
+      if (res === null || res.length !== 2) {
+        throw new Error("Failure in regex matching in auth page");
       }
-      window.localStorage.setItem(
-        "userSpotifyToken",
-        router.query.code || "ERROR"
-      );
+      const token = res[1];
+      window.localStorage.setItem("userSpotifyToken", token);
     }
   }, [router]);
 

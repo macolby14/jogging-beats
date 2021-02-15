@@ -96,7 +96,7 @@ export function BeatsResults({
   );
 
   const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-  const response_type = "code";
+  const response_type = "token";
   const callback = encodeURI("http://localhost:3000/auth");
   const scope = "";
   const popupUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=${response_type}&redirect_uri=${callback}&scope=${scope}`;
@@ -106,6 +106,7 @@ export function BeatsResults({
       <OauthPopup
         url={popupUrl}
         onCode={(code: string) => {
+          console.log(`User Code is: ${code}`);
           setUserToken(code);
         }}
         onClose={() => {}}

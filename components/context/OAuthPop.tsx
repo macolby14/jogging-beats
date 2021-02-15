@@ -26,7 +26,7 @@ export default class OauthPopup extends PureComponent<Props> {
     height: 500,
     url: "",
     title: "",
-    storageName: "code",
+    storageName: "userToken",
   };
 
   externalWindow: any;
