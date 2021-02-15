@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"; // eslint-disable-line no-use-before-define
+import { authFetch } from "../../utilities/authFetch";
 
 export const ImplicitAuthContext = React.createContext<{
   userToken: string;
@@ -15,13 +16,7 @@ export function ImplicitAuthProvider({ children }: TokenProviderProps) {
 
   useEffect(() => {
     if (userToken) {
-      fetch("https://api.spotify.com/v1/me", {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${userToken}`,
-          "Content-Type": "application/json",
-        },
-      })
+      authFetch("https://api.spotify.com/v1/me", userToken)
         .then((resp) => resp.json())
         .then((resp) => console.log(`User Request resp: ${resp}`));
     }

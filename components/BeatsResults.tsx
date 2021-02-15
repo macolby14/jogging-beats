@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { authFetch } from "../utilities/authFetch";
 import { durationFormat } from "../utilities/durationFormat";
-import { useAuthFetch } from "../utilities/useAuthFetch";
 import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
-import OauthPopup from "./context/OAuthPop";
+import OauthPopup from "./OAuthPop";
+import { TokenContext } from "./context/TokenProvider";
 import { Heading } from "./Heading";
 import { Track, TrackData } from "./Track";
 
@@ -35,7 +36,7 @@ export function BeatsResults({
     Record<string, TrackData>
   >({});
   const { setUserToken } = useContext(ImplicitAuthContext);
-  const authFetch = useAuthFetch();
+  const token = useContext(TokenContext);
   const [tempos, setTempos] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export function BeatsResults({
 
   useEffect(() => {
     const ids = encodeURIComponent(tracks.map((track) => track.id).join(","));
-    authFetch(`https://api.spotify.com/v1/audio-features?ids=${ids}`)
+    authFetch(`https://api.spotify.com/v1/audio-features?ids=${ids}`, token)
       .then((resp) => resp.json())
       .then((resp) => {
         if (!resp.audio_features) {

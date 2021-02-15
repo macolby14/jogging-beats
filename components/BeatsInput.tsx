@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-use-before-define
-import React, { FormEvent, SetStateAction, useState } from "react";
+import React, { FormEvent, SetStateAction, useContext, useState } from "react";
 import styled from "styled-components";
-import { useAuthFetch } from "../utilities/useAuthFetch";
+import { authFetch } from "../utilities/authFetch";
+import { TokenContext } from "./context/TokenProvider";
 import { Heading } from "./Heading";
 
 const BeatsInputStyle = styled.div`
@@ -49,16 +50,17 @@ export function BeatsInput({
   targetDuration,
   setTargetDuration,
 }: BeatsInputProps) {
+  const token = useContext(TokenContext);
   const [pace, setPace] = useState("0");
   const [bpm, setBpm] = useState(170);
   const [loading, setLoading] = useState(false);
-  const authFetch = useAuthFetch();
 
   async function fetchSongs(): Promise<string> {
     const results = await authFetch(
       `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&target_tempo=${bpm}&min_tempo=${
         bpm - 5
-      }&max_tempo=${bpm + 5}`
+      }&max_tempo=${bpm + 5}`,
+      token
     ).then((response) => response.json());
     return results;
   }
