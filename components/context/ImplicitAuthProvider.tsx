@@ -1,7 +1,9 @@
-import { useRouter } from "next/dist/client/router";
-import React, { useEffect, useState } from "react"; // eslint-disable-line no-use-before-define
+import React, { useState } from "react"; // eslint-disable-line no-use-before-define
 
-export const ImplicitAuthContext = React.createContext("");
+export const ImplicitAuthContext = React.createContext<{
+  userToken: string;
+  setUserToken: React.Dispatch<React.SetStateAction<string>>;
+}>({ userToken: "", setUserToken: () => {} });
 
 interface TokenProviderProps {
   children: React.ReactNode;
@@ -9,16 +11,9 @@ interface TokenProviderProps {
 
 export function ImplicitAuthProvider({ children }: TokenProviderProps) {
   const [userToken, setUserToken] = useState("");
-  const router = useRouter();
-
-  useEffect(() => {
-    if (router.query) {
-      console.log(router.query);
-    }
-  }, [userToken]);
 
   return (
-    <ImplicitAuthContext.Provider value={userToken}>
+    <ImplicitAuthContext.Provider value={{ userToken, setUserToken }}>
       {children}
     </ImplicitAuthContext.Provider>
   );

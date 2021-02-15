@@ -29,7 +29,7 @@ export function BeatsResults({
   const [selectedTracks, setSelectedTracks] = useState<
     Record<string, TrackData>
   >({});
-  const userToken = useContext(ImplicitAuthContext);
+  const { setUserToken } = useContext(ImplicitAuthContext);
   const authFetch = useAuthFetch();
   const [tempos, setTempos] = useState<Record<string, number>>({});
 
@@ -101,7 +101,7 @@ export function BeatsResults({
       <OauthPopup
         url={popupUrl}
         onCode={(code: string) => {
-          console.log(`onCode: ${code}`);
+          setUserToken(code);
         }}
         onClose={() => {}}
         title="Spotify Login"
