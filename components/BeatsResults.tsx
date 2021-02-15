@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { durationFormat } from "../utilities/durationFormat";
 import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
+import OauthPopup from "./context/OAuthPop";
 import { Heading } from "./Heading";
 import { Track, TrackData } from "./Track";
 
@@ -71,11 +72,27 @@ export function BeatsResults({
     window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=${response_type}&redirect_uri=${callback}&scope=${scope}`;
   }
 
+  const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
+  const response_type = "code";
+  const callback = encodeURI("http://localhost:3000/auth");
+  const scope = "";
+  const popupUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=${response_type}&redirect_uri=${callback}&scope=${scope}`;
+
   return (
     <>
-      <button type="button" onClick={loginSpotifyHandler}>
-        <Heading level={4}>Add to your Spotify</Heading>
-      </button>
+      <OauthPopup
+        url={popupUrl}
+        onCode={(code: string) => {
+          console.log(`onCode: ${code}`);
+        }}
+        onClose={() => console.log("Popup closed")}
+        title="Spotify Login"
+        storageName="userSpotifyToken"
+      >
+        <button type="button">Login to Spotify</button>
+      </OauthPopup>
+      <Heading level={4}>Add to your Spotify</Heading>
+
       <Heading level={5}>
         Playlist Length: {durationFormat(selectedTracksDuration)}
       </Heading>
