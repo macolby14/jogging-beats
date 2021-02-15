@@ -64,14 +64,6 @@ export function BeatsResults({
     0
   );
 
-  async function loginSpotifyHandler() {
-    const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-    const response_type = "code";
-    const callback = encodeURI("http://localhost:3000/authCallback");
-    const scope = "";
-    window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=${response_type}&redirect_uri=${callback}&scope=${scope}`;
-  }
-
   const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
   const response_type = "code";
   const callback = encodeURI("http://localhost:3000/auth");
@@ -85,13 +77,14 @@ export function BeatsResults({
         onCode={(code: string) => {
           console.log(`onCode: ${code}`);
         }}
-        onClose={() => console.log("Popup closed")}
+        onClose={() => {}}
         title="Spotify Login"
         storageName="userSpotifyToken"
       >
-        <button type="button">Login to Spotify</button>
+        <button type="button">
+          <Heading level={4}>Add to your Spotify</Heading>
+        </button>
       </OauthPopup>
-      <Heading level={4}>Add to your Spotify</Heading>
 
       <Heading level={5}>
         Playlist Length: {durationFormat(selectedTracksDuration)}
