@@ -1,6 +1,7 @@
 /* eslint-disable */
 // Source: https://stackoverflow.com/questions/58732237/oauth-popup-cross-domain-security-react-js
 import React, { PureComponent, ReactChild } from "react";
+import styled from "styled-components";
 
 type Props = {
   width: number;
@@ -12,6 +13,11 @@ type Props = {
   children?: ReactChild;
   storageName: string;
 };
+
+const OAuthPopStyle = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 export default class OauthPopup extends PureComponent<Props> {
   static defaultProps = {
@@ -66,6 +72,10 @@ export default class OauthPopup extends PureComponent<Props> {
   };
 
   render() {
-    return <div onClick={this.createPopup}>{this.props.children}</div>;
+    return (
+      <OAuthPopStyle onClick={this.createPopup}>
+        {this.props.children}
+      </OAuthPopStyle>
+    );
   }
 }

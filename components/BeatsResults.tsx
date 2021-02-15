@@ -22,6 +22,11 @@ const ResultsGrid = styled.div`
   gap: 16px;
 `;
 
+const LoginButtonStyle = styled.button`
+  border: 2px solid black;
+  border-radius: 10px;
+`;
+
 export function BeatsResults({
   targetDuration,
   recommendations: { tracks },
@@ -107,9 +112,9 @@ export function BeatsResults({
         title="Spotify Login"
         storageName="userSpotifyToken"
       >
-        <button type="button">
+        <LoginButtonStyle type="button">
           <Heading level={4}>Add to your Spotify</Heading>
-        </button>
+        </LoginButtonStyle>
       </OauthPopup>
 
       <Heading level={5}>
