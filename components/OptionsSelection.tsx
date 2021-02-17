@@ -5,7 +5,7 @@ import { authFetch } from "../utilities/authFetch";
 import { TokenContext } from "./context/TokenProvider";
 import { Heading } from "./Heading";
 
-const BeatsInputStyle = styled.div`
+const OptionsSelectionStyle = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -39,17 +39,17 @@ const FormStyle = styled.form`
   }
 `;
 
-interface BeatsInputProps {
+interface OptionsSelectionProps {
   resultsHandler: Function;
   targetDuration: number;
   setTargetDuration: React.Dispatch<SetStateAction<number>>;
 }
 
-export function BeatsInput({
+export function OptionsSelection({
   resultsHandler,
   targetDuration,
   setTargetDuration,
-}: BeatsInputProps) {
+}: OptionsSelectionProps) {
   const token = useContext(TokenContext);
   const [pace, setPace] = useState("0");
   const [bpm, setBpm] = useState(170);
@@ -114,5 +114,5 @@ export function BeatsInput({
 
   const displayComp = loading ? <div>Loading...</div> : inputForm;
 
-  return <BeatsInputStyle>{displayComp}</BeatsInputStyle>;
+  return <OptionsSelectionStyle>{displayComp}</OptionsSelectionStyle>;
 }

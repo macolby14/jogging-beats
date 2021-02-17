@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box } from "../components/Box";
 import { Spacer } from "../components/Spacer";
-import { BeatsInput } from "../components/BeatsInput";
+import { OptionsSelection } from "../components/OptionsSelection";
 import { PageHeader } from "../components/PageHeader";
 import { Results } from "../components/Results/Results";
 
@@ -10,7 +10,7 @@ export default function Home() {
   const [targetDuration, setTargetDuration] = useState(30 * 60 * 1000);
 
   const displayComponent = !recommendations ? (
-    <BeatsInput
+    <OptionsSelection
       resultsHandler={setRecommendations}
       targetDuration={targetDuration}
       setTargetDuration={setTargetDuration}
