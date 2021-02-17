@@ -77,6 +77,7 @@ export interface TrackData {
   id: string;
   name: string;
   preview_url: string;
+  uri: string;
 }
 
 type TrackProps = TrackData & {
