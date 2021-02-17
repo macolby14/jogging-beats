@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { authFetch } from "../../utilities/authFetch";
 import { durationFormat } from "../../utilities/durationFormat";
 import { ImplicitAuthContext } from "../context/ImplicitAuthProvider";
 import OauthPopup from "../OAuthPop";
-import { TokenContext } from "../context/TokenProvider";
 import { Heading } from "../Heading";
 import { Track, TrackData } from "../Track";
+import { useSelectedTracks } from "./useSelectedTracks";
+import { useTempos } from "./useTempos";
 
 /* eslint-disable camelcase */
 interface ResultsProps {
@@ -32,72 +33,9 @@ export function Results({
   targetDuration,
   recommendations: { tracks },
 }: ResultsProps) {
-  const [selectedTracks, setSelectedTracks] = useState<
-    Record<string, TrackData>
-  >({});
+  const { selectedTracks, selectedTracksDuration, setSelectedHandler} = useSelectedTracks({ tracks, targetDuration }); // prettier-ignore
+  const { tempos } = useTempos({ tracks });
   const { setUserToken, userId, userToken } = useContext(ImplicitAuthContext);
-  const token = useContext(TokenContext);
-  const [tempos, setTempos] = useState<Record<string, number>>({});
-
-  useEffect(() => {
-    let length = 0;
-    const newSelectedTracks: typeof selectedTracks = {};
-
-    const bufferTime = 1 * 60 * 1000; // 1 min buffer
-
-    for (let i = 0; i < tracks.length; i += 1) {
-      if (length + tracks[i].duration_ms >= targetDuration + bufferTime) {
-        break;
-      }
-      newSelectedTracks[tracks[i].id] = tracks[i];
-      length += tracks[i].duration_ms;
-    }
-    setSelectedTracks(newSelectedTracks);
-  }, []);
-
-  useEffect(() => {
-    const ids = encodeURIComponent(tracks.map((track) => track.id).join(","));
-    authFetch({
-      url: `https://api.spotify.com/v1/audio-features?ids=${ids}`,
-      token,
-    })
-      .then((resp) => resp.json())
-      .then((resp) => {
-        if (!resp.audio_features) {
-          throw new Error("Audio features fetch failed");
-        }
-        const audioFeatures: any[] = resp.audio_features;
-        const newTempos: typeof tempos = {};
-        audioFeatures.forEach((track: any) => {
-          newTempos[track.id] = track.tempo;
-        });
-        setTempos(newTempos);
-      })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.error(
-          `Error in BeatsResuts when fetching audio-features: ${err}`
-        );
-      });
-  }, []);
-
-  function setSelectedHandler(track: TrackData) {
-    const isSelected = selectedTracks[track.id];
-    const newSelectedTracks: typeof selectedTracks = { ...selectedTracks };
-
-    if (!isSelected) {
-      newSelectedTracks[track.id] = track;
-    } else {
-      delete newSelectedTracks[track.id];
-    }
-
-    setSelectedTracks(newSelectedTracks);
-  }
-
-  const selectedTracksDuration = Object.values(selectedTracks).reduce(
-    (sum, track) => sum + track.duration_ms,
-    0
-  );
 
   const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
   const response_type = "token";
