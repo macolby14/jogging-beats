@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { authFetch } from "../utilities/authFetch";
-import { durationFormat } from "../utilities/durationFormat";
-import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
-import OauthPopup from "./OAuthPop";
-import { TokenContext } from "./context/TokenProvider";
-import { Heading } from "./Heading";
-import { Track, TrackData } from "./Track";
+import { authFetch } from "../../utilities/authFetch";
+import { durationFormat } from "../../utilities/durationFormat";
+import { ImplicitAuthContext } from "../context/ImplicitAuthProvider";
+import OauthPopup from "../OAuthPop";
+import { TokenContext } from "../context/TokenProvider";
+import { Heading } from "../Heading";
+import { Track, TrackData } from "../Track";
 
 /* eslint-disable camelcase */
-interface Results {
+interface ResultsProps {
   targetDuration: number; // in ms
   recommendations: {
     tracks: TrackData[];
@@ -28,10 +28,10 @@ const LoginButtonStyle = styled.button`
   border-radius: 10px;
 `;
 
-export function BeatsResults({
+export function Results({
   targetDuration,
   recommendations: { tracks },
-}: Results) {
+}: ResultsProps) {
   const [selectedTracks, setSelectedTracks] = useState<
     Record<string, TrackData>
   >({});
