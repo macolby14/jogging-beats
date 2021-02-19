@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import Modal from "react-modal";
 import { authFetch } from "../utilities/authFetch";
 import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
 import { Heading } from "./Heading";
 import { TrackData } from "./Track";
 import { SpotifyAuthPop } from "./AuthPop/SpotifyAuthPop";
+import { LoginRequiredModal } from "./LoginRequiredModal";
 
 interface PlaylistCreationButtonProps {
   selectedTracks: Record<string, TrackData>;
@@ -17,24 +17,11 @@ const Style = styled.button`
   width: 200px;
 `;
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    minWidth: "60%",
-    minHeight: "60%",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
-
 export function PlaylistCreationButton({
   selectedTracks,
 }: PlaylistCreationButtonProps) {
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const { setUserToken, userId, userToken } = useContext(ImplicitAuthContext);
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -66,28 +53,15 @@ export function PlaylistCreationButton({
           //     method: "POST",
           //   });
           // }}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setLoginModalOpen(true)}
         >
           Create Playlist on Spotify
         </Style>
       </Heading>
-      <Modal
-        isOpen={isOpen}
-        onAfterOpen={() => {}}
-        onRequestClose={() => {
-          setIsOpen(false);
-        }}
-        style={customStyles}
-        contentLabel="Login Required Modal"
-      >
-        <Heading level={4}>You must login to Spotfiy to add a Playlist</Heading>
-        <SpotifyAuthPop
-          onCode={(code: string) => {
-            setUserToken(code);
-            setIsOpen(false);
-          }}
-        />
-      </Modal>
+      <LoginRequiredModal
+        isOpen={loginModalOpen}
+        setIsOpen={setLoginModalOpen}
+      />
     </>
   );
 }
