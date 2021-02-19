@@ -7,7 +7,7 @@ interface SpotifyAuthPopProps {
   onCode: (params: any) => any; // eslint-disable-line no-unused-vars
 }
 
-const LoginButtonStyle = styled.button`
+const Style = styled.button`
   border: 2px solid black;
   border-radius: 10px;
   width: 200px;
@@ -30,9 +30,9 @@ export function SpotifyAuthPop({ onCode }: SpotifyAuthPopProps) {
       title="Spotify Login"
       storageName="userSpotifyToken"
     >
-      <LoginButtonStyle type="button">
+      <Style type="button">
         <Heading level={4}>Login to Spotify</Heading>
-      </LoginButtonStyle>
+      </Style>
     </OauthPopup>
   );
 }

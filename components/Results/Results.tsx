@@ -6,7 +6,6 @@ import { Heading } from "../Heading";
 import { Track, TrackData } from "../Track";
 import { useSelectedTracks } from "./useSelectedTracks";
 import { useTempos } from "./useTempos";
-import { SpotifyAuthPop } from "../AuthPop/SpotifyAuthPop";
 import { PlaylistCreationButton } from "../PlaylistCreationButton";
 
 /* eslint-disable camelcase */
@@ -30,11 +29,9 @@ export function Results({
 }: ResultsProps) {
   const { selectedTracks, selectedTracksDuration, setSelectedHandler} = useSelectedTracks({ tracks, targetDuration }); // prettier-ignore
   const { tempos } = useTempos({ tracks });
-  const { setUserToken } = useContext(ImplicitAuthContext);
 
   return (
     <>
-      <SpotifyAuthPop onCode={setUserToken} />
       <PlaylistCreationButton selectedTracks={selectedTracks} />
       <Heading level={5}>
         Playlist Length: {durationFormat(selectedTracksDuration)}
