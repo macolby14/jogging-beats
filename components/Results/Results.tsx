@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import { durationFormat } from "../../utilities/durationFormat";
-import { ImplicitAuthContext } from "../context/ImplicitAuthProvider";
 import { Heading } from "../Heading";
 import { Track, TrackData } from "../Track";
 import { useSelectedTracks } from "./useSelectedTracks";

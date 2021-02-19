@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Modal from "react-modal";
 import { SpotifyAuthPop } from "./AuthPop/SpotifyAuthPop";
 import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
