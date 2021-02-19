@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { authFetch } from "../../utilities/authFetch";
 import { durationFormat } from "../../utilities/durationFormat";
 import { ImplicitAuthContext } from "../context/ImplicitAuthProvider";
-import OauthPopup from "../OAuthPop";
 import { Heading } from "../Heading";
 import { Track, TrackData } from "../Track";
 import { useSelectedTracks } from "./useSelectedTracks";
 import { useTempos } from "./useTempos";
+import { SpotifyAuthPop } from "../AuthPop/SpotifyAuthPop";
 
 /* eslint-disable camelcase */
 interface ResultsProps {
@@ -24,11 +24,6 @@ const ResultsGrid = styled.div`
   gap: 16px;
 `;
 
-const LoginButtonStyle = styled.button`
-  border: 2px solid black;
-  border-radius: 10px;
-`;
-
 export function Results({
   targetDuration,
   recommendations: { tracks },
@@ -37,29 +32,13 @@ export function Results({
   const { tempos } = useTempos({ tracks });
   const { setUserToken, userId, userToken } = useContext(ImplicitAuthContext);
 
-  const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-  const response_type = "token";
-  const callback = encodeURI("http://localhost:3000/auth");
-  const scope = encodeURIComponent(
-    "playlist-modify-public playlist-modify-private"
-  );
-  const popupUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=${response_type}&redirect_uri=${callback}&scope=${scope}`;
-
   return (
     <>
-      <OauthPopup
-        url={popupUrl}
+      <SpotifyAuthPop
         onCode={(code: string) => {
           setUserToken(code);
         }}
-        onClose={() => {}}
-        title="Spotify Login"
-        storageName="userSpotifyToken"
-      >
-        <LoginButtonStyle type="button">
-          <Heading level={4}>Login to your Spotify</Heading>
-        </LoginButtonStyle>
-      </OauthPopup>
+      />
 
       <Heading level={4}>
         <button
