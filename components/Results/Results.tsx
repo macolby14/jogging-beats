@@ -30,7 +30,10 @@ export function Results({
 
   return (
     <>
-      <PlaylistCreationButton selectedTracks={selectedTracks} />
+      <PlaylistCreationButton
+        selectedTracks={selectedTracks}
+        duration={selectedTracksDuration}
+      />
       <Heading level={5}>
         Playlist Length: {durationFormat(selectedTracksDuration)}
       </Heading>

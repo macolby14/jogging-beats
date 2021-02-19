@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import { authFetch } from "../utilities/authFetch";
 import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
 import { Heading } from "./Heading";
 import { TrackData } from "./Track";
 import { LoginRequiredModal } from "./LoginRequiredModal";
+import { ConfirmationModal } from "./ConfirmationModal";
 
-interface PlaylistCreationButtonProps {
+interface Props {
   selectedTracks: Record<string, TrackData>;
+  duration: number;
 }
 
 const Style = styled.button`
@@ -16,42 +17,16 @@ const Style = styled.button`
   width: 200px;
 `;
 
-export function PlaylistCreationButton({
-  selectedTracks,
-}: PlaylistCreationButtonProps) {
+export function PlaylistCreationButton({ selectedTracks, duration }: Props) {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
-  const { userId, userToken } = useContext(ImplicitAuthContext);
-
-  async function createPlaylist() {
-    const { id: playlistId } = await authFetch({
-      url: `https://api.spotify.com/v1/users/${userId}/playlists`,
-      token: userToken,
-      method: "POST",
-      body: {
-        name: "New Playlist",
-        description: "New playlist description",
-        public: false,
-      },
-    }).then((resp) => resp.json());
-
-    const tracksToAdd = encodeURIComponent(
-      Object.values(selectedTracks)
-        .map((track) => track.uri)
-        .join(",")
-    );
-
-    authFetch({
-      url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${tracksToAdd}`,
-      token: userToken,
-      method: "POST",
-    });
-  }
+  const [confrimationModalOpen, setConfirmationModalOpen] = useState(false);
+  const { userId } = useContext(ImplicitAuthContext);
 
   function handleClick() {
     if (!userId) {
       setLoginModalOpen(true);
     } else {
-      createPlaylist();
+      setConfirmationModalOpen(true);
     }
   }
 
@@ -65,6 +40,12 @@ export function PlaylistCreationButton({
       <LoginRequiredModal
         isOpen={loginModalOpen}
         setIsOpen={setLoginModalOpen}
+      />
+      <ConfirmationModal
+        isOpen={confrimationModalOpen}
+        setIsOpen={setConfirmationModalOpen}
+        selectedTracks={selectedTracks}
+        duration={duration}
       />
     </>
   );
