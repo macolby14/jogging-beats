@@ -10,6 +10,7 @@ interface SpotifyAuthPopProps {
 const LoginButtonStyle = styled.button`
   border: 2px solid black;
   border-radius: 10px;
+  width: 200px;
 `;
 
 export function SpotifyAuthPop({ onCode }: SpotifyAuthPopProps) {
@@ -30,7 +31,7 @@ export function SpotifyAuthPop({ onCode }: SpotifyAuthPopProps) {
       storageName="userSpotifyToken"
     >
       <LoginButtonStyle type="button">
-        <Heading level={4}>Login to your Spotify</Heading>
+        <Heading level={4}>Login to Spotify</Heading>
       </LoginButtonStyle>
     </OauthPopup>
   );
