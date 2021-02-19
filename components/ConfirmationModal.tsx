@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import Modal from "react-modal";
+import styled from "styled-components";
 import { authFetch } from "../utilities/authFetch";
 import { durationFormat } from "../utilities/durationFormat";
 import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
 import { Heading } from "./Heading";
 import { TrackData } from "./Track";
 
-const customStyles = {
+const modalStyles = {
   content: {
     top: "50%",
     left: "50%",
@@ -18,6 +19,12 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
+
+const Style = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 // function TrackInfo({ name: string, artist: string, duration: number }) {
 //   return <div>{name} by {artist}</div>;
@@ -72,35 +79,40 @@ export function ConfirmationModal({
       onRequestClose={() => {
         setIsOpen(false);
       }}
-      style={customStyles}
+      style={modalStyles}
       contentLabel="Confirmation of Tracks Modal"
     >
-      <Heading level={4}>
-        Please confirm the songs in this playlist before we add it to your
-        Spotify account:
-      </Heading>
-      <Heading level={5}>Length: {durationFormat(duration)}</Heading>
-      <Heading level={5}>Number of Songs: {tracksArray.length}</Heading>
-      <div>This is where the songs will go</div>
-      <div>
-        <button
-          type="button"
-          onClick={async () => {
-            await createPlaylist();
-            setIsOpen(false);
-          }}
-        >
-          Create
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setIsOpen(false);
-          }}
-        >
-          Go Back
-        </button>
-      </div>
+      <Style>
+        <Heading level={4}>
+          Please confirm the songs in this playlist before we add it to your
+          Spotify:
+        </Heading>
+        <div>
+          <p>Playlist Title: This is a very long playlist title</p>
+          <p>Length: {durationFormat(duration)}</p>
+          <p>Number of Songs: {tracksArray.length}</p>
+        </div>
+        <div>This is where the songs will go</div>
+        <div>
+          <button
+            type="button"
+            onClick={async () => {
+              await createPlaylist();
+              setIsOpen(false);
+            }}
+          >
+            Create
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          >
+            Go Back
+          </button>
+        </div>
+      </Style>
     </Modal>
   );
 }
