@@ -104,7 +104,7 @@ export function ConfirmationModal({
   const tracksArray = Object.values(selectedTracks);
 
   async function createPlaylist() {
-    const { id: playlistId } = await authFetch({
+    const { id: playlistId }: { id: string } = await authFetch({
       url: `https://api.spotify.com/v1/users/${userId}/playlists`,
       token: userToken,
       method: "POST",
@@ -126,6 +126,8 @@ export function ConfirmationModal({
       token: userToken,
       method: "POST",
     });
+
+    return playlistId;
   }
 
   const content = (
@@ -145,10 +147,10 @@ export function ConfirmationModal({
           type="button"
           onClick={async () => {
             setLoading(true);
-            await createPlaylist();
+            const playlistId = await createPlaylist();
             setIsOpen(false);
             setLoading(false);
-            router.push("/playlist");
+            router.push(`/playlist/${playlistId}`);
           }}
         >
           Create
