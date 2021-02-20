@@ -15,20 +15,73 @@ const modalStyles = {
     bottom: "auto",
     minWidth: "60%",
     minHeight: "60%",
+    maxWidth: "90vh",
+    maxHeight: "90vh",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
   },
 };
 
+const TrackInfoStyle = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  width: 100%;
+  gap: 32px;
+`;
+
+interface TrackInfoProps {
+  name: string;
+  artist: string;
+  duration: number;
+}
+
+function TrackInfo({ name, artist, duration }: TrackInfoProps) {
+  return (
+    <TrackInfoStyle>
+      <p>
+        {name} by {artist}
+      </p>
+      <p>{durationFormat(duration)}</p>
+    </TrackInfoStyle>
+  );
+}
+
+const TracksListStyle = styled.div`
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: scroll;
+`;
+
+function TracksList({ tracks }: { tracks: TrackData[] }) {
+  return (
+    <TracksListStyle>
+      <TrackInfoStyle>
+        <p>
+          <em>Song</em>
+        </p>
+        <p>
+          <em>Duration</em>
+        </p>
+      </TrackInfoStyle>
+      {tracks.map((track) => (
+        <TrackInfo
+          name={track.name}
+          artist={track.artists[0].name}
+          duration={track.duration_ms}
+        />
+      ))}
+    </TracksListStyle>
+  );
+}
+
 const Style = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 32px;
 `;
-
-// function TrackInfo({ name: string, artist: string, duration: number }) {
-//   return <div>{name} by {artist}</div>;
-// }
 
 interface Props {
   isOpen: boolean;
@@ -92,7 +145,7 @@ export function ConfirmationModal({
           <p>Length: {durationFormat(duration)}</p>
           <p>Number of Songs: {tracksArray.length}</p>
         </div>
-        <div>This is where the songs will go</div>
+        <TracksList tracks={tracksArray} />
         <div>
           <button
             type="button"
