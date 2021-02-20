@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useRouter } from "next/dist/client/router";
+import { useContext, useState } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
 import { authFetch } from "../utilities/authFetch";
@@ -51,7 +52,7 @@ const TracksListStyle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 function TracksList({ tracks }: { tracks: TrackData[] }) {
@@ -96,7 +97,9 @@ export function ConfirmationModal({
   selectedTracks,
   duration,
 }: Props) {
+  const router = useRouter();
   const { userId, userToken } = useContext(ImplicitAuthContext);
+  const [loading, setLoading] = useState(false);
 
   const tracksArray = Object.values(selectedTracks);
 
@@ -125,6 +128,43 @@ export function ConfirmationModal({
     });
   }
 
+  const content = (
+    <Style>
+      <Heading level={4}>
+        Please confirm the songs in this playlist before we add it to your
+        Spotify:
+      </Heading>
+      <div>
+        <p>Playlist Title: This is a very long playlist title</p>
+        <p>Length: {durationFormat(duration)}</p>
+        <p>Number of Songs: {tracksArray.length}</p>
+      </div>
+      <TracksList tracks={tracksArray} />
+      <div>
+        <button
+          type="button"
+          onClick={async () => {
+            setLoading(true);
+            await createPlaylist();
+            setIsOpen(false);
+            setLoading(false);
+            router.push("/playlist");
+          }}
+        >
+          Create
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setIsOpen(false);
+          }}
+        >
+          Go Back
+        </button>
+      </div>
+    </Style>
+  );
+
   return (
     <Modal
       isOpen={isOpen}
@@ -135,37 +175,7 @@ export function ConfirmationModal({
       style={modalStyles}
       contentLabel="Confirmation of Tracks Modal"
     >
-      <Style>
-        <Heading level={4}>
-          Please confirm the songs in this playlist before we add it to your
-          Spotify:
-        </Heading>
-        <div>
-          <p>Playlist Title: This is a very long playlist title</p>
-          <p>Length: {durationFormat(duration)}</p>
-          <p>Number of Songs: {tracksArray.length}</p>
-        </div>
-        <TracksList tracks={tracksArray} />
-        <div>
-          <button
-            type="button"
-            onClick={async () => {
-              await createPlaylist();
-              setIsOpen(false);
-            }}
-          >
-            Create
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setIsOpen(false);
-            }}
-          >
-            Go Back
-          </button>
-        </div>
-      </Style>
+      {loading ? "Loading..." : content}
     </Modal>
   );
 }
