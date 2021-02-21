@@ -11,17 +11,19 @@ export default function Playlist() {
   const router = useRouter();
   const { link } = router.query;
 
-  if (link === undefined || Array.isArray(link)) {
-    throw new Error("Link is wrong type");
-  }
   return (
     <div>
       <Heading level={2}>Your Playlist is on your Spotify</Heading>
       <Style>
         <button
+          disabled={link === undefined || Array.isArray(link)}
           type="button"
           onClick={() => {
-            router.push(decodeURIComponent(link));
+            router.push(
+              decodeURIComponent(
+                link === undefined || Array.isArray(link) ? "/" : link
+              )
+            );
           }}
         >
           Listen Now

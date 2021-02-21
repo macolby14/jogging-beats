@@ -110,7 +110,6 @@ export function ConfirmationModal({
     const {
       id: playlistId,
       external_urls: { spotify: playlistLink },
-      ...other
     }: {
       id: string;
       external_urls: { spotify: string }; // eslint-disable-line camelcase
