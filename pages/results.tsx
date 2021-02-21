@@ -53,6 +53,8 @@ export default function Results() {
     if (bpmAsNum === undefined || Array.isArray(bpmAsNum)) {
       throw new Error("Fetching songs with invalid bpm");
     }
+    console.log("In results");
+    console.log(token);
     const results = await authFetch({
       url: `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&target_tempo=${bpmAsNum}&min_tempo=${
         bpmAsNum - 5
@@ -68,7 +70,7 @@ export default function Results() {
       Array.isArray(bpmParam) ||
       targetDurationParam === undefined ||
       Array.isArray(targetDurationParam) ||
-      token === undefined
+      !token
     ) {
       // Nothing - need to return from useEffect without cleanup
     } else {
@@ -91,6 +93,32 @@ export default function Results() {
     setPlaylistDescription(e.target.value);
   }
 
+  const playlistContent = (
+    <>
+      <Heading level={5}>
+        Playlist Length: {durationFormat(selectedTracksDuration)}
+      </Heading>
+      <ResultsGrid>
+        {tracks.map((track) => {
+          const isSelected = Boolean(selectedTracks[track.id]);
+          return (
+            <Track
+              tempo={tempos[track.id]}
+              key={track.id}
+              {...track} // eslint-disable-line react/jsx-props-no-spreading
+              selected={isSelected}
+              selectHandler={() => {
+                setSelectedHandler(track);
+              }}
+            />
+          );
+        })}
+      </ResultsGrid>
+    </>
+  );
+
+  const spinner = <div>Loading...</div>;
+
   return (
     <>
       <TitleStyle>
@@ -112,25 +140,7 @@ export default function Results() {
         title={playlistTitle}
         description={playlistDescription}
       />
-      <Heading level={5}>
-        Playlist Length: {durationFormat(selectedTracksDuration)}
-      </Heading>
-      <ResultsGrid>
-        {tracks.map((track) => {
-          const isSelected = Boolean(selectedTracks[track.id]);
-          return (
-            <Track
-              tempo={tempos[track.id]}
-              key={track.id}
-              {...track} // eslint-disable-line react/jsx-props-no-spreading
-              selected={isSelected}
-              selectHandler={() => {
-                setSelectedHandler(track);
-              }}
-            />
-          );
-        })}
-      </ResultsGrid>
+      {loading ? spinner : playlistContent}
     </>
   );
 }
