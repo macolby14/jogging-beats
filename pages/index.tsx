@@ -1,7 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import React, { FormEvent, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
-import { Heading } from "../components/Heading";
 
 const Style = styled.div`
   width: 100%;
@@ -9,21 +8,6 @@ const Style = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 16px;
-`;
-
-const InputOptions = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-`;
-
-const InputOption = styled.div`
-  background-color: red;
-  border: 1px solid black;
-  padding: 0 16px 0 16px;
-  min-height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const FormStyle = styled.form`
@@ -52,14 +36,6 @@ export default function Home() {
 
   const inputForm = (
     <>
-      <InputOptions>
-        <InputOption>
-          <Heading level={4}>Target Pace</Heading>
-        </InputOption>
-        <InputOption>
-          <Heading level={4}>Target Beats Per Minute (BPM)</Heading>
-        </InputOption>
-      </InputOptions>
       <FormStyle onSubmit={handleSubmission}>
         <label htmlFor="pace">Pace</label>
         <input
