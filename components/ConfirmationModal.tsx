@@ -92,6 +92,8 @@ interface Props {
   setIsOpen: Function;
   selectedTracks: Record<string, TrackData>;
   duration: number;
+  title: string;
+  description: string;
 }
 
 export function ConfirmationModal({
@@ -99,6 +101,8 @@ export function ConfirmationModal({
   setIsOpen,
   selectedTracks,
   duration,
+  title,
+  description,
 }: Props) {
   const router = useRouter();
   const { userId, userToken } = useContext(ImplicitAuthContext);
@@ -119,8 +123,8 @@ export function ConfirmationModal({
       token: userToken,
       method: "POST",
       body: {
-        name: "New Playlist",
-        description: "New playlist description",
+        name: title,
+        description,
         public: false,
       },
     }).then((resp) => resp.json());
@@ -147,7 +151,7 @@ export function ConfirmationModal({
         Spotify:
       </Heading>
       <div>
-        <p>Playlist Title: This is a very long playlist title</p>
+        <p>Playlist Title: {title}</p>
         <p>Length: {durationFormat(duration)}</p>
         <p>Number of Songs: {tracksArray.length}</p>
       </div>

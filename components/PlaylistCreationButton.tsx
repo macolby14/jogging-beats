@@ -9,6 +9,8 @@ import { ConfirmationModal } from "./ConfirmationModal";
 interface Props {
   selectedTracks: Record<string, TrackData>;
   duration: number;
+  title: string;
+  description: string;
 }
 
 const Style = styled.button`
@@ -17,7 +19,12 @@ const Style = styled.button`
   width: 200px;
 `;
 
-export function PlaylistCreationButton({ selectedTracks, duration }: Props) {
+export function PlaylistCreationButton({
+  selectedTracks,
+  duration,
+  title,
+  description,
+}: Props) {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [confrimationModalOpen, setConfirmationModalOpen] = useState(false);
   const { userId } = useContext(ImplicitAuthContext);
@@ -46,6 +53,8 @@ export function PlaylistCreationButton({ selectedTracks, duration }: Props) {
         setIsOpen={setConfirmationModalOpen}
         selectedTracks={selectedTracks}
         duration={duration}
+        title={title}
+        description={description}
       />
     </>
   );
