@@ -11,12 +11,6 @@ import { PlaylistCreationButton } from "../components/PlaylistCreationButton";
 import { TokenContext } from "../components/context/TokenProvider";
 
 /* eslint-disable camelcase */
-interface ResultsProps {
-  targetDuration: number; // in ms
-  recommendations: {
-    tracks: TrackData[];
-  };
-}
 
 const ResultsGrid = styled.div`
   display: flex;
@@ -41,9 +35,8 @@ const TitleStyle = styled.label`
 
 export default function Results() {
   const router = useRouter();
-  const token = useContext(TokenContext);
   const { bpm: bpmParam, targetDuration: targetDurationParam } = router.query;
-  const [bpm, setBpm] = useState(0);
+  const token = useContext(TokenContext);
   const [targetDuration, setTargetDuration] = useState(0);
   const [tracks, setTracks] = useState<TrackData[]>([]);
   const [loading, setLoading] = useState(false);
@@ -57,7 +50,6 @@ export default function Results() {
   const { tempos } = useTempos({ tracks });
 
   async function fetchSongs(bpmAsNum: number): Promise<any> {
-    console.log("Creating fetchSongs");
     if (bpmAsNum === undefined || Array.isArray(bpmAsNum)) {
       throw new Error("Fetching songs with invalid bpm");
     }
@@ -70,9 +62,6 @@ export default function Results() {
     return results;
   }
 
-  console.log("Query Params");
-  console.log(router.query);
-
   useEffect(() => {
     if (
       bpmParam === undefined ||
@@ -81,16 +70,12 @@ export default function Results() {
       Array.isArray(targetDurationParam) ||
       token === undefined
     ) {
-      console.log("UseEffect does nothing for results");
-      console.log(bpmParam);
       // Nothing - need to return from useEffect without cleanup
     } else {
       const bpmAsNum = parseInt(bpmParam, 10);
       const targetDurationAsNum = parseInt(targetDurationParam, 10);
-      setBpm(bpmAsNum);
       setTargetDuration(targetDurationAsNum);
       setLoading(true);
-      console.log("Calling fetchSongs()");
       fetchSongs(bpmAsNum).then(({ tracks: results }) => {
         setTracks(results);
         setLoading(false);
