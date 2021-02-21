@@ -14,7 +14,7 @@ export function TokenProvider({ children }: TokenProviderProps) {
     let isCancelled = false;
 
     if (token === "") {
-      fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}token`)
+      fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/token`)
         .then((response) => response.json())
         .then((body) => {
           if (!isCancelled) {
