@@ -37,8 +37,8 @@ export default function Results() {
   const router = useRouter();
   const { bpm: bpmParam, targetDuration: targetDurationParam } = router.query;
   const token = useContext(TokenContext);
-  const [targetDuration, setTargetDuration] = useState(0);
   const [tracks, setTracks] = useState<TrackData[]>([]);
+  const [targetDuration, setTargetDuration] = useState(0);
   const [loading, setLoading] = useState(false);
   const [playlistTitle, setPlaylistTitle] = useState(
     "My Jogging Beats Playlist"

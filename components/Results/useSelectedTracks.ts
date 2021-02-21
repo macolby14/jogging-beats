@@ -28,7 +28,7 @@ export function useSelectedTracks({
       length += tracks[i].duration_ms;
     }
     setSelectedTracks(newSelectedTracks);
-  }, []);
+  }, [tracks, targetDuration]);
 
   function setSelectedHandler(track: TrackData) {
     const isSelected = selectedTracks[track.id];
