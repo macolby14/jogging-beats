@@ -2,6 +2,11 @@ import { useRouter } from "next/dist/client/router";
 import styled from "styled-components";
 import { Heading } from "../../components/Heading";
 
+const Style = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export default function Playlist() {
   const router = useRouter();
   const { link } = router.query;
@@ -9,12 +14,6 @@ export default function Playlist() {
   if (link === undefined || Array.isArray(link)) {
     throw new Error("Link is wrong type");
   }
-
-  const Style = styled.div`
-    display: flex;
-    justify-content: center;
-  `;
-
   return (
     <div>
       <Heading level={2}>Your Playlist is on your Spotify</Heading>

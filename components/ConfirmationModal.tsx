@@ -126,9 +126,6 @@ export function ConfirmationModal({
       },
     }).then((resp) => resp.json());
 
-    console.log("Other Playlist Params");
-    console.log(other);
-
     const tracksToAdd = encodeURIComponent(
       Object.values(selectedTracks)
         .map((track) => track.uri)
