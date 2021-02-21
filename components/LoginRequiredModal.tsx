@@ -4,6 +4,8 @@ import { SpotifyAuthPop } from "./AuthPop/SpotifyAuthPop";
 import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
 import { Heading } from "./Heading";
 
+Modal.setAppElement("#__next");
+
 const customStyles = {
   content: {
     top: "50%",

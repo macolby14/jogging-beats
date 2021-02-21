@@ -8,6 +8,8 @@ import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
 import { Heading } from "./Heading";
 import { TrackData } from "./Track";
 
+Modal.setAppElement("#__next");
+
 const modalStyles = {
   content: {
     top: "50%",
@@ -68,6 +70,7 @@ function TracksList({ tracks }: { tracks: TrackData[] }) {
       </TrackInfoStyle>
       {tracks.map((track) => (
         <TrackInfo
+          key={track.id}
           name={track.name}
           artist={track.artists[0].name}
           duration={track.duration_ms}
@@ -104,7 +107,15 @@ export function ConfirmationModal({
   const tracksArray = Object.values(selectedTracks);
 
   async function createPlaylist() {
-    const { id: playlistId }: { id: string } = await authFetch({
+    const {
+      id: playlistId,
+      external_urls: { spotify: playlistLink },
+      ...other
+    }: {
+      id: string;
+      external_urls: { spotify: string }; // eslint-disable-line camelcase
+      other: any;
+    } = await authFetch({
       url: `https://api.spotify.com/v1/users/${userId}/playlists`,
       token: userToken,
       method: "POST",
@@ -114,6 +125,9 @@ export function ConfirmationModal({
         public: false,
       },
     }).then((resp) => resp.json());
+
+    console.log("Other Playlist Params");
+    console.log(other);
 
     const tracksToAdd = encodeURIComponent(
       Object.values(selectedTracks)
@@ -127,7 +141,7 @@ export function ConfirmationModal({
       method: "POST",
     });
 
-    return playlistId;
+    return playlistLink;
   }
 
   const content = (
@@ -147,10 +161,10 @@ export function ConfirmationModal({
           type="button"
           onClick={async () => {
             setLoading(true);
-            const playlistId = await createPlaylist();
+            const link = await createPlaylist();
             setIsOpen(false);
             setLoading(false);
-            router.push(`/playlist/${playlistId}`);
+            router.push(`/playlist/${encodeURIComponent(link)}`);
           }}
         >
           Create

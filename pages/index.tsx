@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { Box } from "../components/Box";
-import { Spacer } from "../components/Spacer";
 import { OptionsSelection } from "../components/OptionsSelection";
-import { PageHeader } from "../components/PageHeader";
 import { Results } from "../components/Results/Results";
 
 export default function Home() {
@@ -22,14 +19,5 @@ export default function Home() {
     />
   );
 
-  return (
-    <>
-      <Spacer size={50} />
-      <Box size={1280} gap={16}>
-        <PageHeader />
-        <Spacer size={16} />
-        {displayComponent}
-      </Box>
-    </>
-  );
+  return <>{displayComponent}</>;
 }
