@@ -4,6 +4,7 @@ import { useRouter } from "next/dist/client/router";
 import styled from "styled-components";
 import { Heading } from "../../components/Heading";
 import { Spacer } from "../../components/Spacer";
+import { Tooltip } from "../../components/Tooltip";
 
 const Style = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const Style = styled.div`
     display: inline;
     font-family: inherit;
     font-size: inherit;
-    padding: none;
+    padding: 0;
     width: auto;
   }
 
@@ -32,13 +33,13 @@ export default function Playlist() {
     link === undefined || Array.isArray(link) ? "/" : link
   );
 
-  function copyInput(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function copyInput() {
     if (inputEl === null || inputEl.current === null) {
       return;
     }
     inputEl.current.select();
     document.execCommand("copy");
-    (e.target as any).focus(); // focus used to deselect (unhighlight text after copy
+    // inputEl.current.selectionStart = inputEl.current.selectionEnd; - TODO - add this and some feedback message is copied
   }
 
   return (
@@ -69,14 +70,16 @@ export default function Playlist() {
       <Spacer size={8} />
       <div>
         <input
-          size={decodedLink.length}
+          size={decodedLink.length - 3} // -3 is arbitrary, but inputs are too long without this
           value={decodedLink}
           readOnly
           ref={inputEl}
         />
-        <button type="button" onClick={copyInput}>
-          Copy to Clipboard
-        </button>
+        <Tooltip direction="right" text="Copy to clipboard">
+          <button type="button" onClick={copyInput}>
+            <img src="/content_copy-24px.svg" alt="Copy to clipboard" />
+          </button>
+        </Tooltip>
       </div>
     </Style>
   );
