@@ -1,5 +1,11 @@
 :root {
-  --black: #000;
+  --white: #ffffff;
+  --super-light: #f7dad4;
+  --light: #fba90a;
+  --normal: #fc7307;
+  --dark: #fd3a0f;
+  --super-dark: #342609;
+  --black: #000000;
 
   --font-weight-medium: 400;
   --font-weight-bold: 700;
@@ -22,6 +28,8 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-family: "Rubik", sans-serif;
   font-size: 16px;
+  background-color: var(--white);
+  color: var(--black);
 }
 
 h1 {
