@@ -53,8 +53,6 @@ export default function Results() {
     if (bpmAsNum === undefined || Array.isArray(bpmAsNum)) {
       throw new Error("Fetching songs with invalid bpm");
     }
-    console.log("In results");
-    console.log(token);
     const results = await authFetch({
       url: `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&target_tempo=${bpmAsNum}&min_tempo=${
         bpmAsNum - 5
