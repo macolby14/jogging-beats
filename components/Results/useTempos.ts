@@ -39,7 +39,7 @@ export function useTempos({ tracks }: useTemposProps) {
           );
         });
     }
-  }, [token]);
+  }, [token, tracks]);
 
   return { tempos };
 }
