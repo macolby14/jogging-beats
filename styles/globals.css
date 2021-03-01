@@ -88,3 +88,9 @@ button,
 input[type="submit"]:hover {
   background-color: var(--light);
 }
+
+button,
+.button,
+input[type="submit"]:focus {
+  outline: none;
+}
