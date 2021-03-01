@@ -4,10 +4,10 @@ export function PageHeader() {
   return (
     <>
       <Heading level={1} weight={700}>
-        <em>Jogging</em> Beats
+        Jogging Beats
       </Heading>
       <Heading level={4}>
-        Find the perfect playlist for your run or ride
+        <em>Create the perfect playlist on demand for your run or ride</em>
       </Heading>
     </>
   );
