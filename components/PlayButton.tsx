@@ -10,6 +10,12 @@ export const PlayButton = styled.button<PlayButtonStyles>`
   align-items: center;
   justify-content: center;
   gap: ${(props) => `${props.gap}px`};
+  color: inherit;
+  background-color: inherit;
+
+  :hover {
+    background-color: inherit;
+  }
 
   :disabled {
     color: inherit;

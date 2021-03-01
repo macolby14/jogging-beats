@@ -14,9 +14,7 @@ interface Props {
 }
 
 const Style = styled.button`
-  border: 2px solid black;
-  border-radius: 10px;
-  width: 200px;
+  width: 300px;
 `;
 
 export function PlaylistCreationButton({
