@@ -1,6 +1,7 @@
 import React from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import { Heading } from "../Heading";
+import { Spacer } from "../Spacer";
 import OauthPopup from "./OAuthPop";
 
 interface SpotifyAuthPopProps {
@@ -8,9 +9,7 @@ interface SpotifyAuthPopProps {
 }
 
 const Style = styled.button`
-  border: 2px solid black;
-  border-radius: 10px;
-  width: 200px;
+  width: 150px;
 `;
 
 export function SpotifyAuthPop({ onCode }: SpotifyAuthPopProps) {
@@ -30,9 +29,12 @@ export function SpotifyAuthPop({ onCode }: SpotifyAuthPopProps) {
       title="Spotify Login"
       storageName="userSpotifyToken"
     >
-      <Style type="button">
-        <Heading level={4}>Login to Spotify</Heading>
-      </Style>
+      <div>
+        <Spacer size={20} />
+        <Style type="button">
+          <Heading level={4}>Login to Spotify</Heading>
+        </Style>
+      </div>
     </OauthPopup>
   );
 }

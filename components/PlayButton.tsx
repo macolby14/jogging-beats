@@ -5,6 +5,7 @@ interface PlayButtonStyles {
 }
 
 export const PlayButton = styled.button<PlayButtonStyles>`
+  width: auto;
   font-size: var(--text-size-7);
   display: flex;
   align-items: center;

@@ -1,6 +1,6 @@
 /* eslint-disable */
 // Source: https://stackoverflow.com/questions/58732237/oauth-popup-cross-domain-security-react-js
-import React, { PureComponent, ReactChild } from "react";
+import React, { PureComponent, ReactNode } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
   title: string;
   onClose: () => any;
   onCode: (params: any) => any;
-  children?: ReactChild;
+  children?: ReactNode;
   storageName: string;
 };
 
