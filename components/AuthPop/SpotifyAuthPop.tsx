@@ -15,7 +15,7 @@ const Style = styled.button`
 export function SpotifyAuthPop({ onCode }: SpotifyAuthPopProps) {
   const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
   const responseType = "token";
-  const callback = encodeURI(`${process.env.NEXT_PUBLIC_CLIENT}/auth`);
+  const callback = encodeURI(`${window.location.origin}/auth`);
   const scope = encodeURIComponent(
     "playlist-modify-public playlist-modify-private"
   );
