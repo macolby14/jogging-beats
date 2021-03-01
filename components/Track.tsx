@@ -57,7 +57,7 @@ const TrackStyle = styled.div<TrackStyleProps>`
   width: 100%;
   display: grid;
   place-content: center;
-  grid-template-columns: 100px 100px 1fr 100px 50px;
+  grid-template-columns: 120px 100px 1fr 100px 50px;
   grid-template-rows: 50px 50px;
   grid-template-areas:
     "play-preview pic name time select"

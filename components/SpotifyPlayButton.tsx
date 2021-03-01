@@ -31,7 +31,7 @@ export default function SpotifyPlayButton({
         text="Open the Spotify player to play this song"
       >
         <PlayButton
-          gap={2}
+          gap={8}
           className={className}
           onClick={clickSpotifyButtonHandler}
         >

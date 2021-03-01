@@ -40,7 +40,7 @@ export function AudioPreviewButton({
         direction="top"
         text="No preview available. You can play it on Spotify instead."
       >
-        <PlayButton gap={10} disabled>
+        <PlayButton gap={6} disabled>
           <img
             src="/not_available-24px.svg"
             alt="Audio Preview not available"
@@ -61,7 +61,7 @@ export function AudioPreviewButton({
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio src={url} ref={audioRef} />
       <Tooltip direction="top" text="Play a preview on this page">
-        <PlayButton gap={10} type="button" onClick={playAudioHandler}>
+        <PlayButton gap={6} type="button" onClick={playAudioHandler}>
           {playing ? pauseButtonImg : playButtonImg}
           Preview
         </PlayButton>
