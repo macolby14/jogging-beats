@@ -7,6 +7,8 @@ const Wrapper = styled.p`
   text-align: center;
   font-size: var(--text-size);
   font-weight: ${(props) => (props.weight ? props.weight : 400)};
+  display: flex;
+  justify-content: center;
 `;
 
 export function Heading({ level, weight = 400, children }) {
