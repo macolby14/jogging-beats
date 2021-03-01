@@ -83,8 +83,8 @@ input[type="submit"] {
   transition-duration: 0.4s;
 }
 
-button,
-.button,
+button:hover,
+.button:hover,
 input[type="submit"]:hover {
   background-color: var(--light);
 }
