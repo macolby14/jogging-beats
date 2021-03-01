@@ -19,7 +19,7 @@ export const Spacer = ({
   return (
     <span
       style={{
-        display: "block",
+        display: axis === "horizontal" ? "inline-block" : "block",
         width,
         minWidth: width,
         height,
