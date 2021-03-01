@@ -19,6 +19,12 @@ const FormStyle = styled.form`
   input[type="number"] {
     background-color: inherit;
   }
+
+  input[type="submit"] {
+    grid-column: auto / span 2;
+    margin: auto;
+    width: 200px;
+  }
 `;
 
 export default function Home() {
