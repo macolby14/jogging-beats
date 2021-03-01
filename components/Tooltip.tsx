@@ -10,10 +10,10 @@ interface TooltipsStylesProps {
 
 const ToolTipStyles = styled.div<TooltipsStylesProps>`
   position: relative;
-  display: inline-block;
 
   .tooltiptext {
     opacity: 0%;
+    visibility: hidden
     width: 120px;
     background-color: black;
     color: white;
@@ -21,13 +21,13 @@ const ToolTipStyles = styled.div<TooltipsStylesProps>`
     padding: 5px 0;
     border-radius: 6px;
     font-size: var(--text-size-7);
-
     position: absolute;
-    z-index: 1;
-    transition: opacity 0s ease-out;
+    z-index: -1;
   }
 
   :hover .tooltiptext {
+    visibility: visible;
+    z-index: 1;
     opacity: 100%;
     transition-delay: 0.5s;
   }
