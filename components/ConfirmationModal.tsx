@@ -55,6 +55,10 @@ const TracksListStyle = styled.div`
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
+
+  strong {
+    font-size: 32px;
+  }
 `;
 
 function TracksList({ tracks }: { tracks: TrackData[] }) {
@@ -62,10 +66,10 @@ function TracksList({ tracks }: { tracks: TrackData[] }) {
     <TracksListStyle>
       <TrackInfoStyle>
         <p>
-          <em>Song</em>
+          <strong className="big">Song</strong>
         </p>
         <p>
-          <em>Duration</em>
+          <strong className="big">Duration</strong>
         </p>
       </TrackInfoStyle>
       {tracks.map((track) => (
@@ -85,6 +89,14 @@ const Style = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 32px;
+`;
+
+const ButtonsStyle = styled.div`
+  display: flex;
+  gap: 32px;
+  button {
+    width: 150px;
+  }
 `;
 
 interface Props {
@@ -156,9 +168,10 @@ export function ConfirmationModal({
         <p>Number of Songs: {tracksArray.length}</p>
       </div>
       <TracksList tracks={tracksArray} />
-      <div>
+      <ButtonsStyle>
         <button
           type="button"
+          className="button"
           onClick={async () => {
             setLoading(true);
             const link = await createPlaylist();
@@ -177,7 +190,7 @@ export function ConfirmationModal({
         >
           Go Back
         </button>
-      </div>
+      </ButtonsStyle>
     </Style>
   );
 
