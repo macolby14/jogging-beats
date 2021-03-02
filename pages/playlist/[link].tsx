@@ -23,6 +23,24 @@ const Style = styled.div`
   input:focus {
     outline: none;
   }
+
+  button {
+    width: 200px;
+  }
+`;
+
+const ButtonsStyle = styled.div`
+  display: flex;
+  gap: 32px;
+`;
+
+const CopyStyle = styled.div`
+  display: flex;
+  gap: 16px;
+`;
+
+const ClipboardStyle = styled.div`
+  cursor: pointer;
 `;
 
 export default function Playlist() {
@@ -46,16 +64,17 @@ export default function Playlist() {
     <Style>
       <Heading level={2}>Your Playlist is on your Spotify</Heading>
       <Spacer size={32} />
-      <div>
-        <button
-          disabled={link === undefined || Array.isArray(link)}
+      <ButtonsStyle>
+        <a
+          href={decodedLink}
+          className="button"
+          target="_blank"
+          rel="noreferrer noopener"
+          // disabled={link === undefined || Array.isArray(link)}
           type="button"
-          onClick={() => {
-            router.push(decodedLink);
-          }}
         >
           Listen Now
-        </button>
+        </a>
         <button
           type="button"
           onClick={() => {
@@ -64,23 +83,23 @@ export default function Playlist() {
         >
           Search Again
         </button>
-      </div>
+      </ButtonsStyle>
       <Spacer size={32} />
       <p> Share your playlist:</p>
       <Spacer size={8} />
-      <div>
+      <CopyStyle>
         <input
-          size={decodedLink.length - 3} // -3 is arbitrary, but inputs are too long without this
+          size={decodedLink.length} // -3 is arbitrary, but inputs are too long without this
           value={decodedLink}
           readOnly
           ref={inputEl}
         />
-        <Tooltip direction="right" text="Copy to clipboard">
-          <button type="button" onClick={copyInput}>
+        <Tooltip direction="right" gap={4} text="Copy to clipboard">
+          <ClipboardStyle role="button" onClick={copyInput}>
             <img src="/content_copy-24px.svg" alt="Copy to clipboard" />
-          </button>
+          </ClipboardStyle>
         </Tooltip>
-      </div>
+      </CopyStyle>
     </Style>
   );
 }
