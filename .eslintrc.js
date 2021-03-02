@@ -36,16 +36,9 @@ module.exports = {
       },
     ],
     "react/require-default-props": "off",
-    "jsx-a11y/label-has-associated-control": [
-      "error",
-      {
-        labelComponents: [],
-        labelAttributes: [],
-        controlComponents: [],
-        assert: "either",
-        depth: 5,
-      },
-    ],
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/interactive-supports-focus": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
   },
   settings: {
     "import/resolver": {
