@@ -28,6 +28,15 @@ const ButtonsStyle = styled.div`
 const CopyStyle = styled.div`
   display: flex;
   gap: 16px;
+  max-width: 90vw;
+  width: 100%;
+  flex-wrap: nowrap;
+  justify-content: center;
+`;
+
+const LinkStyle = styled.div`
+  max-width: 80%;
+  word-wrap: break-word;
 `;
 
 const ClipboardStyle = styled.div`
@@ -83,7 +92,7 @@ export default function Playlist() {
       <p> Share your playlist:</p>
       <Spacer size={8} />
       <CopyStyle>
-        <div ref={inputEl}>{decodedLink}</div>
+        <LinkStyle ref={inputEl}>{decodedLink}</LinkStyle>
         <Tooltip direction="right" gap={4} text="Copy to clipboard">
           <ClipboardStyle role="button" onClick={copyInput}>
             <img src="/content_copy-24px.svg" alt="Copy to clipboard" />
