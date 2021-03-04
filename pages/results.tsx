@@ -24,12 +24,14 @@ const TitleStyle = styled.label`
   margin: auto;
 
   input[type="text"] {
+    font: inherit;
     font-size: var(--text-size-4);
   }
 
   textarea {
     vertical-align: top;
-    font-size: var(--text-size-7);
+    font: inherit;
+    font-size: var(--text-size-5);
   }
 `;
 
@@ -126,8 +128,8 @@ export default function Results() {
       <TitleStyle>
         Playlist description:&nbsp;
         <textarea
-          rows={3}
-          cols={50}
+          rows={window.screen.width >= 768 ? 3 : 6}
+          cols={window.screen.width >= 768 ? 50 : 25}
           value={playlistDescription}
           onChange={handleDescriptionChange}
         />
