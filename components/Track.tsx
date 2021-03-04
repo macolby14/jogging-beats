@@ -14,10 +14,16 @@ interface TrackStyleProps {
 const TrackStyle = styled.div<TrackStyleProps>`
   .play-preview {
     grid-area: play-preview;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .play-spotify {
     grid-area: play-spotify;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .pic {
@@ -38,11 +44,17 @@ const TrackStyle = styled.div<TrackStyleProps>`
   .time {
     grid-area: time;
     ${centerVertically}
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .tempo {
     grid-area: tempo;
     ${centerVertically}
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .select {
@@ -62,6 +74,13 @@ const TrackStyle = styled.div<TrackStyleProps>`
   grid-template-areas:
     "play-preview pic name time select"
     "play-spotify pic artist tempo select";
+
+  @media (max-width: 768px) {
+    grid-template-columns: 100px 1fr 50px;
+    grid-template-areas:
+      "pic name select"
+      "pic artist select";
+  }
 `;
 
 export interface TrackData {
@@ -106,7 +125,9 @@ export function Track({
       </div>
       <div className="name">{name}</div>
       <div className="artist">
-        {artists.map((artist) => artist.name).join(", ")}
+        {window.screen.width >= 786
+          ? artists.map((artist) => artist.name).join(", ")
+          : artists[0].name}
       </div>
       <div className="time">{durationFormat(duration_ms)}</div>
       <div className="tempo">
