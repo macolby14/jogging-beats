@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React from "react"; // eslint-disable-line no-use-before-define
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { center, centerVertically } from "../styles/globalCss";
 import { durationFormat } from "../utilities/durationFormat";
 import { AudioPreviewButton } from "./AudioPreviewButton";
@@ -10,6 +10,17 @@ import { TrackSelect } from "./TrackSelect";
 interface TrackStyleProps {
   selected: boolean;
 }
+
+const selectedStyle = css`
+  border: 3px solid var(--light);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+`;
+
+const notSelectedStyle = css`
+  background-color: rgba(80, 37, 18, 0.2);
+  opacity: 0.6;
+  border: 1px solid background-color: rgba(80, 37, 18, 1);
+`;
 
 const TrackStyle = styled.div<TrackStyleProps>`
   .play-preview {
@@ -62,8 +73,11 @@ const TrackStyle = styled.div<TrackStyleProps>`
     ${center}
   }
 
-  background-color: ${(props) => (props.selected ? "inherit" : "lightgrey")};
-  border: 1px black solid;
+  .selected {
+    border: 5px solid orange;
+  }
+
+  ${(props) => (props.selected ? selectedStyle : notSelectedStyle)}
   padding: 8px 16px;
   max-width: 800px;
   width: 100%;
