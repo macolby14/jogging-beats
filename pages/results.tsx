@@ -128,8 +128,14 @@ export default function Results() {
       <TitleStyle>
         Playlist description:&nbsp;
         <textarea
-          rows={window.screen.width >= 768 ? 3 : 6}
-          cols={window.screen.width >= 768 ? 50 : 25}
+          rows={
+            typeof window !== "undefined" && window.screen.width >= 768 ? 3 : 6
+          }
+          cols={
+            typeof window !== "undefined" && window.screen.width >= 768
+              ? 50
+              : 25
+          }
           value={playlistDescription}
           onChange={handleDescriptionChange}
         />
