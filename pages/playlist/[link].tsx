@@ -11,19 +11,6 @@ const Style = styled.div`
   align-items: center;
   flex-direction: column;
 
-  input {
-    border: none;
-    display: inline;
-    font-family: inherit;
-    font-size: inherit;
-    padding: 0;
-    width: auto;
-  }
-
-  input:focus {
-    outline: none;
-  }
-
   button {
     width: 200px;
   }
@@ -32,6 +19,10 @@ const Style = styled.div`
 const ButtonsStyle = styled.div`
   display: flex;
   gap: 32px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const CopyStyle = styled.div`
@@ -45,7 +36,7 @@ const ClipboardStyle = styled.div`
 
 export default function Playlist() {
   const router = useRouter();
-  const inputEl = useRef<HTMLInputElement | null>(null);
+  const inputEl = useRef<HTMLDivElement | null>(null);
   const { link } = router.query;
   const decodedLink = decodeURIComponent(
     link === undefined || Array.isArray(link) ? "/" : link
@@ -55,9 +46,13 @@ export default function Playlist() {
     if (inputEl === null || inputEl.current === null) {
       return;
     }
-    inputEl.current.select();
+    const range = document.createRange();
+    range.selectNode(inputEl.current);
+    window.getSelection()?.removeAllRanges(); // clear current selection
+    window.getSelection()?.addRange(range); // to select text
     document.execCommand("copy");
-    // inputEl.current.selectionStart = inputEl.current.selectionEnd; - TODO - add this and some feedback message is copied
+    // window.getSelection()?.removeAllRanges(); // to deselect - TODO: add feedback and this line
+    document.execCommand("copy");
   }
 
   return (
@@ -88,12 +83,7 @@ export default function Playlist() {
       <p> Share your playlist:</p>
       <Spacer size={8} />
       <CopyStyle>
-        <input
-          size={decodedLink.length} // -3 is arbitrary, but inputs are too long without this
-          value={decodedLink}
-          readOnly
-          ref={inputEl}
-        />
+        <div ref={inputEl}>{decodedLink}</div>
         <Tooltip direction="right" gap={4} text="Copy to clipboard">
           <ClipboardStyle role="button" onClick={copyInput}>
             <img src="/content_copy-24px.svg" alt="Copy to clipboard" />
