@@ -8,12 +8,23 @@ interface TooltipsStylesProps {
   gap: number;
 }
 
+function isTouchDevice() {
+  if (typeof window === "undefined") {
+    return true;
+  }
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0
+  );
+}
+
 const ToolTipStyles = styled.div<TooltipsStylesProps>`
   position: relative;
 
   .tooltiptext {
     opacity: 0%;
-    visibility: hidden
+    visibility: hidden;
     width: 120px;
     background-color: black;
     color: white;
@@ -23,6 +34,8 @@ const ToolTipStyles = styled.div<TooltipsStylesProps>`
     font-size: var(--text-size-7);
     position: absolute;
     z-index: -1;
+
+    ${() => (isTouchDevice() ? "display: none;" : "")}
   }
 
   :hover .tooltiptext {
