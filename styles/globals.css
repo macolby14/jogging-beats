@@ -83,16 +83,24 @@ input[type="submit"] {
   font: inherit;
   border-radius: 4px;
   transition-duration: 0.4s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 button:hover,
 .button:hover,
 input[type="submit"]:hover {
   background-color: var(--light);
+  box-shadow: none;
 }
 
 button,
 .button,
 input[type="submit"]:focus {
   outline: none;
+}
+
+button:active,
+.button:active,
+input[type="submit"]:active {
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.25);
 }
