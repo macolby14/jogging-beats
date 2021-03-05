@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { authFetch } from "../../utils/authFetch";
-import { TokenContext } from "../context/TokenProvider";
-import { TrackData } from "../Track";
+import { authFetch } from "../authFetch";
+import { TokenContext } from "../../components/context/TokenProvider";
+import { TrackData } from "../../components/Track";
 
 interface useTemposProps {
   tracks: TrackData[];

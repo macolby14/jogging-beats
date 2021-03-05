@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TrackData } from "../Track";
+import { TrackData } from "../../components/Track";
 
 interface useSelectedTracksProps {
   tracks: TrackData[];
