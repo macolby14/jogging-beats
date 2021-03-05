@@ -2,7 +2,7 @@
 import React from "react"; // eslint-disable-line no-use-before-define
 import styled, { css } from "styled-components";
 import { center, centerVertically } from "../styles/globalCss";
-import { durationFormat } from "../utilities/durationFormat";
+import { durationFormat } from "../utils/durationFormat";
 import { AudioPreviewButton } from "./AudioPreviewButton";
 import SpotifyPlayButton from "./SpotifyPlayButton";
 import { TrackSelect } from "./TrackSelect";

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import { useRouter } from "next/dist/client/router";
-import { authFetch } from "../utilities/authFetch";
-import { durationFormat } from "../utilities/durationFormat";
+import { authFetch } from "../utils/authFetch";
+import { durationFormat } from "../utils/durationFormat";
 import { Heading } from "../components/Heading";
 import { Track, TrackData } from "../components/Track";
 import { useSelectedTracks } from "../components/Results/useSelectedTracks";

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { authFetch } from "../../utilities/authFetch";
+import { authFetch } from "../../utils/authFetch";
 import { TokenContext } from "../context/TokenProvider";
 import { TrackData } from "../Track";
 
