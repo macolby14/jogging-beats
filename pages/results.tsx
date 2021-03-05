@@ -9,8 +9,6 @@ import { useTempos } from "../utils/results/useTempos";
 import { useLoadSongsFromParams } from "../utils/results/useLoadSongsFromParams";
 import { PlaylistCreationButton } from "../components/PlaylistCreationButton";
 
-/* eslint-disable camelcase */
-
 const ResultsGrid = styled.div`
   display: flex;
   flex-direction: column;
