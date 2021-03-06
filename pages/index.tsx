@@ -1,7 +1,9 @@
 import { useRouter } from "next/dist/client/router";
 import React, { FormEvent, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
+import { GenreOptions } from "../components/Options/GenreOptions";
 import { OptionsSelectBar } from "../components/Options/OptionsSelectBar";
+import { PaceOptions } from "../components/Options/PaceOptions";
 
 const Style = styled.div`
   width: 100%;
@@ -10,58 +12,6 @@ const Style = styled.div`
   align-items: center;
   gap: 16px;
 `;
-
-const PaceOptionsStyle = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 16px;
-  row-gap: 16px;
-
-  label {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-`;
-
-interface PaceOptionsProps {
-  bpm: number;
-  setBpm: React.Dispatch<React.SetStateAction<number>>;
-  targetDuration: number;
-  setTargetDuration: React.Dispatch<React.SetStateAction<number>>;
-}
-
-function PaceOptions({
-  bpm,
-  setBpm,
-  targetDuration,
-  setTargetDuration,
-}: PaceOptionsProps) {
-  return (
-    <PaceOptionsStyle>
-      <label htmlFor="bpm">Beats per Minute</label>
-      <input
-        type="number"
-        name="bpm"
-        value={bpm}
-        onChange={(e) => setBpm(parseInt(e.target.value, 10))}
-      />
-      <label htmlFor="workoutTime">Workout Time (min)</label>
-      <input
-        type="number"
-        name="workoutTime"
-        value={Math.floor(targetDuration / 1000 / 60)}
-        onChange={(e) =>
-          setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
-        }
-      />
-    </PaceOptionsStyle>
-  );
-}
-
-function GenreOptions() {
-  return <div>Genre Options</div>;
-}
 
 const FormStyle = styled.form`
   display: flex;
