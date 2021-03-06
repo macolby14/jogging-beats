@@ -10,7 +10,7 @@ const Style = styled.div`
   gap: 16px;
 `;
 
-const FormStyle = styled.form`
+const PaceOptionsStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 16px;
@@ -29,11 +29,47 @@ const FormStyle = styled.form`
   }
 `;
 
+interface PaceOptionsProps {
+  bpm: number;
+  setBpm: React.Dispatch<React.SetStateAction<number>>;
+  targetDuration: number;
+  setTargetDuration: React.Dispatch<React.SetStateAction<number>>;
+}
+
+function PaceOptions({
+  bpm,
+  setBpm,
+  targetDuration,
+  setTargetDuration,
+}: PaceOptionsProps) {
+  return (
+    <PaceOptionsStyle>
+      <label htmlFor="bpm">Beats per Minute</label>
+      <input
+        type="number"
+        name="bpm"
+        value={bpm}
+        onChange={(e) => setBpm(parseInt(e.target.value, 10))}
+      />
+      <label htmlFor="workoutTime">Workout Time (min)</label>
+      <input
+        type="number"
+        name="workoutTime"
+        value={Math.floor(targetDuration / 1000 / 60)}
+        onChange={(e) =>
+          setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
+        }
+      />
+      <input type="submit" value="Search" />
+    </PaceOptionsStyle>
+  );
+}
+
 export default function Home() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [bpm, setBpm] = useState(170);
   const [targetDuration, setTargetDuration] = useState(10 * 60 * 1000);
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
@@ -42,27 +78,14 @@ export default function Home() {
   }
 
   const inputForm = (
-    <>
-      <FormStyle onSubmit={handleSubmission}>
-        <label htmlFor="bpm">Beats per Minute</label>
-        <input
-          type="number"
-          name="bpm"
-          value={bpm}
-          onChange={(e) => setBpm(parseInt(e.target.value, 10))}
-        />
-        <label htmlFor="workoutTime">Workout Time (min)</label>
-        <input
-          type="number"
-          name="workoutTime"
-          value={Math.floor(targetDuration / 1000 / 60)}
-          onChange={(e) =>
-            setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
-          }
-        />
-        <input type="submit" value="Search" />
-      </FormStyle>
-    </>
+    <form onSubmit={handleSubmission}>
+      <PaceOptions
+        bpm={bpm}
+        setBpm={setBpm}
+        targetDuration={targetDuration}
+        setTargetDuration={setTargetDuration}
+      />
+    </form>
   );
 
   const displayComp = loading ? <div>Loading...</div> : inputForm;
