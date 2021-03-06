@@ -60,13 +60,6 @@ a {
   margin: 0;
 }
 
-/* button {
-  font: inherit;
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
-} */
-
 button,
 .button,
 input[type="submit"] {
