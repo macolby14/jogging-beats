@@ -16,8 +16,10 @@ const FormStyle = styled.form`
   column-gap: 16px;
   row-gap: 16px;
 
-  input[type="number"] {
-    background-color: inherit;
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
 
   input[type="submit"] {
