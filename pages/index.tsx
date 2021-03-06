@@ -1,6 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import React, { FormEvent, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
+import { OptionsSelectBar } from "../components/Options/OptionsSelectBar";
 
 const Style = styled.div`
   width: 100%;
@@ -60,55 +61,6 @@ function PaceOptions({
 
 function GenreOptions() {
   return <div>Genre Options</div>;
-}
-
-const OptionsSelectBarStyle = styled.ul`
-  li {
-    display: inline;
-    text-decoration: none;
-    padding: 16px;
-  }
-`;
-
-interface OptionsSelectBarProps {
-  setShownOption: React.Dispatch<React.SetStateAction<string>>;
-}
-
-function OptionsSelectBar({ setShownOption }: OptionsSelectBarProps) {
-  return (
-    <OptionsSelectBarStyle>
-      <li>
-        <button
-          type="button"
-          onClick={() => {
-            setShownOption("PACE");
-          }}
-        >
-          Pace
-        </button>
-      </li>
-      <li>
-        <button
-          type="button"
-          onClick={() => {
-            setShownOption("GENRE");
-          }}
-        >
-          Genre
-        </button>
-      </li>
-      <li>
-        <button
-          type="button"
-          onClick={() => {
-            setShownOption("SIMILAR_SONGS");
-          }}
-        >
-          Similar Songs
-        </button>
-      </li>
-    </OptionsSelectBarStyle>
-  );
 }
 
 const FormStyle = styled.form`
