@@ -119,3 +119,13 @@ textarea {
 textarea {
   vertical-align: top;
 }
+
+/* Remove arrows for input[type="number"] */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
