@@ -16,22 +16,6 @@ const ResultsGrid = styled.div`
   gap: 16px;
 `;
 
-const TitleStyle = styled.label`
-  font-size: var(--text-size-4);
-  margin: auto;
-
-  input[type="text"] {
-    font: inherit;
-    font-size: var(--text-size-4);
-  }
-
-  textarea {
-    vertical-align: top;
-    font: inherit;
-    font-size: var(--text-size-5);
-  }
-`;
-
 export default function Results() {
   const router = useRouter();
   const { bpm: bpmParam, targetDuration: targetDurationParam } = router.query;
@@ -90,11 +74,11 @@ export default function Results() {
 
   return (
     <>
-      <TitleStyle>
+      <label>
         Playlist title:&nbsp;
         <input type="text" value={playlistTitle} onChange={handleTitleChange} />
-      </TitleStyle>
-      <TitleStyle>
+      </label>
+      <label>
         Playlist description:&nbsp;
         <textarea
           rows={
@@ -108,7 +92,7 @@ export default function Results() {
           value={playlistDescription}
           onChange={handleDescriptionChange}
         />
-      </TitleStyle>
+      </label>
       <PlaylistCreationButton
         selectedTracks={selectedTracks}
         duration={selectedTracksDuration}
