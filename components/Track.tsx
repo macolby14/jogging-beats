@@ -19,7 +19,7 @@ const selectedStyle = css`
 const notSelectedStyle = css`
   background-color: rgba(80, 37, 18, 0.2);
   opacity: 0.6;
-  border: 1px solid background-color: rgba(80, 37, 18, 1);
+  border: 1px solid rgba(80, 37, 18, 1);
 `;
 
 const TrackStyle = styled.div<TrackStyleProps>`
