@@ -21,12 +21,6 @@ const PaceOptionsStyle = styled.div`
     align-items: center;
     justify-content: flex-end;
   }
-
-  input[type="submit"] {
-    grid-column: auto / span 2;
-    margin: auto;
-    width: 200px;
-  }
 `;
 
 interface PaceOptionsProps {
@@ -60,16 +54,76 @@ function PaceOptions({
           setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
         }
       />
-      <input type="submit" value="Search" />
     </PaceOptionsStyle>
   );
 }
+
+function GenreOptions() {
+  return <div>Genre Options</div>;
+}
+
+const OptionsSelectBarStyle = styled.ul`
+  li {
+    display: inline;
+    text-decoration: none;
+    padding: 16px;
+  }
+`;
+
+interface OptionsSelectBarProps {
+  setShownOption: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function OptionsSelectBar({ setShownOption }: OptionsSelectBarProps) {
+  return (
+    <OptionsSelectBarStyle>
+      <li>
+        <button
+          type="button"
+          onClick={() => {
+            setShownOption("PACE");
+          }}
+        >
+          Pace
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          onClick={() => {
+            setShownOption("GENRE");
+          }}
+        >
+          Genre
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          onClick={() => {
+            setShownOption("SIMILAR_SONGS");
+          }}
+        >
+          Similar Songs
+        </button>
+      </li>
+    </OptionsSelectBarStyle>
+  );
+}
+
+const FormStyle = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+`;
 
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [bpm, setBpm] = useState(170);
   const [targetDuration, setTargetDuration] = useState(10 * 60 * 1000);
+  const [shownOption, setShownOption] = useState("pace");
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
@@ -77,15 +131,32 @@ export default function Home() {
     router.push(`/results?bpm=${bpm}&targetDuration=${targetDuration}`);
   }
 
+  let displayOption: any = null;
+  switch (shownOption) {
+    case "GENRE":
+      displayOption = <GenreOptions />;
+      break;
+    case "SIMILAR_SONGS":
+      displayOption = <div>Similar Songs</div>;
+      break;
+    case "PACE":
+    default:
+      displayOption = (
+        <PaceOptions
+          bpm={bpm}
+          setBpm={setBpm}
+          targetDuration={targetDuration}
+          setTargetDuration={setTargetDuration}
+        />
+      );
+  }
+
   const inputForm = (
-    <form onSubmit={handleSubmission}>
-      <PaceOptions
-        bpm={bpm}
-        setBpm={setBpm}
-        targetDuration={targetDuration}
-        setTargetDuration={setTargetDuration}
-      />
-    </form>
+    <FormStyle onSubmit={handleSubmission}>
+      <OptionsSelectBar setShownOption={setShownOption} />
+      {displayOption}
+      <input type="submit" value="Search" />
+    </FormStyle>
   );
 
   const displayComp = loading ? <div>Loading...</div> : inputForm;
