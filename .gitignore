@@ -33,3 +33,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# extra for scripts for miscellaneous
+extra/
