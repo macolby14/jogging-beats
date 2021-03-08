@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { TokenContext } from "../../components/context/TokenProvider";
 import { TrackData } from "../../components/Track";
 import { authFetch } from "../authFetch";
+import { getRandomSpotifyTrackIds } from "../getRandomSpotifyTrackIds";
 
 interface Props {
   bpmParam: string | string[] | undefined;
@@ -19,15 +20,19 @@ export function useLoadSongsFromParams({
   setTracks,
 }: Props) {
   const token = useContext(TokenContext);
+  const bpmTolerance = 3;
 
   async function fetchSongs(bpmAsNum: number): Promise<any> {
     if (bpmAsNum === undefined || Array.isArray(bpmAsNum)) {
       throw new Error("Fetching songs with invalid bpm");
     }
+
+    const seedTrackString = getRandomSpotifyTrackIds(4).join(",");
+
     const results = await authFetch({
-      url: `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&target_tempo=${bpmAsNum}&min_tempo=${
-        bpmAsNum - 5
-      }&max_tempo=${bpmAsNum + 5}`,
+      url: `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out&seed_tracks=${seedTrackString}&min_popularity=25&min_energy=0.25&target_tempo=${bpmAsNum}&min_tempo=${
+        bpmAsNum - bpmTolerance
+      }&max_tempo=${bpmAsNum + bpmTolerance}`,
       token,
     }).then((response) => response.json());
     return results;
