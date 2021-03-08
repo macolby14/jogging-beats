@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { TokenContext } from "../../components/context/TokenProvider";
 import { TrackData } from "../../components/Track";
 import { authFetch } from "../authFetch";
-import { getRandomSpotifyTrackIds } from "../getRandomSpotifyTrackIds";
+import { getRandomSpotifyTrackIds } from "./getRandomSpotifyTrackIds";
 
 interface Props {
   bpmParam: string | string[] | undefined;
