@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { GenreOptions } from "../components/Options/GenreOptions";
 import { OptionsSelectBar } from "../components/Options/OptionsSelectBar";
 import { PaceOptions } from "../components/Options/PaceOptions";
+import { Spacer } from "../components/Spacer";
 
 const Style = styled.div`
   width: 100%;
@@ -18,6 +19,7 @@ const FormStyle = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  border: 1px solid var(--dark);
 `;
 
 export default function Home() {
@@ -55,9 +57,11 @@ export default function Home() {
 
   const inputForm = (
     <FormStyle onSubmit={handleSubmission}>
+      <Spacer size={8} />
       <OptionsSelectBar setShownOption={setShownOption} />
       {displayOption}
       <input type="submit" value="Search" />
+      <Spacer size={16} />
     </FormStyle>
   );
 
