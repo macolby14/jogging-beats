@@ -8,6 +8,30 @@ const PaceOptionsStyle = styled.div`
   column-gap: 16px;
   row-gap: 16px;
 
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    /* top: 100%; */
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+
+  .dropdown-content div:hover {
+    background-color: #888888;
+    cursor: pointer;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
   label {
     display: flex;
     align-items: center;
@@ -30,7 +54,16 @@ export function PaceOptions({
 }: PaceOptionsProps) {
   return (
     <PaceOptionsStyle>
-      <label htmlFor="bpm">Beats per Minute</label>
+      <label htmlFor="bpm">
+        <span className="dropdown">
+          Beats per Minute
+          <div className="dropdown-content">
+            <div>Running Pace</div>
+            <div>Cycling Pace</div>
+            <div>Workout Intensity</div>
+          </div>
+        </span>
+      </label>
       <input
         type="number"
         name="bpm"
