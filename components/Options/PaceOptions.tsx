@@ -1,4 +1,4 @@
-import React from "react"; // eslint-disable-line no-use-before-define
+import React, { useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import { Spacer } from "../Spacer";
 
@@ -23,7 +23,6 @@ const PaceOptionsStyle = styled.div`
   .dropdown-selected {
     border: var(--basic-border);
     padding: var(--p-top-bottom) var(--p-left-right);
-    width: 100%;
     box-shadow: var(--basic-shadow);
   }
 
@@ -32,7 +31,6 @@ const PaceOptionsStyle = styled.div`
     position: absolute;
     top: calc(100% + var(--p-top-bottom));
     left: 0%;
-    width: 100%;
     box-sizing: border-box;
     background-color: #f9f9f9;
     min-width: 160px;
@@ -44,7 +42,7 @@ const PaceOptionsStyle = styled.div`
     }
 
     div {
-      width: 100%;
+      white-space: nowrap;
       padding: var(--p-top-bottom) var(--p-left-right);
       border: var(--basic-border);
       border-top: none;
@@ -87,24 +85,48 @@ interface PaceOptionsProps {
   setTargetDuration: React.Dispatch<React.SetStateAction<number>>;
 }
 
+type OptionsType = "BPM" | "RUNNING" | "CYCLING" | "INTENSITY";
+
+const optionToStringMap: Record<OptionsType, string> = {
+  RUNNING: "Running Pace (min/mile)",
+  CYCLING: "Cycling Pace (min/mile)",
+  BPM: "Beats Per Minute",
+  INTENSITY: "Workout Intensity",
+};
+
 export function PaceOptions({
   bpm,
   setBpm,
   targetDuration,
   setTargetDuration,
 }: PaceOptionsProps) {
+  const [selectedOption, setSelectedOption] = useState<OptionsType>("RUNNING");
+
+  function getNotSelectedOptions() {
+    const mapCopy = { ...optionToStringMap };
+    delete mapCopy[selectedOption];
+    return Object.entries(mapCopy).map(([key, val]) => (
+      <div
+        key={key}
+        role="button"
+        onClick={() => {
+          setSelectedOption(key as OptionsType);
+        }}
+      >
+        {val}
+      </div>
+    ));
+  }
+
   return (
     <PaceOptionsStyle>
       <label htmlFor="bpm">
         <span className="dropdown">
           <span className="dropdown-selected">
-            Running Pace (min/mile) <span className="dropdown-arrow">▼</span>
+            {optionToStringMap[selectedOption]}
+            <span className="dropdown-arrow">▼</span>
           </span>
-          <div className="dropdown-content">
-            <div>Beats Per Minute</div>
-            <div>Cycling Pace (min/mile)</div>
-            <div>Workout Intensity</div>
-          </div>
+          <div className="dropdown-content">{getNotSelectedOptions()}</div>
         </span>
       </label>
       <input
