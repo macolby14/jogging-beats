@@ -8,21 +8,50 @@ const PaceOptionsStyle = styled.div`
   column-gap: 16px;
   row-gap: 16px;
 
+  --p-top-bottom: 8px;
+  --p-left-right: 4px;
+  --basic-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --basic-border: 1px solid rgba(0, 0, 0, 0.2);
+
   .dropdown {
     position: relative;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+    /* border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 8px 4px; */
+  }
+
+  .dropdown-selected {
+    border: var(--basic-border);
+    padding: var(--p-top-bottom) var(--p-left-right);
+    width: 100%;
+    box-shadow: var(--basic-shadow);
   }
 
   .dropdown-content {
     display: none;
     position: absolute;
-    /* top: 100%; */
+    top: calc(100% + var(--p-top-bottom));
+    left: 0%;
+    width: 100%;
+    box-sizing: border-box;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    padding: 12px 16px;
+    box-shadow: var(--basic-shadow);
     z-index: 1;
+
+    div:first-child {
+      border-top: var(--basic-border);
+    }
+
+    div {
+      width: 100%;
+      padding: var(--p-top-bottom) var(--p-left-right);
+      border: var(--basic-border);
+      border-top: none;
+    }
   }
 
+  .dropdown-selected:hover,
   .dropdown-content div:hover {
     background-color: #888888;
     cursor: pointer;
@@ -56,11 +85,11 @@ export function PaceOptions({
     <PaceOptionsStyle>
       <label htmlFor="bpm">
         <span className="dropdown">
-          Beats per Minute
+          <span className="dropdown-selected">Beats per Minute</span>
           <div className="dropdown-content">
-            <div>Running Pace</div>
-            <div>Cycling Pace</div>
-            <div>Workout Intensity</div>
+            <div>A</div>
+            <div>a</div>
+            <div>W</div>
           </div>
         </span>
       </label>
