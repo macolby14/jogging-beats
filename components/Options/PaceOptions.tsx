@@ -53,12 +53,24 @@ const PaceOptionsStyle = styled.div`
 
   .dropdown-selected:hover,
   .dropdown-content div:hover {
-    background-color: #888888;
     cursor: pointer;
+    border: 3px solid var(--light);
+  }
+
+  .dropdown-selected:hover + .dropdown-content div:first-child {
+    border-top: 3px solid var(--light);
   }
 
   .dropdown:hover .dropdown-content {
     display: block;
+  }
+
+  .dropdown-arrow {
+    transition: opacity 250ms ease;
+  }
+
+  .dropdown:hover .dropdown-arrow {
+    opacity: 0;
   }
 
   label {
@@ -85,11 +97,13 @@ export function PaceOptions({
     <PaceOptionsStyle>
       <label htmlFor="bpm">
         <span className="dropdown">
-          <span className="dropdown-selected">Beats per Minute</span>
+          <span className="dropdown-selected">
+            Running Pace (min/mile) <span className="dropdown-arrow">▼</span>
+          </span>
           <div className="dropdown-content">
-            <div>A</div>
-            <div>a</div>
-            <div>W</div>
+            <div>Beats Per Minute</div>
+            <div>Cycling Pace (min/mile)</div>
+            <div>Workout Intensity</div>
           </div>
         </span>
       </label>
