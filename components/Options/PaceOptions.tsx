@@ -62,15 +62,6 @@ export function PaceOptions({
   const [runningSec, setRunningSec] = useState("0");
   const [intensity, setIntensity] = useState("LOW");
 
-  function handleRunningTimeChangeMin(e: React.ChangeEvent<HTMLInputElement>) {
-    setRunningMin(e.target.value);
-    let newMin = Number.parseInt(e.target.value, 10);
-    let oldSec = Number.parseInt(runningSec, 10);
-    newMin = Number.isNaN(newMin) ? 0 : newMin;
-    oldSec = Number.isNaN(oldSec) ? 0 : oldSec;
-    setBpm(`${runningTimeToBpm(newMin, oldSec)}`);
-  }
-
   function bpmChange(inputBpm: string) {
     setBpm(inputBpm);
     let newBpm = parseInt(inputBpm, 10);
@@ -81,16 +72,30 @@ export function PaceOptions({
     setIntensity(bpmToIntensity(newBpm));
   }
 
+  function handleBpmChange(e: React.ChangeEvent<HTMLInputElement>) {
+    bpmChange(e.target.value);
+  }
+
+  function handleRunningTimeChangeMin(e: React.ChangeEvent<HTMLInputElement>) {
+    setRunningMin(e.target.value);
+    let newMin = Number.parseInt(e.target.value, 10);
+    let oldSec = Number.parseInt(runningSec, 10);
+    newMin = Number.isNaN(newMin) ? 0 : newMin;
+    oldSec = Number.isNaN(oldSec) ? 0 : oldSec;
+    const newBpm = runningTimeToBpm(newMin, oldSec);
+    setBpm(`${newBpm}`);
+    setIntensity(bpmToIntensity(newBpm));
+  }
+
   function handleRunningTimeChangeSec(e: React.ChangeEvent<HTMLInputElement>) {
+    setRunningSec(e.target.value);
     let newSec = Number.parseInt(e.target.value, 10);
     let oldMin = Number.parseInt(runningSec, 10);
     newSec = Number.isNaN(newSec) ? 0 : newSec;
     oldMin = Number.isNaN(oldMin) ? 0 : oldMin;
-    bpmChange(`${runningTimeToBpm(oldMin, newSec)}`);
-  }
-
-  function handleBpmChange(e: React.ChangeEvent<HTMLInputElement>) {
-    bpmChange(e.target.value);
+    const newBpm = runningTimeToBpm(oldMin, newSec);
+    setBpm(`${newBpm}`);
+    setIntensity(bpmToIntensity(newBpm));
   }
 
   function handleIntensityChange(e: React.ChangeEvent<HTMLSelectElement>) {
