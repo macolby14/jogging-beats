@@ -6,7 +6,6 @@ import {
   intensityToBpm,
   runningTimeToBpm,
 } from "../../utils/options/paceToBpm";
-import { Spacer } from "../Spacer";
 
 const PaceOptionsStyle = styled.div`
   display: grid;

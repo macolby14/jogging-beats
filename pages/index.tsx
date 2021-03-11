@@ -20,7 +20,15 @@ const FormStyle = styled.form`
   align-items: center;
   gap: 16px;
   border: 1px solid var(--dark);
-  width: 80vw;
+  width: 60vw;
+
+  @media (max-width: 1000px) {
+    width: 80vw;
+  }
+
+  @media (max-width: 768px) {
+    width: 90vw;
+  }
 `;
 
 export default function Home() {
@@ -58,7 +66,6 @@ export default function Home() {
 
   const inputForm = (
     <FormStyle onSubmit={handleSubmission}>
-      <Spacer size={8} />
       <OptionsSelectBar setShownOption={setShownOption} />
       {displayOption}
       <input type="submit" value="Search" />
