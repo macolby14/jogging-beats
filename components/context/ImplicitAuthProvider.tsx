@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"; // eslint-disable-line no-use-before-define
-import { authFetch } from "../../utilities/authFetch";
+import { authFetch } from "../../utils/authFetch";
 
 export const ImplicitAuthContext = React.createContext<{
   userToken: string;

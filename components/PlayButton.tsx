@@ -13,6 +13,7 @@ export const PlayButton = styled.button<PlayButtonStyles>`
   gap: ${(props) => `${props.gap}px`};
   color: inherit;
   background-color: inherit;
+  box-shadow: none;
 
   :hover {
     background-color: inherit;
@@ -21,5 +22,9 @@ export const PlayButton = styled.button<PlayButtonStyles>`
   :disabled {
     color: inherit;
     cursor: not-allowed;
+  }
+
+  :active {
+    box-shadow: none;
   }
 `;

@@ -1,16 +1,13 @@
-import React, { useContext, useEffect, useState } from "react"; // eslint-disable-line no-use-before-define
+import React, { useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import { useRouter } from "next/dist/client/router";
-import { authFetch } from "../utilities/authFetch";
-import { durationFormat } from "../utilities/durationFormat";
+import { durationFormat } from "../utils/durationFormat";
 import { Heading } from "../components/Heading";
 import { Track, TrackData } from "../components/Track";
-import { useSelectedTracks } from "../components/Results/useSelectedTracks";
-import { useTempos } from "../components/Results/useTempos";
+import { useSelectedTracks } from "../utils/results/useSelectedTracks";
+import { useTempos } from "../utils/results/useTempos";
+import { useLoadSongsFromParams } from "../utils/results/useLoadSongsFromParams";
 import { PlaylistCreationButton } from "../components/PlaylistCreationButton";
-import { TokenContext } from "../components/context/TokenProvider";
-
-/* eslint-disable camelcase */
 
 const ResultsGrid = styled.div`
   display: flex;
@@ -19,26 +16,13 @@ const ResultsGrid = styled.div`
   gap: 16px;
 `;
 
-const TitleStyle = styled.label`
-  font-size: var(--text-size-4);
-  margin: auto;
-
-  input[type="text"] {
-    font: inherit;
-    font-size: var(--text-size-4);
-  }
-
-  textarea {
-    vertical-align: top;
-    font: inherit;
-    font-size: var(--text-size-5);
-  }
-`;
-
 export default function Results() {
   const router = useRouter();
-  const { bpm: bpmParam, targetDuration: targetDurationParam } = router.query;
-  const token = useContext(TokenContext);
+  const {
+    bpm: bpmParam,
+    targetDuration: targetDurationParam,
+    allowExplicit: allowExplicitParam,
+  } = router.query;
   const [tracks, setTracks] = useState<TrackData[]>([]);
   const [targetDuration, setTargetDuration] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -50,40 +34,14 @@ export default function Results() {
   );
   const { selectedTracks, selectedTracksDuration, setSelectedHandler} = useSelectedTracks({ tracks, targetDuration }); // prettier-ignore
   const { tempos } = useTempos({ tracks });
-
-  async function fetchSongs(bpmAsNum: number): Promise<any> {
-    if (bpmAsNum === undefined || Array.isArray(bpmAsNum)) {
-      throw new Error("Fetching songs with invalid bpm");
-    }
-    const results = await authFetch({
-      url: `https://api.spotify.com/v1/recommendations?market=US&seed_genres=work-out,pop,power-pop&target_tempo=${bpmAsNum}&min_tempo=${
-        bpmAsNum - 5
-      }&max_tempo=${bpmAsNum + 5}`,
-      token,
-    }).then((response) => response.json());
-    return results;
-  }
-
-  useEffect(() => {
-    if (
-      bpmParam === undefined ||
-      Array.isArray(bpmParam) ||
-      targetDurationParam === undefined ||
-      Array.isArray(targetDurationParam) ||
-      !token
-    ) {
-      // Nothing - need to return from useEffect without cleanup
-    } else {
-      const bpmAsNum = parseInt(bpmParam, 10);
-      const targetDurationAsNum = parseInt(targetDurationParam, 10);
-      setTargetDuration(targetDurationAsNum);
-      setLoading(true);
-      fetchSongs(bpmAsNum).then(({ tracks: results }) => {
-        setTracks(results);
-        setLoading(false);
-      });
-    }
-  }, [bpmParam, targetDurationParam, token]);
+  useLoadSongsFromParams({
+    bpmParam,
+    targetDurationParam,
+    allowExplicitParam,
+    setTargetDuration,
+    setLoading,
+    setTracks,
+  });
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPlaylistTitle(e.target.value);
@@ -121,11 +79,11 @@ export default function Results() {
 
   return (
     <>
-      <TitleStyle>
+      <label>
         Playlist title:&nbsp;
         <input type="text" value={playlistTitle} onChange={handleTitleChange} />
-      </TitleStyle>
-      <TitleStyle>
+      </label>
+      <label>
         Playlist description:&nbsp;
         <textarea
           rows={
@@ -139,7 +97,7 @@ export default function Results() {
           value={playlistDescription}
           onChange={handleDescriptionChange}
         />
-      </TitleStyle>
+      </label>
       <PlaylistCreationButton
         selectedTracks={selectedTracks}
         duration={selectedTracksDuration}

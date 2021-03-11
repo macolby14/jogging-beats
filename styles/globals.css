@@ -55,17 +55,12 @@ a {
   text-decoration: none;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
 }
-
-/* button {
-  font: inherit;
-  background-color: inherit;
-  border: none;
-  cursor: pointer;
-} */
 
 button,
 .button,
@@ -78,21 +73,62 @@ input[type="submit"] {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: var(--text-size-4);
   cursor: pointer;
   font: inherit;
   border-radius: 4px;
   transition-duration: 0.4s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 button:hover,
 .button:hover,
 input[type="submit"]:hover {
   background-color: var(--light);
+  box-shadow: none;
 }
 
 button,
 .button,
 input[type="submit"]:focus {
   outline: none;
+}
+
+button:active,
+.button:active,
+input[type="submit"]:active {
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+label {
+  font-size: var(--text-size-4);
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  font: inherit;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: var(--text-size-4);
+}
+
+textarea {
+  vertical-align: top;
+}
+
+/* Remove arrows for input[type="number"] */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }

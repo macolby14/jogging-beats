@@ -1,6 +1,10 @@
 import { useRouter } from "next/dist/client/router";
 import React, { FormEvent, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
+import { GenreOptions } from "../components/Options/GenreOptions";
+import { OptionsSelectBar } from "../components/Options/OptionsSelectBar";
+import { PaceOptions } from "../components/Options/PaceOptions";
+import { Spacer } from "../components/Spacer";
 
 const Style = styled.div`
   width: 100%;
@@ -11,56 +15,70 @@ const Style = styled.div`
 `;
 
 const FormStyle = styled.form`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 16px;
-  row-gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--dark);
+  width: 60vw;
 
-  input[type="number"] {
-    background-color: inherit;
+  @media (max-width: 1000px) {
+    width: 80vw;
   }
 
-  input[type="submit"] {
-    grid-column: auto / span 2;
-    margin: auto;
-    width: 200px;
+  @media (max-width: 768px) {
+    width: 90vw;
   }
 `;
 
 export default function Home() {
-  const [bpm, setBpm] = useState(170);
-  const [targetDuration, setTargetDuration] = useState(10 * 60 * 1000);
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [bpm, setBpm] = useState("160");
+  const [targetDuration, setTargetDuration] = useState(30 * 60 * 1000);
+  const [allowExplicit, setAllowExplict] = useState(false);
+  const [shownOption, setShownOption] = useState("PACE");
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
-    router.push(`/results?bpm=${bpm}&targetDuration=${targetDuration}`);
+    router.push(
+      `/results?bpm=${bpm}&targetDuration=${targetDuration}&allowExplicit=${allowExplicit}`
+    );
+  }
+
+  let displayOption: any = null;
+  switch (shownOption) {
+    case "GENRE":
+      displayOption = <GenreOptions />;
+      break;
+    case "SIMILAR_SONGS":
+      displayOption = <div>Similar Songs</div>;
+      break;
+    case "PACE":
+    default:
+      displayOption = (
+        <PaceOptions
+          bpm={bpm}
+          setBpm={setBpm}
+          targetDuration={targetDuration}
+          setTargetDuration={setTargetDuration}
+          allowExplicit={allowExplicit}
+          setAllowExplicit={setAllowExplict}
+        />
+      );
   }
 
   const inputForm = (
-    <>
-      <FormStyle onSubmit={handleSubmission}>
-        <label htmlFor="bpm">Beats per Minute</label>
-        <input
-          type="number"
-          name="bpm"
-          value={bpm}
-          onChange={(e) => setBpm(parseInt(e.target.value, 10))}
-        />
-        <label htmlFor="workoutTime">Workout Time (min)</label>
-        <input
-          type="number"
-          name="workoutTime"
-          value={Math.floor(targetDuration / 1000 / 60)}
-          onChange={(e) =>
-            setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
-          }
-        />
-        <input type="submit" value="Search" />
-      </FormStyle>
-    </>
+    <FormStyle onSubmit={handleSubmission}>
+      <OptionsSelectBar
+        shownOption={shownOption}
+        setShownOption={setShownOption}
+      />
+      {displayOption}
+      <input type="submit" value="Search" />
+      <Spacer size={16} />
+    </FormStyle>
   );
 
   const displayComp = loading ? <div>Loading...</div> : inputForm;
