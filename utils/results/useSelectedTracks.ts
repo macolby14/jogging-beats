@@ -18,10 +18,8 @@ export function useSelectedTracks({
     let length = 0;
     const newSelectedTracks: typeof selectedTracks = {};
 
-    const bufferTime = 1 * 60 * 1000; // 1 min buffer
-
     for (let i = 0; i < tracks.length; i += 1) {
-      if (length + tracks[i].duration_ms >= targetDuration + bufferTime) {
+      if (length > targetDuration) {
         break;
       }
       newSelectedTracks[tracks[i].id] = tracks[i];
