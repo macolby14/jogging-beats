@@ -1,6 +1,9 @@
 import React, { useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
-import { runningTimeToBpm } from "../../utils/options/paceToBpm";
+import {
+  bpmToRunningTime,
+  runningTimeToBpm,
+} from "../../utils/options/paceToBpm";
 import { Spacer } from "../Spacer";
 
 const PaceOptionsStyle = styled.div`
@@ -40,8 +43,8 @@ const FlexRowStyle = styled.div`
 type OptionType = "RUNNING" | "BPM" | "INTENSITY";
 
 interface PaceOptionsProps {
-  bpm: number;
-  setBpm: React.Dispatch<React.SetStateAction<number>>;
+  bpm: string;
+  setBpm: React.Dispatch<React.SetStateAction<string>>;
   targetDuration: number;
   setTargetDuration: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -63,7 +66,7 @@ export function PaceOptions({
     let oldSec = Number.parseInt(runningSec, 10);
     newMin = Number.isNaN(newMin) ? 0 : newMin;
     oldSec = Number.isNaN(oldSec) ? 0 : oldSec;
-    setBpm(runningTimeToBpm(newMin, oldSec));
+    setBpm(`${runningTimeToBpm(newMin, oldSec)}`);
   }
 
   function handleRunningTimeChangeSec(e: React.ChangeEvent<HTMLInputElement>) {
@@ -72,7 +75,16 @@ export function PaceOptions({
     let oldMin = Number.parseInt(runningSec, 10);
     newSec = Number.isNaN(newSec) ? 0 : newSec;
     oldMin = Number.isNaN(oldMin) ? 0 : oldMin;
-    setBpm(runningTimeToBpm(oldMin, newSec));
+    setBpm(`${runningTimeToBpm(oldMin, newSec)}`);
+  }
+
+  function handleBpmChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setBpm(e.target.value);
+    let newBpm = Number.parseInt(e.target.value, 10);
+    newBpm = Number.isNaN(newBpm) ? 0 : newBpm;
+    const newTime = bpmToRunningTime(newBpm);
+    setRunningMin(`${Math.trunc(newTime / 60)}`);
+    setRunningSec(`${Math.round(newTime % 60)}`);
   }
 
   function optionChangeHandler(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -118,7 +130,7 @@ export function PaceOptions({
             type="number"
             name="pace"
             value={bpm}
-            onChange={(e) => setBpm(parseInt(e.target.value, 10))}
+            onChange={handleBpmChange}
           />
         );
       default:

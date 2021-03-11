@@ -25,7 +25,7 @@ const FormStyle = styled.form`
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [bpm, setBpm] = useState(170);
+  const [bpm, setBpm] = useState("170");
   const [targetDuration, setTargetDuration] = useState(10 * 60 * 1000);
   const [shownOption, setShownOption] = useState("pace");
 

@@ -16,3 +16,10 @@ export function runningTimeToBpm(min: number, second: number) {
   const bpm = slope * (time - runningSlowTime) + runningSlowBpm;
   return Math.round(bpm);
 }
+
+export function bpmToRunningTime(bpm: number) {
+  const slope =
+    (runningFastTime - runningSlowTime) / (runningFastBpm - runningSlowBpm);
+  const time = slope * (bpm - runningSlowBpm) + runningSlowTime;
+  return time;
+}
