@@ -37,7 +37,7 @@ const FlexRowStyle = styled.div`
   }
 `;
 
-type OptionType = "RUNNING" | "CYCLING" | "BPM" | "INTENSITY";
+type OptionType = "RUNNING" | "BPM" | "INTENSITY";
 
 interface PaceOptionsProps {
   bpm: number;
@@ -55,8 +55,6 @@ export function PaceOptions({
   const [selectedOption, setSelectedOption] = useState<OptionType>("RUNNING");
   const [runningMin, setRunningMin] = useState("7");
   const [runningSec, setRunningSec] = useState("0");
-  const [cyclingMin, setCyclingMin] = useState(0);
-  const [cyclingSec, setCyclingSec] = useState(0);
   const [intensity, setIntensity] = useState("LOW");
 
   function handleRunningTimeChangeMin(e: React.ChangeEvent<HTMLInputElement>) {
@@ -83,7 +81,6 @@ export function PaceOptions({
 
   function paceInputOptions() {
     switch (selectedOption) {
-      case "CYCLING":
       case "RUNNING":
         return (
           <FlexRowStyle>
@@ -138,7 +135,6 @@ export function PaceOptions({
           onChange={optionChangeHandler}
         >
           <option value="RUNNING">Running Pace</option>
-          <option value="CYCLING">Cycling Pace</option>
           <option value="BPM">Beats Per Minute</option>
           <option value="INTENSITY">Workout Intensity</option>
         </select>

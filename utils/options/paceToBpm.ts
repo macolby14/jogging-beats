@@ -4,8 +4,8 @@
     171 bpm is 6.43736 min/mil
 */
 
-const runningFastTime = 386.2416;
-const runningSlowTime = 965.604;
+const runningFastTime = 6 * 60;
+const runningSlowTime = 16 * 60;
 const runningFastBpm = 171;
 const runningSlowBpm = 150;
 
