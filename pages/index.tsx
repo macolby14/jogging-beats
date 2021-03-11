@@ -44,17 +44,16 @@ export default function Home() {
     false,
     "allowExplicit"
   );
-  const [selectedGenres, setSelectedGenres] = useStickyState(
-    new Set<string>(),
-    "selectedGenres"
-  );
+  const [selectedGenres, setSelectedGenres] = useStickyState<
+    Record<string, boolean>
+  >({}, "selectedGenres");
   const [shownOption, setShownOption] = useStickyState("PACE", "shownOption");
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     router.push(
-      `/results?bpm=${bpm}&targetDuration=${targetDuration}&allowExplicit=${allowExplicit}&selectedGenres=${Array.from(
+      `/results?bpm=${bpm}&targetDuration=${targetDuration}&allowExplicit=${allowExplicit}&selectedGenres=${Object.keys(
         selectedGenres
       ).join(",")}`
     );

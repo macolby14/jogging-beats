@@ -25,7 +25,7 @@ export function useLoadSongsFromParams({
   setTracks,
 }: Props) {
   const token = useContext(TokenContext);
-  const bpmTolerance = 3;
+  const bpmTolerance = 5;
 
   async function fetchSongs(
     bpmAsNum: number,
@@ -38,15 +38,16 @@ export function useLoadSongsFromParams({
 
     const selectedGenresUsed = getNRandomArrayElements<string>(
       selectedGenres,
-      5
-    );
+      3
+    ).concat("work-out");
+
     const selectedGenresString = selectedGenresUsed.join(",");
 
-    // const seedTrackString = getRandomSpotifyTrackIds(
-    //   5 - selectedGenresUsed.length
-    // ).join(",");
+    const seedTrackString = getRandomSpotifyTrackIds(
+      5 - selectedGenresUsed.length
+    ).join(",");
 
-    const seedTrackString = "";
+    // const seedTrackString = "";
 
     const results = await authFetch({
       url: `https://api.spotify.com/v1/recommendations?market=US&seed_genres=${selectedGenresString}&seed_tracks=${seedTrackString}&min_popularity=25&min_energy=0.25&target_tempo=${bpmAsNum}&min_tempo=${

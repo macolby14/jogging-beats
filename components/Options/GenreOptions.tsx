@@ -28,8 +28,10 @@ const GenreStyle = styled.button`
 `;
 
 interface GenreOptionProps {
-  selectedGenres: Set<string>;
-  setSelectedGenres: React.Dispatch<React.SetStateAction<Set<string>>>;
+  selectedGenres: Record<string, boolean>;
+  setSelectedGenres: React.Dispatch<
+    React.SetStateAction<Record<string, boolean>>
+  >;
 }
 
 export function GenreOptions({
@@ -43,16 +45,22 @@ export function GenreOptions({
       {genres.map((genre) => (
         <GenreStyle
           key={genre}
-          className={selectedGenres.has(genre) ? "selected" : ""}
+          className={
+            Object.keys(selectedGenres).find(
+              (searchGenre) => searchGenre === genre
+            )
+              ? "selected"
+              : ""
+          }
           onClick={(e) => {
             e.preventDefault();
-            const newSet = new Set(selectedGenres);
-            if (newSet.has(genre)) {
-              newSet.delete(genre);
+            const newObj = { ...selectedGenres };
+            if (newObj[genre] !== undefined) {
+              delete newObj[genre];
             } else {
-              newSet.add(genre);
+              newObj[genre] = true;
             }
-            setSelectedGenres(newSet);
+            setSelectedGenres(newObj);
           }}
         >
           {genre}

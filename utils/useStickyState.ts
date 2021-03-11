@@ -5,7 +5,10 @@ Use local storage instead of global state for persisting some state between page
 
 import React from "react";
 
-export function useStickyState<T>(defaultValue: T, key: string) {
+export function useStickyState<T>(
+  defaultValue: T,
+  key: string
+): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [value, setValue] = React.useState(() => {
     if (typeof window === "undefined") {
       return defaultValue;
