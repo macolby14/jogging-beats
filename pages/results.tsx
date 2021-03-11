@@ -18,7 +18,11 @@ const ResultsGrid = styled.div`
 
 export default function Results() {
   const router = useRouter();
-  const { bpm: bpmParam, targetDuration: targetDurationParam } = router.query;
+  const {
+    bpm: bpmParam,
+    targetDuration: targetDurationParam,
+    allowExplicit: allowExplicitParam,
+  } = router.query;
   const [tracks, setTracks] = useState<TrackData[]>([]);
   const [targetDuration, setTargetDuration] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -33,6 +37,7 @@ export default function Results() {
   useLoadSongsFromParams({
     bpmParam,
     targetDurationParam,
+    allowExplicitParam,
     setTargetDuration,
     setLoading,
     setTracks,

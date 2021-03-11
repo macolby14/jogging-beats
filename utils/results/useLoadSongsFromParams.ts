@@ -7,6 +7,7 @@ import { getRandomSpotifyTrackIds } from "./getRandomSpotifyTrackIds";
 interface Props {
   bpmParam: string | string[] | undefined;
   targetDurationParam: string | string[] | undefined;
+  allowExplicitParam: string | string[] | undefined;
   setTargetDuration: React.Dispatch<React.SetStateAction<number>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setTracks: React.Dispatch<React.SetStateAction<TrackData[]>>;
@@ -15,6 +16,7 @@ interface Props {
 export function useLoadSongsFromParams({
   bpmParam,
   targetDurationParam,
+  allowExplicitParam,
   setTargetDuration,
   setLoading,
   setTracks,
@@ -22,7 +24,10 @@ export function useLoadSongsFromParams({
   const token = useContext(TokenContext);
   const bpmTolerance = 3;
 
-  async function fetchSongs(bpmAsNum: number): Promise<any> {
+  async function fetchSongs(
+    bpmAsNum: number,
+    allowExplicit: boolean
+  ): Promise<any> {
     if (bpmAsNum === undefined || Array.isArray(bpmAsNum)) {
       throw new Error("Fetching songs with invalid bpm");
     }
@@ -35,12 +40,22 @@ export function useLoadSongsFromParams({
       }&max_tempo=${bpmAsNum + bpmTolerance}`,
       token,
     }).then((response) => response.json());
-    return results;
+    console.log(allowExplicit);
+    const tracks = (results.tracks as TrackData[]).filter((track) => {
+      console.log(track);
+      if (!allowExplicit) {
+        return !track.explicit;
+      }
+      return true;
+    });
+    console.log(tracks);
+    return tracks;
   }
 
   useEffect(() => {
     if (
       bpmParam === undefined ||
+      allowExplicitParam === undefined ||
       Array.isArray(bpmParam) ||
       targetDurationParam === undefined ||
       Array.isArray(targetDurationParam) ||
@@ -50,12 +65,13 @@ export function useLoadSongsFromParams({
     } else {
       const bpmAsNum = parseInt(bpmParam, 10);
       const targetDurationAsNum = parseInt(targetDurationParam, 10);
+      const allowExplicit = allowExplicitParam === "true";
       setTargetDuration(targetDurationAsNum);
       setLoading(true);
-      fetchSongs(bpmAsNum).then(({ tracks: results }) => {
+      fetchSongs(bpmAsNum, allowExplicit).then((results) => {
         setTracks(results);
         setLoading(false);
       });
     }
-  }, [bpmParam, targetDurationParam, token]);
+  }, [bpmParam, targetDurationParam, allowExplicitParam, token]);
 }
