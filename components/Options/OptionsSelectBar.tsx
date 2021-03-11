@@ -32,6 +32,11 @@ const OptionsSelectBarStyle = styled.ul`
     background-color: var(--light);
     box-shadow: inset 0 2px rgba(0, 0, 0, 0.2);
   }
+
+  @media (max-width: 768px) {
+    font-size: var(--text-size-4);
+    padding-inline-start: 0;
+  }
 `;
 
 interface OptionsSelectBarProps {
