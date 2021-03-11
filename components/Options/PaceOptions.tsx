@@ -10,7 +10,7 @@ import { Spacer } from "../Spacer";
 
 const PaceOptionsStyle = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) 50px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 16px;
   row-gap: 16px;
   font-size: var(--text-size-4);
@@ -29,6 +29,14 @@ const PaceOptionsStyle = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 4px;
   }
 `;
 
@@ -175,7 +183,6 @@ export function PaceOptions({
         </select>
       </label>
       {paceInputOptions()}
-      <Spacer size={50} />
       <label htmlFor="workoutTime">Workout Time (min)</label>
       <input
         type="number"
@@ -185,7 +192,6 @@ export function PaceOptions({
           setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
         }
       />
-      <Spacer size={50} />
     </PaceOptionsStyle>
   );
 }
