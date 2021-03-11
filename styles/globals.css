@@ -73,7 +73,7 @@ input[type="submit"] {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: var(--text-size-4);
   cursor: pointer;
   font: inherit;
   border-radius: 4px;
@@ -106,7 +106,8 @@ label {
 
 input[type="text"],
 input[type="number"],
-textarea {
+textarea,
+select {
   font: inherit;
   width: 100%;
   padding: 12px 20px;
