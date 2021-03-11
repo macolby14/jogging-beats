@@ -5,6 +5,7 @@ import { GenreOptions } from "../components/Options/GenreOptions";
 import { OptionsSelectBar } from "../components/Options/OptionsSelectBar";
 import { PaceOptions } from "../components/Options/PaceOptions";
 import { Spacer } from "../components/Spacer";
+import { useStickyState } from "../utils/useStickyState";
 
 const Style = styled.div`
   width: 100%;
@@ -34,11 +35,20 @@ const FormStyle = styled.form`
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [bpm, setBpm] = useState("160");
-  const [targetDuration, setTargetDuration] = useState(30 * 60 * 1000);
-  const [allowExplicit, setAllowExplict] = useState(false);
-  const [selectedGenres, setSelectedGenres] = useState(new Set<string>());
-  const [shownOption, setShownOption] = useState("PACE");
+  const [bpm, setBpm] = useStickyState("160", "bpm");
+  const [targetDuration, setTargetDuration] = useStickyState(
+    30 * 60 * 1000,
+    "targetDuration"
+  );
+  const [allowExplicit, setAllowExplict] = useStickyState(
+    false,
+    "allowExplicit"
+  );
+  const [selectedGenres, setSelectedGenres] = useStickyState(
+    new Set<string>(),
+    "selectedGenres"
+  );
+  const [shownOption, setShownOption] = useStickyState("PACE", "shownOption");
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
