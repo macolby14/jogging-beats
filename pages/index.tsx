@@ -36,7 +36,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [bpm, setBpm] = useState("170");
   const [targetDuration, setTargetDuration] = useState(30 * 60 * 1000);
-  const [shownOption, setShownOption] = useState("pace");
+  const [shownOption, setShownOption] = useState("PACE");
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
@@ -66,7 +66,10 @@ export default function Home() {
 
   const inputForm = (
     <FormStyle onSubmit={handleSubmission}>
-      <OptionsSelectBar setShownOption={setShownOption} />
+      <OptionsSelectBar
+        shownOption={shownOption}
+        setShownOption={setShownOption}
+      />
       {displayOption}
       <input type="submit" value="Search" />
       <Spacer size={16} />

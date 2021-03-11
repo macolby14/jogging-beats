@@ -27,16 +27,26 @@ const OptionsSelectBarStyle = styled.ul`
   li:hover {
     background-color: var(--light);
   }
+
+  .selected {
+    background-color: var(--light);
+    box-shadow: inset 0 2px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 interface OptionsSelectBarProps {
+  shownOption: string;
   setShownOption: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function OptionsSelectBar({ setShownOption }: OptionsSelectBarProps) {
+export function OptionsSelectBar({
+  shownOption,
+  setShownOption,
+}: OptionsSelectBarProps) {
   return (
     <OptionsSelectBarStyle>
       <li
+        className={shownOption === "PACE" ? "selected" : ""}
         onClick={() => {
           setShownOption("PACE");
         }}
@@ -44,6 +54,7 @@ export function OptionsSelectBar({ setShownOption }: OptionsSelectBarProps) {
         Pace
       </li>
       <li
+        className={shownOption === "GENRE" ? "selected" : ""}
         onClick={() => {
           setShownOption("GENRE");
         }}
@@ -51,6 +62,7 @@ export function OptionsSelectBar({ setShownOption }: OptionsSelectBarProps) {
         Genre
       </li>
       <li
+        className={shownOption === "SIMILAR_SONGS" ? "selected" : ""}
         onClick={() => {
           setShownOption("SIMILAR_SONGS");
         }}
