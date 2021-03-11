@@ -84,9 +84,9 @@ export function PaceOptions({
   setAllowExplicit,
 }: PaceOptionsProps) {
   const [selectedOption, setSelectedOption] = useState<OptionType>("RUNNING");
-  const [runningMin, setRunningMin] = useState("7");
-  const [runningSec, setRunningSec] = useState("0");
-  const [intensity, setIntensity] = useState("LOW");
+  const [runningMin, setRunningMin] = useState("11");
+  const [runningSec, setRunningSec] = useState("00");
+  const [intensity, setIntensity] = useState("MODERATE");
 
   function bpmChange(inputBpm: string) {
     setBpm(inputBpm);
