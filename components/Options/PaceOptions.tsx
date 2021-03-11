@@ -87,6 +87,30 @@ export function PaceOptions({
     setRunningSec(`${Math.round(newTime % 60)}`);
   }
 
+  function handleIntensityChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setIntensity(e.target.value);
+    switch (e.target.value) {
+      case "LOW":
+        setBpm("150");
+        break;
+      case "MODERATE_LOW":
+        setBpm("155");
+        break;
+      case "MODERATE":
+        setBpm("160");
+        break;
+      case "MODERATE_HIGH":
+        setBpm("165");
+        break;
+      case "HIGH":
+        setBpm("170");
+        break;
+      default:
+        setBpm("150");
+        break;
+    }
+  }
+
   function optionChangeHandler(e: React.ChangeEvent<HTMLSelectElement>) {
     setSelectedOption(e.target.value as OptionType);
   }
@@ -116,8 +140,13 @@ export function PaceOptions({
         );
       case "INTENSITY":
         return (
-          <select name="intensity" id="intensity">
-            <option value="LOW">Relaxed</option>
+          <select
+            name="intensity"
+            id="intensity"
+            onChange={handleIntensityChange}
+            value={intensity}
+          >
+            <option value="LOW">Low</option>
             <option value="MODERATE_LOW">Moderate Low</option>
             <option value="MODERATE">Moderate</option>
             <option value="MODERATE_HIGH">Moderate High</option>
