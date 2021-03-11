@@ -10,7 +10,7 @@ import { Spacer } from "../Spacer";
 
 const PaceOptionsStyle = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 50px;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) 50px;
   column-gap: 16px;
   row-gap: 16px;
   font-size: var(--text-size-4);
@@ -117,6 +117,7 @@ export function PaceOptions({
                 type="text"
                 value={runningMin}
                 onChange={handleRunningTimeChangeMin}
+                size={4}
               />
               min
             </FlexRowStyle>
@@ -125,6 +126,7 @@ export function PaceOptions({
                 type="text"
                 value={runningSec}
                 onChange={handleRunningTimeChangeSec}
+                size={4}
               />
               sec
             </FlexRowStyle>

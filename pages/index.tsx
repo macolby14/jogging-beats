@@ -20,6 +20,7 @@ const FormStyle = styled.form`
   align-items: center;
   gap: 16px;
   border: 1px solid var(--dark);
+  width: 80vw;
 `;
 
 export default function Home() {
