@@ -37,20 +37,28 @@ export default function Home() {
   const [bpm, setBpm] = useState("160");
   const [targetDuration, setTargetDuration] = useState(30 * 60 * 1000);
   const [allowExplicit, setAllowExplict] = useState(false);
+  const [selectedGenres, setSelectedGenres] = useState(new Set<string>());
   const [shownOption, setShownOption] = useState("PACE");
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     router.push(
-      `/results?bpm=${bpm}&targetDuration=${targetDuration}&allowExplicit=${allowExplicit}`
+      `/results?bpm=${bpm}&targetDuration=${targetDuration}&allowExplicit=${allowExplicit}&selectedGenres=${Array.from(
+        selectedGenres
+      ).join(",")}`
     );
   }
 
   let displayOption: any = null;
   switch (shownOption) {
     case "GENRE":
-      displayOption = <GenreOptions />;
+      displayOption = (
+        <GenreOptions
+          selectedGenres={selectedGenres}
+          setSelectedGenres={setSelectedGenres}
+        />
+      );
       break;
     case "SIMILAR_SONGS":
       displayOption = <div>Similar Songs</div>;

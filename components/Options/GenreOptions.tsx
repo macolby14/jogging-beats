@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
-import { getNGenres } from "../../utils/results/genreUtils";
+import { getAllGenres } from "../../utils/results/genreUtils";
 
 const GenreOptionStyle = styled.div`
   display: flex;
@@ -27,9 +27,16 @@ const GenreStyle = styled.button`
   cursor: pointer;
 `;
 
-export function GenreOptions() {
-  const genres = getNGenres(20);
-  const [selectedGenres, setSelectedGenres] = useState(new Set<string>());
+interface GenreOptionProps {
+  selectedGenres: Set<string>;
+  setSelectedGenres: React.Dispatch<React.SetStateAction<Set<string>>>;
+}
+
+export function GenreOptions({
+  selectedGenres,
+  setSelectedGenres,
+}: GenreOptionProps) {
+  const genres = getAllGenres();
 
   return (
     <GenreOptionStyle>

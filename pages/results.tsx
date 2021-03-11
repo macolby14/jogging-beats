@@ -22,6 +22,7 @@ export default function Results() {
     bpm: bpmParam,
     targetDuration: targetDurationParam,
     allowExplicit: allowExplicitParam,
+    selectedGenres: selectedGenresParam,
   } = router.query;
   const [tracks, setTracks] = useState<TrackData[]>([]);
   const [targetDuration, setTargetDuration] = useState(0);
@@ -38,6 +39,7 @@ export default function Results() {
     bpmParam,
     targetDurationParam,
     allowExplicitParam,
+    selectedGenresParam,
     setTargetDuration,
     setLoading,
     setTracks,
