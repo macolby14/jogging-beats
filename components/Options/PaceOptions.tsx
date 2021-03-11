@@ -1,5 +1,6 @@
 import React, { useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
+import { runningTimeToBpm } from "../../utils/options/paceToBpm";
 import { Spacer } from "../Spacer";
 
 const PaceOptionsStyle = styled.div`
@@ -52,6 +53,29 @@ export function PaceOptions({
   setTargetDuration,
 }: PaceOptionsProps) {
   const [selectedOption, setSelectedOption] = useState<OptionType>("RUNNING");
+  const [runningMin, setRunningMin] = useState("7");
+  const [runningSec, setRunningSec] = useState("0");
+  const [cyclingMin, setCyclingMin] = useState(0);
+  const [cyclingSec, setCyclingSec] = useState(0);
+  const [intensity, setIntensity] = useState("LOW");
+
+  function handleRunningTimeChangeMin(e: React.ChangeEvent<HTMLInputElement>) {
+    setRunningMin(e.target.value);
+    let newMin = Number.parseInt(e.target.value, 10);
+    let oldSec = Number.parseInt(runningSec, 10);
+    newMin = Number.isNaN(newMin) ? 0 : newMin;
+    oldSec = Number.isNaN(oldSec) ? 0 : oldSec;
+    setBpm(runningTimeToBpm(newMin, oldSec));
+  }
+
+  function handleRunningTimeChangeSec(e: React.ChangeEvent<HTMLInputElement>) {
+    setRunningSec(e.target.value);
+    let newSec = Number.parseInt(e.target.value, 10);
+    let oldMin = Number.parseInt(runningSec, 10);
+    newSec = Number.isNaN(newSec) ? 0 : newSec;
+    oldMin = Number.isNaN(oldMin) ? 0 : oldMin;
+    setBpm(runningTimeToBpm(oldMin, newSec));
+  }
 
   function optionChangeHandler(e: React.ChangeEvent<HTMLSelectElement>) {
     setSelectedOption(e.target.value as OptionType);
@@ -64,11 +88,19 @@ export function PaceOptions({
         return (
           <FlexRowStyle>
             <FlexRowStyle>
-              <input type="text" />
+              <input
+                type="text"
+                value={runningMin}
+                onChange={handleRunningTimeChangeMin}
+              />
               min
             </FlexRowStyle>
             <FlexRowStyle>
-              <input type="text" />
+              <input
+                type="text"
+                value={runningSec}
+                onChange={handleRunningTimeChangeSec}
+              />
               sec
             </FlexRowStyle>
           </FlexRowStyle>
