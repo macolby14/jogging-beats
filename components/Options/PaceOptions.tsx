@@ -6,6 +6,7 @@ import {
   intensityToBpm,
   runningTimeToBpm,
 } from "../../utils/options/paceToBpm";
+import { Spacer } from "../Spacer";
 
 const PaceOptionsStyle = styled.div`
   display: grid;
@@ -13,6 +14,10 @@ const PaceOptionsStyle = styled.div`
   column-gap: 16px;
   row-gap: 16px;
   font-size: var(--text-size-4);
+
+  input[type="checkbox"] {
+    transform: scale(3.5);
+  }
 
   input,
   select {
@@ -49,6 +54,16 @@ const FlexRowStyle = styled.div`
   }
 `;
 
+const FlexCheckbox = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
 type OptionType = "RUNNING" | "BPM" | "INTENSITY";
 
 interface PaceOptionsProps {
@@ -56,6 +71,8 @@ interface PaceOptionsProps {
   setBpm: React.Dispatch<React.SetStateAction<string>>;
   targetDuration: number;
   setTargetDuration: React.Dispatch<React.SetStateAction<number>>;
+  allowExplicit: boolean;
+  setAllowExplicit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function PaceOptions({
@@ -63,6 +80,8 @@ export function PaceOptions({
   setBpm,
   targetDuration,
   setTargetDuration,
+  allowExplicit,
+  setAllowExplicit,
 }: PaceOptionsProps) {
   const [selectedOption, setSelectedOption] = useState<OptionType>("RUNNING");
   const [runningMin, setRunningMin] = useState("7");
@@ -191,6 +210,17 @@ export function PaceOptions({
           setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
         }
       />
+      <label htmlFor="allowExplicit">Allow Explicit Songs?</label>
+      <FlexCheckbox>
+        <Spacer size={8} />
+        <input
+          type="checkbox"
+          name="allowExplicit"
+          value="allowExplicit"
+          checked={allowExplicit}
+          onChange={(e) => setAllowExplicit(e.target.checked)}
+        />
+      </FlexCheckbox>
     </PaceOptionsStyle>
   );
 }

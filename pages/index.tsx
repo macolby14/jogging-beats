@@ -36,6 +36,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [bpm, setBpm] = useState("170");
   const [targetDuration, setTargetDuration] = useState(30 * 60 * 1000);
+  const [allowExplicit, setAllowExplict] = useState(false);
   const [shownOption, setShownOption] = useState("PACE");
 
   async function handleSubmission(e: FormEvent) {
@@ -60,6 +61,8 @@ export default function Home() {
           setBpm={setBpm}
           targetDuration={targetDuration}
           setTargetDuration={setTargetDuration}
+          allowExplicit={allowExplicit}
+          setAllowExplicit={setAllowExplict}
         />
       );
   }
