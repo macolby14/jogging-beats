@@ -18,19 +18,15 @@ const OptionsSelectBarStyle = styled.ul`
     color: var(--white);
     font: inherit;
     cursor: pointer;
-    border: 1px solid rgba(56, 26, 13, 0.2);
     border-left: none;
   }
-  li:first-child {
-    border-left: 1px solid rgba(56, 26, 13, 0.2);
-  }
+
   li:hover {
     background-color: var(--light);
   }
 
   .selected {
     background-color: var(--light);
-    box-shadow: inset 0 2px rgba(0, 0, 0, 0.2);
   }
 
   @media (max-width: 768px) {
