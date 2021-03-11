@@ -23,3 +23,33 @@ export function bpmToRunningTime(bpm: number) {
   const time = slope * (bpm - runningSlowBpm) + runningSlowTime;
   return time;
 }
+
+const intensityToBpmMap: Map<string, number> = new Map([
+  ["LOW", 150],
+  ["MODERATE_LOW", 155],
+  ["MODERATE", 160],
+  ["MODERATE_HIGH", 165],
+  ["HIGH", 170],
+]);
+
+export function intensityToBpm(intensity: string) {
+  const ans = intensityToBpmMap.get(intensity);
+  if (ans === undefined) {
+    return 0;
+  }
+  return ans;
+}
+
+export function bpmToIntensity(bpm: number) {
+  let closestIntensity = "LOW";
+  let minDiff = Infinity;
+  intensityToBpmMap.forEach((intensityBeats, intensity) => {
+    const diff = Math.abs(intensityBeats - bpm);
+    if (diff < minDiff) {
+      closestIntensity = intensity;
+      minDiff = diff;
+    }
+  });
+
+  return closestIntensity;
+}

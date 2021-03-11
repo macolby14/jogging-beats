@@ -1,7 +1,9 @@
 import React, { useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import {
+  bpmToIntensity,
   bpmToRunningTime,
+  intensityToBpm,
   runningTimeToBpm,
 } from "../../utils/options/paceToBpm";
 import { Spacer } from "../Spacer";
@@ -69,46 +71,31 @@ export function PaceOptions({
     setBpm(`${runningTimeToBpm(newMin, oldSec)}`);
   }
 
+  function bpmChange(inputBpm: string) {
+    setBpm(inputBpm);
+    let newBpm = parseInt(inputBpm, 10);
+    newBpm = Number.isNaN(inputBpm) ? 0 : newBpm;
+    const newTime = bpmToRunningTime(newBpm);
+    setRunningMin(`${Math.trunc(newTime / 60)}`);
+    setRunningSec(`${Math.round(newTime % 60)}`);
+    setIntensity(bpmToIntensity(newBpm));
+  }
+
   function handleRunningTimeChangeSec(e: React.ChangeEvent<HTMLInputElement>) {
-    setRunningSec(e.target.value);
     let newSec = Number.parseInt(e.target.value, 10);
     let oldMin = Number.parseInt(runningSec, 10);
     newSec = Number.isNaN(newSec) ? 0 : newSec;
     oldMin = Number.isNaN(oldMin) ? 0 : oldMin;
-    setBpm(`${runningTimeToBpm(oldMin, newSec)}`);
+    bpmChange(`${runningTimeToBpm(oldMin, newSec)}`);
   }
 
   function handleBpmChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setBpm(e.target.value);
-    let newBpm = Number.parseInt(e.target.value, 10);
-    newBpm = Number.isNaN(newBpm) ? 0 : newBpm;
-    const newTime = bpmToRunningTime(newBpm);
-    setRunningMin(`${Math.trunc(newTime / 60)}`);
-    setRunningSec(`${Math.round(newTime % 60)}`);
+    bpmChange(e.target.value);
   }
 
   function handleIntensityChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setIntensity(e.target.value);
-    switch (e.target.value) {
-      case "LOW":
-        setBpm("150");
-        break;
-      case "MODERATE_LOW":
-        setBpm("155");
-        break;
-      case "MODERATE":
-        setBpm("160");
-        break;
-      case "MODERATE_HIGH":
-        setBpm("165");
-        break;
-      case "HIGH":
-        setBpm("170");
-        break;
-      default:
-        setBpm("150");
-        break;
-    }
+    const newBpm = `${intensityToBpm(e.target.value)}`;
+    bpmChange(newBpm);
   }
 
   function optionChangeHandler(e: React.ChangeEvent<HTMLSelectElement>) {
