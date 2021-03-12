@@ -6516,4 +6516,4 @@ genreToSongs.forEach(([genre, trackIdArr]) => {
   songsMap.set(genre as string, trackIdArr as string[]);
 });
 
-export const popularSongsMap = songsMap;
+export const popularSongsGenreMap = songsMap;

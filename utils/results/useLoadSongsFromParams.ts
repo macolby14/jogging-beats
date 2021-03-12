@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { TokenContext } from "../../components/context/TokenProvider";
 import { TrackData } from "../../components/Track";
 import { authFetch } from "../authFetch";
-import { getNRandomArrayElements } from "../getRandomArrayElements";
+import { getSeedSongsFromGenres } from "./genreUtils";
 import { getRandomSpotifyTrackIds } from "./getRandomSpotifyTrackIds";
 
 interface Props {
@@ -36,18 +36,35 @@ export function useLoadSongsFromParams({
       throw new Error("Fetching songs with invalid bpm");
     }
 
-    const selectedGenresUsed = getNRandomArrayElements<string>(
-      selectedGenres,
-      3
-    ).concat("work-out");
+    console.log(selectedGenres);
+    console.log(selectedGenres.length);
 
-    const selectedGenresString = selectedGenresUsed.join(",");
+    const seedSongsFromGenres: string[] = [];
+    const randomSeedSongs: string[] = [];
+    const genreSeeds: string[] = [];
+    if (selectedGenres.length === 1) {
+      for (let i = 0; i < 5; i += 1) {
+        console.log("Adding songs to seedSongsFromGenres");
+        seedSongsFromGenres.push(...getSeedSongsFromGenres(selectedGenres, 1));
+        console.log(seedSongsFromGenres);
+      }
+    } else if (selectedGenres.length === 2) {
+      for (let i = 0; i < 2; i += 1) {
+        seedSongsFromGenres.push(...getSeedSongsFromGenres(selectedGenres, 2));
+      }
+    } else if (selectedGenres.length > 2) {
+      seedSongsFromGenres.push(...getSeedSongsFromGenres(selectedGenres, 5));
+    } else {
+      randomSeedSongs.push(...getRandomSpotifyTrackIds(4));
+      genreSeeds.push("work-out");
+    }
 
-    const seedTrackString = getRandomSpotifyTrackIds(
-      5 - selectedGenresUsed.length
-    ).join(",");
+    console.log("Final seedSongsFromGenres");
+    console.log(seedSongsFromGenres);
 
-    // const seedTrackString = "";
+    const seedTracks = seedSongsFromGenres.concat(randomSeedSongs);
+    const seedTrackString = seedTracks.join(",");
+    const selectedGenresString = genreSeeds.join(",");
 
     const results = await authFetch({
       url: `https://api.spotify.com/v1/recommendations?market=US&seed_genres=${selectedGenresString}&seed_tracks=${seedTrackString}&min_popularity=25&min_energy=0.25&target_tempo=${bpmAsNum}&min_tempo=${

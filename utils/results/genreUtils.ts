@@ -1,3 +1,5 @@
+import { popularSongsGenreMap } from "./data/popularSongsGenreMap";
+
 const allGenres = [
   "pop",
   "rock",
@@ -40,4 +42,34 @@ export function getAllGenres() {
 
 export function getNGenres(n: number) {
   return allGenres.slice(0, n);
+}
+
+export function getSeedSongsFromGenres(genres: string[], max: number) {
+  const chosenGenres: string[] = [];
+  const genresCopy = [...genres];
+
+  while (chosenGenres.length < max && genresCopy.length > 0) {
+    const randomGenreInd = Math.floor(Math.random() * genresCopy.length);
+    const removedGenre = genresCopy.splice(randomGenreInd, 1)[0];
+    chosenGenres.push(removedGenre);
+  }
+
+  console.log("chosenGenres");
+  console.log(chosenGenres);
+
+  const seedSongs = chosenGenres.map((genre) => {
+    const songsForGenre = popularSongsGenreMap.get(genre);
+    if (songsForGenre === undefined) {
+      return "";
+    }
+    const randomInd = Math.floor(Math.random() * songsForGenre.length);
+    console.log("randomInd");
+    console.log(randomInd);
+    return songsForGenre[randomInd];
+  });
+
+  console.log("seedSongs");
+  console.log(seedSongs);
+
+  return seedSongs;
 }
