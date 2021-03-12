@@ -8,6 +8,7 @@ const OptionsSelectBarStyle = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 16px;
   font-size: var(--text-size-3);
   box-shadow: 1px 2px 2px #df6430;
 
