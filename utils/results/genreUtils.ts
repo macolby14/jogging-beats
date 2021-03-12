@@ -54,22 +54,14 @@ export function getSeedSongsFromGenres(genres: string[], max: number) {
     chosenGenres.push(removedGenre);
   }
 
-  console.log("chosenGenres");
-  console.log(chosenGenres);
-
   const seedSongs = chosenGenres.map((genre) => {
     const songsForGenre = popularSongsGenreMap.get(genre);
     if (songsForGenre === undefined) {
       return "";
     }
     const randomInd = Math.floor(Math.random() * songsForGenre.length);
-    console.log("randomInd");
-    console.log(randomInd);
     return songsForGenre[randomInd];
   });
-
-  console.log("seedSongs");
-  console.log(seedSongs);
 
   return seedSongs;
 }

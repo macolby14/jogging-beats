@@ -41,7 +41,7 @@ export default function Home() {
     "targetDuration"
   );
   const [allowExplicit, setAllowExplict] = useStickyState(
-    false,
+    true,
     "allowExplicit"
   );
   const [selectedGenres, setSelectedGenres] = useStickyState<
