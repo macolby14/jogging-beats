@@ -36,9 +36,6 @@ export function useLoadSongsFromParams({
       throw new Error("Fetching songs with invalid bpm");
     }
 
-    console.log(selectedGenresParam);
-    console.log(selectedGenres);
-
     const seedSongsFromGenres: string[] = [];
     const randomSeedSongs: string[] = [];
     const genreSeeds: string[] = [];
