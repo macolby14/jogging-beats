@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // eslint-disable-line no-use-before-define
+import React, { useContext, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import {
   bpmToIntensity,
@@ -6,6 +6,7 @@ import {
   intensityToBpm,
   runningTimeToBpm,
 } from "../../utils/options/paceToBpm";
+import { SettingsContext, OptionType } from "../context/SettingsProvider";
 import { Spacer } from "../Spacer";
 
 const PaceOptionsStyle = styled.div`
@@ -64,8 +65,6 @@ const FlexCheckbox = styled.div`
   }
 `;
 
-type OptionType = "RUNNING" | "BPM" | "INTENSITY";
-
 interface PaceOptionsProps {
   bpm: string;
   setBpm: React.Dispatch<React.SetStateAction<string>>;
@@ -83,7 +82,9 @@ export function PaceOptions({
   allowExplicit,
   setAllowExplicit,
 }: PaceOptionsProps) {
-  const [selectedOption, setSelectedOption] = useState<OptionType>("RUNNING");
+  const {
+    selectedOption: [selectedOption, setSelectedOption],
+  } = useContext(SettingsContext);
   const [runningMin, setRunningMin] = useState(
     `${Math.trunc(bpmToRunningTime(parseInt(bpm, 10)) / 60)}`
   );

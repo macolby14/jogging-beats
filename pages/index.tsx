@@ -1,6 +1,7 @@
 import { useRouter } from "next/dist/client/router";
-import React, { FormEvent, useState } from "react"; // eslint-disable-line no-use-before-define
+import React, { FormEvent, useContext, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
+import { SettingsContext } from "../components/context/SettingsProvider";
 import { GenreOptions } from "../components/Options/GenreOptions";
 import { OptionsSelectBar } from "../components/Options/OptionsSelectBar";
 import { PaceOptions } from "../components/Options/PaceOptions";
@@ -34,13 +35,14 @@ const FormStyle = styled.form`
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [bpm, setBpm] = useState("160");
-  const [targetDuration, setTargetDuration] = useState(30 * 60 * 1000);
-  const [allowExplicit, setAllowExplict] = useState(true);
-  const [selectedGenres, setSelectedGenres] = useState<Record<string, boolean>>(
-    {}
-  );
-  const [shownOption, setShownOption] = useState("PACE");
+
+  const {
+    bpm: [bpm, setBpm],
+    targetDuration: [targetDuration, setTargetDuration],
+    allowExplicit: [allowExplicit, setAllowExplicit],
+    selectedGenres: [selectedGenres, setSelectedGenres],
+    shownOption: [shownOption, setShownOption],
+  } = useContext(SettingsContext);
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
@@ -74,7 +76,7 @@ export default function Home() {
           targetDuration={targetDuration}
           setTargetDuration={setTargetDuration}
           allowExplicit={allowExplicit}
-          setAllowExplicit={setAllowExplict}
+          setAllowExplicit={setAllowExplicit}
         />
       );
   }

@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { TokenProvider } from "../components/context/TokenProvider";
 import { ImplicitAuthProvider } from "../components/context/ImplicitAuthProvider";
+import { SettingsProvider } from "../components/context/SettingsProvider";
 import { Spacer } from "../components/Spacer";
 import { Box } from "../components/Box";
 import { PageHeader } from "../components/PageHeader";
@@ -23,12 +24,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ImplicitAuthProvider>
         <TokenProvider>
-          <Spacer size={50} />
-          <Box size={1280} gap={16}>
-            <PageHeader />
-            <Spacer size={16} />
-            <Component {...pageProps} />
-          </Box>
+          <SettingsProvider>
+            <Spacer size={50} />
+            <Box size={1280} gap={16}>
+              <PageHeader />
+              <Spacer size={16} />
+              <Component {...pageProps} />
+            </Box>
+          </SettingsProvider>
         </TokenProvider>
       </ImplicitAuthProvider>
     </>
