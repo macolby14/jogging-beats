@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Style = styled.button`
-  width: 300px;
+  width: auto;
 `;
 
 export function PlaylistCreationButton({
@@ -37,11 +37,10 @@ export function PlaylistCreationButton({
 
   return (
     <>
-      <Heading level={4}>
-        <Style type="button" onClick={handleClick}>
-          Create Playlist on Spotify
-        </Style>
-      </Heading>
+      <Style type="button" onClick={handleClick}>
+        <Heading level={4}>Create Playlist on Spotify </Heading>
+      </Style>
+
       <LoginRequiredModal
         isOpen={loginModalOpen}
         setIsOpen={setLoginModalOpen}

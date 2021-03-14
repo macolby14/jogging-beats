@@ -1,13 +1,11 @@
 import React, { useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import { useRouter } from "next/dist/client/router";
-import { durationFormat } from "../utils/durationFormat";
-import { Heading } from "../components/Heading";
 import { Track, TrackData } from "../components/Track";
 import { useSelectedTracks } from "../utils/results/useSelectedTracks";
 import { useTempos } from "../utils/results/useTempos";
 import { useLoadSongsFromParams } from "../utils/results/useLoadSongsFromParams";
-import { PlaylistCreationButton } from "../components/PlaylistCreationButton";
+import { PlaylistCreationMenu } from "../components/PlaylistCreationMenu";
 
 const ResultsGrid = styled.div`
   display: flex;
@@ -55,9 +53,12 @@ export default function Results() {
 
   const playlistContent = (
     <>
-      <Heading level={5}>
-        Playlist Length: {durationFormat(selectedTracksDuration)}
-      </Heading>
+      <PlaylistCreationMenu
+        selectedTracks={selectedTracks}
+        selectedTracksDuration={selectedTracksDuration}
+        playlistTitle={playlistTitle}
+        playlistDescription={playlistDescription}
+      />
       <ResultsGrid>
         {tracks.map((track) => {
           const isSelected = Boolean(selectedTracks[track.id]);
@@ -100,12 +101,7 @@ export default function Results() {
           onChange={handleDescriptionChange}
         />
       </label>
-      <PlaylistCreationButton
-        selectedTracks={selectedTracks}
-        duration={selectedTracksDuration}
-        title={playlistTitle}
-        description={playlistDescription}
-      />
+
       {loading ? spinner : playlistContent}
     </>
   );

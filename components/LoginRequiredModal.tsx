@@ -19,6 +19,9 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
   },
+  overlay: {
+    zIndex: 2,
+  },
 };
 
 const LoginCompleteStyle = styled.div`
