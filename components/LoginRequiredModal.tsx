@@ -55,7 +55,7 @@ const LoginCompleteStyle = styled.div`
     margin: 20px 0 60px;
     font-size: 1.25em;
     &.success {
-      color: #73af55;
+      color: var(--complement);
     }
     &.error {
       color: #d06079;
@@ -110,14 +110,16 @@ export function LoginRequiredModal({ isOpen, setIsOpen }: Props) {
 
   const loginDisplay = (
     <>
+      <Spacer size={50} />
       <Heading level={4}>You must login to Spotfiy to add a Playlist</Heading>
+      <Spacer size={50} />
       <SpotifyAuthPop
         onCode={async (code: string) => {
           setUserToken(code);
           setLoggedIn(true);
           setTimeout(() => {
             setIsOpen(false);
-          }, 5000);
+          }, 3000);
         }}
       />
     </>
@@ -134,7 +136,7 @@ export function LoginRequiredModal({ isOpen, setIsOpen }: Props) {
         <circle
           className="path circle"
           fill="none"
-          stroke="#73AF55"
+          stroke="var(--complement)"
           strokeWidth="6"
           strokeMiterlimit="10"
           cx="65.1"
@@ -144,7 +146,7 @@ export function LoginRequiredModal({ isOpen, setIsOpen }: Props) {
         <polyline
           className="path check"
           fill="none"
-          stroke="#73AF55"
+          stroke="var(--complement)"
           strokeWidth="6"
           strokeLinecap="round"
           strokeMiterlimit="10"
@@ -153,7 +155,9 @@ export function LoginRequiredModal({ isOpen, setIsOpen }: Props) {
       </svg>
       <p className="success">You successfully logged in with Spotify</p>
       <Spacer size={10} />
-      <p className="success">You can now create your playlist!</p>
+      <p className="success" style={{ color: "var(--black)" }}>
+        You can now create your playlist on Spotify!
+      </p>
     </LoginCompleteStyle>
   );
 
