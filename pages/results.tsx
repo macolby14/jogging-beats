@@ -51,6 +51,13 @@ export default function Results() {
     setPlaylistDescription(e.target.value);
   }
 
+  function clearUnselectedTracks() {
+    const selectedTracksOnly = tracks.filter((track) =>
+      Boolean(selectedTracks[track.id])
+    );
+    setTracks(selectedTracksOnly);
+  }
+
   const playlistContent = (
     <>
       <PlaylistCreationMenu
@@ -58,6 +65,7 @@ export default function Results() {
         selectedTracksDuration={selectedTracksDuration}
         playlistTitle={playlistTitle}
         playlistDescription={playlistDescription}
+        handleSongRefresh={clearUnselectedTracks}
       />
       <ResultsGrid>
         {tracks.map((track) => {
