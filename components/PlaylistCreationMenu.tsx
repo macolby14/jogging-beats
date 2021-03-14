@@ -17,7 +17,6 @@ const PlaylistCreationMenuStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   place-items: center;
-  gap: 16px;
   padding: 32px 100px;
   border: 1px solid var(--dark);
   position: sticky;
@@ -27,11 +26,11 @@ const PlaylistCreationMenuStyle = styled.div`
 `;
 
 const RefreshStyle = styled.svg`
-  fill: green;
+  fill: var(--complement);
   cursor: pointer;
 
   :hover {
-    fill: black;
+    fill: var(--complement-light);
   }
 `;
 
