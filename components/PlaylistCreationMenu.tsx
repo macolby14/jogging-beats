@@ -15,7 +15,7 @@ interface PlaylistCreationButtonProps {
 const PlaylistCreationMenuStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  justify-items: center;
+  place-items: center;
   gap: 16px;
   padding: 32px 100px;
   border: 1px solid var(--dark);
@@ -37,7 +37,7 @@ export function PlaylistCreationMenu({
         style={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "flex-start",
+          alignItems: "center",
         }}
       >
         <Heading level={5}>Playlist Length:</Heading>
@@ -54,7 +54,9 @@ export function PlaylistCreationMenu({
         title={playlistTitle}
         description={playlistDescription}
       />
-      <div>Refresh Button</div>
+      <div>
+        <img src="/cached-24px.svg" alt="Get new Songs" width="100px" />
+      </div>
     </PlaylistCreationMenuStyle>
   );
 }
