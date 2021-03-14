@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { durationFormat } from "../utils/durationFormat";
 import { Heading } from "./Heading";
 import { PlaylistCreationButton } from "./PlaylistCreationButton";
+import { Spacer } from "./Spacer";
 import { TrackData } from "./Track";
 
 interface PlaylistCreationButtonProps {
@@ -12,11 +13,11 @@ interface PlaylistCreationButtonProps {
 }
 
 const PlaylistCreationMenuStyle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  justify-items: center;
   gap: 16px;
-  padding: 32px 16px;
+  padding: 32px 100px;
   border: 1px solid var(--dark);
   position: sticky;
   top: 0px;
@@ -39,12 +40,13 @@ export function PlaylistCreationMenu({
           alignItems: "flex-start",
         }}
       >
-        <Heading level={5}>
-          Playlist Length: {durationFormat(selectedTracksDuration)}
-        </Heading>
-        <Heading level={5}>
-          Number of Tracks: {Object.keys(selectedTracks).length}
-        </Heading>
+        <Heading level={5}>Playlist Length:</Heading>
+        <Spacer size={4} />
+        <Heading level={5}>{durationFormat(selectedTracksDuration)}</Heading>
+        <Spacer size={16} />
+        <Heading level={5}>Number of Tracks: </Heading>
+        <Spacer size={4} />
+        <Heading level={5}>{Object.keys(selectedTracks).length}</Heading>
       </div>
       <PlaylistCreationButton
         selectedTracks={selectedTracks}

@@ -11,10 +11,11 @@ interface Props {
   duration: number;
   title: string;
   description: string;
+  width?: number;
 }
 
-const Style = styled.button`
-  width: auto;
+const Style = styled.button<{ width?: number }>`
+  width: ${(props) => (props.width ? props.width : "auto")};
 `;
 
 export function PlaylistCreationButton({
@@ -22,6 +23,7 @@ export function PlaylistCreationButton({
   duration,
   title,
   description,
+  width,
 }: Props) {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [confrimationModalOpen, setConfirmationModalOpen] = useState(false);
@@ -37,7 +39,7 @@ export function PlaylistCreationButton({
 
   return (
     <>
-      <Style type="button" onClick={handleClick}>
+      <Style type="button" onClick={handleClick} width={width}>
         <Heading level={4}>Create Playlist on Spotify </Heading>
       </Style>
 
