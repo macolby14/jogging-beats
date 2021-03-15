@@ -47,7 +47,7 @@ export function PlaylistCreationMenu({
   handleSongRefresh,
 }: PlaylistCreationButtonProps) {
   return (
-    <PlaylistCreationMenuStyle className="desktop-only">
+    <PlaylistCreationMenuStyle>
       <div
         style={{
           display: "flex",

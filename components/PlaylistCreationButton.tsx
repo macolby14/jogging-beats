@@ -40,7 +40,9 @@ export function PlaylistCreationButton({
   return (
     <>
       <Style type="button" onClick={handleClick} width={width}>
-        <Heading level={4}>Create Playlist on Spotify </Heading>
+        <Heading level={4}>
+          Create Playlist <span className="desktop-only">on Spotify</span>
+        </Heading>
       </Style>
 
       <LoginRequiredModal
