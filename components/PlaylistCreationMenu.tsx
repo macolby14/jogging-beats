@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { durationFormat } from "../utils/durationFormat";
+import { useMediaQuery } from "../utils/useMediaQuery";
 import { Heading } from "./Heading";
 import { PlaylistCreationButton } from "./PlaylistCreationButton";
 import { Spacer } from "./Spacer";
@@ -26,7 +27,9 @@ const PlaylistCreationMenuStyle = styled.div`
   z-index: 1;
 
   @media (max-width: 768px) {
-    padding: 8px 8px;
+    padding: 8px 16px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
   }
 `;
 
@@ -46,6 +49,8 @@ export function PlaylistCreationMenu({
   playlistDescription,
   handleSongRefresh,
 }: PlaylistCreationButtonProps) {
+  const isMobile = useMediaQuery(768);
+
   return (
     <PlaylistCreationMenuStyle>
       <div
@@ -80,9 +85,9 @@ export function PlaylistCreationMenu({
       <Tooltip direction="top" text="Change out the unselected songs">
         <RefreshStyle
           xmlns="http://www.w3.org/2000/svg"
-          height="100"
+          height={isMobile ? "50" : "100"}
           viewBox="0 0 24 24"
-          width="100"
+          width={isMobile ? "50" : "100"}
           onClick={handleSongRefresh}
         >
           <path d="M0 0h24v24H0z" fill="none" />
