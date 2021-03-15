@@ -24,6 +24,10 @@ const PlaylistCreationMenuStyle = styled.div`
   top: 0px;
   background-color: rgba(255, 255, 255, 0.98);
   z-index: 1;
+
+  @media (max-width: 768px) {
+    padding: 8px 8px;
+  }
 `;
 
 const RefreshStyle = styled.svg`

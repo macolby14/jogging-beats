@@ -136,3 +136,5 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+/* Class to hide things on mobile */
