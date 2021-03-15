@@ -14,6 +14,7 @@ export const PlayButton = styled.button<PlayButtonStyles>`
   color: inherit;
   background-color: inherit;
   box-shadow: none;
+  padding: 0;
 
   :hover {
     background-color: inherit;

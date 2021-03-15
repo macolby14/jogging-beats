@@ -75,6 +75,7 @@ const TrackStyle = styled.div<TrackStyleProps>`
   max-width: 800px;
   width: 100%;
   display: grid;
+  gap: 8px;
   place-content: center;
   grid-template-columns: 120px 100px 1fr 100px 50px;
   grid-template-rows: 50px 50px;

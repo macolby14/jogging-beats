@@ -36,7 +36,9 @@ export default function SpotifyPlayButton({
           onClick={clickSpotifyButtonHandler}
         >
           <img src="/Spotify_Icon_RGB_Green-21px.png" alt="Spotify Logo" />
-          <p>Play on Spotify</p>
+          <p style={{ textAlign: "left" }}>
+            Play<span className="desktop-only">&nbsp;on Spotify</span>
+          </p>
         </PlayButton>
       </Tooltip>
     </SpotifyPlayButtonStyle>
