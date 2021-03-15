@@ -185,12 +185,23 @@ export function PaceOptions({
         );
       case "BPM":
         return (
-          <input
-            type="number"
-            name="pace"
-            value={bpm}
-            onChange={handleBpmChange}
-          />
+          <>
+            <input
+              type="number"
+              name="pace"
+              value={bpm}
+              onChange={handleBpmChange}
+            />
+            <label htmlFor="bpmTolearnce">Bpm Tolerance</label>
+            <input
+              type="text"
+              name="bpmTolerance"
+              value={bpmTolerance}
+              onChange={(e) => {
+                setBpmTolerance(e.target.value);
+              }}
+            />
+          </>
         );
       default:
         return <div>Something went wrong</div>;
@@ -212,15 +223,6 @@ export function PaceOptions({
         </select>
       </label>
       {paceInputOptions()}
-      <label htmlFor="bpmTolearnce">Bpm Tolerance</label>
-      <input
-        type="text"
-        name="bpmTolerance"
-        value={bpmTolerance}
-        onChange={(e) => {
-          setBpmTolerance(e.target.value);
-        }}
-      />
       <label htmlFor="workoutTime">Workout Time (min)</label>
       <input
         type="number"
