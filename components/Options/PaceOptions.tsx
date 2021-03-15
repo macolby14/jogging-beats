@@ -59,6 +59,7 @@ const FlexCheckbox = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+  padding: 26px 0;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -229,6 +230,7 @@ export function PaceOptions({
           setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
         }
       />
+
       <label htmlFor="allowExplicit">Allow Explicit Songs?</label>
       <FlexCheckbox>
         <Spacer size={8} />
