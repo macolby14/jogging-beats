@@ -63,14 +63,6 @@ export function OptionsSelectBar({
       >
         Genre
       </li>
-      <li
-        className={shownOption === "SIMILAR_SONGS" ? "selected" : ""}
-        onClick={() => {
-          setShownOption("SIMILAR_SONGS");
-        }}
-      >
-        Similar Songs
-      </li>
     </OptionsSelectBarStyle>
   );
 }

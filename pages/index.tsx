@@ -60,9 +60,6 @@ export default function Home() {
         />
       );
       break;
-    case "SIMILAR_SONGS":
-      displayOption = <div>Similar Songs</div>;
-      break;
     case "PACE":
     default:
       displayOption = (
