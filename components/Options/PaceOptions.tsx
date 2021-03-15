@@ -121,7 +121,7 @@ export function PaceOptions({
   function handleRunningTimeChangeSec(e: React.ChangeEvent<HTMLInputElement>) {
     setRunningSec(e.target.value);
     let newSec = Number.parseInt(e.target.value, 10);
-    let oldMin = Number.parseInt(runningSec, 10);
+    let oldMin = Number.parseInt(runningMin, 10);
     newSec = Number.isNaN(newSec) ? 0 : newSec;
     oldMin = Number.isNaN(oldMin) ? 0 : oldMin;
     const newBpm = runningTimeToBpm(oldMin, newSec);
