@@ -38,6 +38,7 @@ export default function Home() {
 
   const {
     bpm: [bpm, setBpm],
+    bpmTolerance: [bpmTolerance, setBpmTolerance],
     targetDuration: [targetDuration, setTargetDuration],
     allowExplicit: [allowExplicit, setAllowExplicit],
     selectedGenres: [selectedGenres, setSelectedGenres],
@@ -66,6 +67,8 @@ export default function Home() {
         <PaceOptions
           bpm={bpm}
           setBpm={setBpm}
+          bpmTolerance={bpmTolerance}
+          setBpmTolerance={setBpmTolerance}
           targetDuration={targetDuration}
           setTargetDuration={setTargetDuration}
           allowExplicit={allowExplicit}

@@ -68,6 +68,8 @@ const FlexCheckbox = styled.div`
 interface PaceOptionsProps {
   bpm: string;
   setBpm: React.Dispatch<React.SetStateAction<string>>;
+  bpmTolerance: string;
+  setBpmTolerance: React.Dispatch<React.SetStateAction<string>>;
   targetDuration: number;
   setTargetDuration: React.Dispatch<React.SetStateAction<number>>;
   allowExplicit: boolean;
@@ -77,6 +79,8 @@ interface PaceOptionsProps {
 export function PaceOptions({
   bpm,
   setBpm,
+  bpmTolerance,
+  setBpmTolerance,
   targetDuration,
   setTargetDuration,
   allowExplicit,
@@ -207,6 +211,15 @@ export function PaceOptions({
         </select>
       </label>
       {paceInputOptions()}
+      <label htmlFor="bpmTolearnce">Bpm Tolerance</label>
+      <input
+        type="text"
+        name="bpmTolerance"
+        value={bpmTolerance}
+        onChange={(e) => {
+          setBpmTolerance(e.target.value);
+        }}
+      />
       <label htmlFor="workoutTime">Workout Time (min)</label>
       <input
         type="number"
