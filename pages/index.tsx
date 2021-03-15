@@ -1,6 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import React, { FormEvent, useContext, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
+import Image from "next/image";
 import { SettingsContext } from "../components/context/SettingsProvider";
 import { GenreOptions } from "../components/Options/GenreOptions";
 import { OptionsSelectBar } from "../components/Options/OptionsSelectBar";
@@ -89,7 +90,22 @@ export default function Home() {
     </FormStyle>
   );
 
-  const displayComp = loading ? <div>Loading...</div> : inputForm;
+  const display = loading ? (
+    <div>Loading...</div>
+  ) : (
+    <>
+      <div style={{ maxWidth: "800px", width: "80%" }}>
+        <Image
+          layout="responsive"
+          src="/home-pic-1100px-688px.jpg"
+          alt="Man running"
+          height={688}
+          width={1100}
+        />
+      </div>
+      {inputForm}
+    </>
+  );
 
-  return <Style>{displayComp}</Style>;
+  return <Style>{display}</Style>;
 }
