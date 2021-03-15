@@ -14,4 +14,8 @@ export const Box = styled.div<BoxProps>`
   display: flex;
   flex-direction: column;
   gap: ${(props) => (props.gap ? `${props.gap}px` : 0)};
+
+  @media (max-width: 768px) {
+    padding: 0 8px;
+  }
 `;
