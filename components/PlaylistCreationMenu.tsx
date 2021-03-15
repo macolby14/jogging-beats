@@ -55,13 +55,21 @@ export function PlaylistCreationMenu({
           alignItems: "center",
         }}
       >
-        <Heading level={5}>Playlist Length:</Heading>
+        <Heading level={5} mobileLevel={6}>
+          <span className="desktop-only">Playlist&nbsp;</span>Length:
+        </Heading>
         <Spacer size={4} />
-        <Heading level={5}>{durationFormat(selectedTracksDuration)}</Heading>
+        <Heading level={5} mobileLevel={6}>
+          {durationFormat(selectedTracksDuration)}
+        </Heading>
         <Spacer size={16} />
-        <Heading level={5}>Number of Tracks: </Heading>
+        <Heading level={5} mobileLevel={6}>
+          <span className="desktop-only">Number of&nbsp;</span> Tracks:
+        </Heading>
         <Spacer size={4} />
-        <Heading level={5}>{Object.keys(selectedTracks).length}</Heading>
+        <Heading level={5} mobileLevel={6}>
+          {Object.keys(selectedTracks).length}
+        </Heading>
       </div>
       <PlaylistCreationButton
         selectedTracks={selectedTracks}
