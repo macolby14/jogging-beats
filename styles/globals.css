@@ -121,6 +121,8 @@ select {
   border-radius: 4px;
   box-sizing: border-box;
   font-size: var(--text-size-4);
+  border-color: var(--dark);
+  outline-color: var(--light);
 }
 
 textarea {
