@@ -36,7 +36,7 @@ export default function SpotifyPlayButton({
           onClick={clickSpotifyButtonHandler}
         >
           <img src="/Spotify_Icon_RGB_Green-21px.png" alt="Spotify Logo" />
-          Play on Spotify
+          <p>Play on Spotify</p>
         </PlayButton>
       </Tooltip>
     </SpotifyPlayButtonStyle>

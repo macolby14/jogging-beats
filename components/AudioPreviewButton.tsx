@@ -45,7 +45,7 @@ export function AudioPreviewButton({
             src="/not_available-24px.svg"
             alt="Audio Preview not available"
           />
-          No Preview
+          <p>No Preview</p>
         </PlayButton>
       </Tooltip>
     </AudioPlayerStyle>
