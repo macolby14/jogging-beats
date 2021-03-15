@@ -193,14 +193,20 @@ export function PaceOptions({
               onChange={handleBpmChange}
             />
             <label htmlFor="bpmTolearnce">Bpm Tolerance</label>
-            <input
-              type="text"
-              name="bpmTolerance"
-              value={bpmTolerance}
-              onChange={(e) => {
-                setBpmTolerance(e.target.value);
-              }}
-            />
+            <FlexRowStyle>
+              ±
+              <input
+                style={{ width: "auto" }}
+                type="text"
+                name="bpmTolerance"
+                value={bpmTolerance}
+                onChange={(e) => {
+                  setBpmTolerance(e.target.value);
+                }}
+                size={1}
+              />
+              bpm
+            </FlexRowStyle>
           </>
         );
       default:
