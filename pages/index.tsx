@@ -20,7 +20,7 @@ const FormStyle = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  border: 1px solid var(--dark);
+  border: 2px solid var(--dark);
   width: 60vw;
 
   @media (max-width: 1000px) {

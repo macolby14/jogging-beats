@@ -37,6 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <Spacer size={16} />
               <Component {...pageProps} />
             </Box>
+            <Spacer size={16} />
           </SettingsProvider>
         </TokenProvider>
       </ImplicitAuthProvider>
