@@ -16,6 +16,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>Jogging Beats</title>
         <link rel="icon" href="/favicon.svg" />
+        {/* For Safari */}
+        <link rel="mask-icon" href="/favicon.svg" color="#ff860e" />
+        {/* For android chrome browser */}
+        <meta name="theme-color" content="#ff860e" />
+        {/* For iOS touch icon */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,700;1,400;1,700&display=swap"
