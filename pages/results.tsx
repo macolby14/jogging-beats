@@ -8,6 +8,20 @@ import { PlaylistCreationMenu } from "../components/PlaylistCreationMenu";
 import { SettingsContext } from "../components/context/SettingsProvider";
 import { fetchSongs } from "../utils/results/fetchSongs";
 import { TokenContext } from "../components/context/TokenProvider";
+import { useMediaQuery } from "../utils/useMediaQuery";
+
+const ResultsStyle = styled.div`
+  @media (max-width: 768px) {
+    label {
+      font-size: var(--text-size-5);
+    }
+
+    input,
+    textarea {
+      font-size: var(--text-size-6);
+    }
+  }
+`;
 
 const ResultsGrid = styled.div`
   display: flex;
@@ -35,6 +49,7 @@ export default function Results() {
   );
   const { selectedTracks, selectedTracksDuration, setSelectedHandler} = useSelectedTracks({ tracks, targetDuration }); // prettier-ignore
   const { tempos } = useTempos({ tracks });
+  const isMobile = useMediaQuery(768);
   useInitialLoadSongs({
     bpm: parseInt(bpm, 10),
     bpmTolerance: parseInt(bpmTolerance, 10),
@@ -98,7 +113,7 @@ export default function Results() {
   const spinner = <div>Loading...</div>;
 
   return (
-    <>
+    <ResultsStyle>
       <label>
         Playlist title:&nbsp;
         <input type="text" value={playlistTitle} onChange={handleTitleChange} />
@@ -106,20 +121,13 @@ export default function Results() {
       <label>
         Playlist description:&nbsp;
         <textarea
-          rows={
-            typeof window !== "undefined" && window.screen.width >= 768 ? 3 : 6
-          }
-          cols={
-            typeof window !== "undefined" && window.screen.width >= 768
-              ? 50
-              : 25
-          }
+          rows={isMobile ? 2 : 1}
+          cols={30}
           value={playlistDescription}
           onChange={handleDescriptionChange}
         />
       </label>
-
       {loading ? spinner : playlistContent}
-    </>
+    </ResultsStyle>
   );
 }
