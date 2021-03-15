@@ -73,10 +73,6 @@ const TrackStyle = styled.div<TrackStyleProps>`
     ${center}
   }
 
-  .selected {
-    border: 5px solid orange;
-  }
-
   ${(props) => (props.selected ? selectedStyle : notSelectedStyle)}
   padding: 8px 16px;
   max-width: 800px;
