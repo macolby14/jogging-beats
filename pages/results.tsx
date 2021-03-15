@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // eslint-disable-line no-use-before-define
+import React, { useContext, useState } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import { useRouter } from "next/dist/client/router";
 import { Track, TrackData } from "../components/Track";
@@ -6,6 +6,9 @@ import { useSelectedTracks } from "../utils/results/useSelectedTracks";
 import { useTempos } from "../utils/results/useTempos";
 import { useLoadSongsFromParams } from "../utils/results/useLoadSongsFromParams";
 import { PlaylistCreationMenu } from "../components/PlaylistCreationMenu";
+import { SettingsContext } from "../components/context/SettingsProvider";
+import { fetchSongs } from "../utils/results/fetchSongs";
+import { TokenContext } from "../components/context/TokenProvider";
 
 const ResultsGrid = styled.div`
   display: flex;
@@ -22,6 +25,12 @@ export default function Results() {
     allowExplicit: allowExplicitParam,
     selectedGenres: selectedGenresParam,
   } = router.query;
+  const {
+    bpm: [bpm],
+    selectedGenres: [selectedGenres],
+    allowExplicit: [allowExplicit],
+  } = useContext(SettingsContext);
+  const token = useContext(TokenContext);
   const [tracks, setTracks] = useState<TrackData[]>([]);
   const [targetDuration, setTargetDuration] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -51,11 +60,19 @@ export default function Results() {
     setPlaylistDescription(e.target.value);
   }
 
-  function clearUnselectedTracks() {
+  async function refreshSongs() {
     const selectedTracksOnly = tracks.filter((track) =>
       Boolean(selectedTracks[track.id])
     );
     setTracks(selectedTracksOnly);
+    const newSongs = await fetchSongs(
+      parseInt(bpm, 10),
+      5,
+      allowExplicit,
+      Object.keys(selectedGenres),
+      token
+    );
+    setTracks(selectedTracksOnly.concat(newSongs));
   }
 
   const playlistContent = (
@@ -65,7 +82,7 @@ export default function Results() {
         selectedTracksDuration={selectedTracksDuration}
         playlistTitle={playlistTitle}
         playlistDescription={playlistDescription}
-        handleSongRefresh={clearUnselectedTracks}
+        handleSongRefresh={refreshSongs}
       />
       <ResultsGrid>
         {tracks.map((track) => {

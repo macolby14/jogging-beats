@@ -45,7 +45,7 @@ export function useLoadSongsFromParams({
       setTargetDuration(targetDurationAsNum);
       setLoading(true);
       fetchSongs(bpmAsNum, 5, allowExplicit, selectedGenres, token).then(
-        (results) => {
+        (results: TrackData[]) => {
           setTracks(results);
           setLoading(false);
         }

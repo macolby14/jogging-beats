@@ -9,7 +9,7 @@ export async function fetchSongs(
   allowExplicit: boolean,
   selectedGenres: string[],
   token: string
-): Promise<any> {
+): Promise<TrackData[]> {
   const seedSongsFromGenres: string[] = [];
   const randomSeedSongs: string[] = [];
   const genreSeeds: string[] = [];
