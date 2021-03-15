@@ -194,7 +194,7 @@ export function PaceOptions({
 
   return (
     <PaceOptionsStyle>
-      <label htmlFor="pace">
+      <label htmlFor="paceOptions">
         <select
           name="paceOptions"
           id="paceOptions"
