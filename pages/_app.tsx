@@ -8,7 +8,6 @@ import { SettingsProvider } from "../components/context/SettingsProvider";
 import { Spacer } from "../components/Spacer";
 import { Box } from "../components/Box";
 import { PageHeader } from "../components/PageHeader";
-import { GlobalStyle } from "../styles/globalCss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -32,7 +31,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ImplicitAuthProvider>
         <TokenProvider>
           <SettingsProvider>
-            <GlobalStyle />
             <Spacer size={50} />
             <Box size={1280} gap={16}>
               <PageHeader />

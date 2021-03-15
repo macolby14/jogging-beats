@@ -138,3 +138,8 @@ input[type="number"] {
 }
 
 /* Class to hide things on mobile */
+@media (max-width: 768px) {
+  body .desktop-only {
+    display: none;
+  }
+}
