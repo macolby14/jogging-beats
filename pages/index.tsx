@@ -47,11 +47,7 @@ export default function Home() {
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
-    router.push(
-      `/results?bpm=${bpm}&targetDuration=${targetDuration}&allowExplicit=${allowExplicit}&selectedGenres=${Object.keys(
-        selectedGenres
-      ).join(",")}`
-    );
+    router.push(`/results`);
   }
 
   let displayOption: any = null;
