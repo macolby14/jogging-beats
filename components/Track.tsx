@@ -25,21 +25,18 @@ const notSelectedStyle = css`
 const TrackStyle = styled.div<TrackStyleProps>`
   .play-preview {
     grid-area: play-preview;
-    @media (max-width: 768px) {
-      display: none;
-    }
   }
 
   .play-spotify {
     grid-area: play-spotify;
-    @media (max-width: 768px) {
-      display: none;
-    }
   }
 
   .pic {
     grid-area: pic;
     ${center}
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .name {
@@ -88,8 +85,8 @@ const TrackStyle = styled.div<TrackStyleProps>`
   @media (max-width: 768px) {
     grid-template-columns: 100px 1fr 50px;
     grid-template-areas:
-      "pic name select"
-      "pic artist select";
+      "play-preview name select"
+      "play-spotify artist select";
   }
 `;
 
