@@ -199,6 +199,7 @@ export function PaceOptions({
           name="paceOptions"
           id="paceOptions"
           onChange={optionChangeHandler}
+          value={bpmSelectionOption}
         >
           <option value="RUNNING">Running Pace</option>
           <option value="BPM">Beats Per Minute</option>
