@@ -20,11 +20,12 @@ const PlaylistCreationMenuStyle = styled.div`
   grid-template-columns: 1fr 2fr 1fr;
   place-items: center;
   padding: 8px 100px;
-  border: 1px solid var(--dark);
+  border: 3px solid var(--dark);
   position: sticky;
   top: 2px;
   background-color: rgba(255, 255, 255, 0.98);
   z-index: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 
   @media (max-width: 768px) {
     padding: 8px 16px;

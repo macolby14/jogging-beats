@@ -9,6 +9,7 @@ import { SettingsContext } from "../components/context/SettingsProvider";
 import { fetchSongs } from "../utils/results/fetchSongs";
 import { TokenContext } from "../components/context/TokenProvider";
 import { useMediaQuery } from "../utils/useMediaQuery";
+import { Spacer } from "../components/Spacer";
 
 const ResultsStyle = styled.div`
   @media (max-width: 768px) {
@@ -91,6 +92,7 @@ export default function Results() {
         playlistDescription={playlistDescription}
         handleSongRefresh={refreshSongs}
       />
+      <Spacer size={16} />
       <ResultsGrid>
         {tracks.map((track) => {
           const isSelected = Boolean(selectedTracks[track.id]);
