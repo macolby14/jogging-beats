@@ -19,6 +19,7 @@ const ResultsGrid = styled.div`
 export default function Results() {
   const {
     bpm: [bpm],
+    bpmTolerance: [bpmTolerance],
     selectedGenres: [selectedGenres],
     allowExplicit: [allowExplicit],
     targetDuration: [targetDuration],
@@ -36,6 +37,7 @@ export default function Results() {
   const { tempos } = useTempos({ tracks });
   useInitialLoadSongs({
     bpm: parseInt(bpm, 10),
+    bpmTolerance: parseInt(bpmTolerance, 10),
     allowExplicit,
     selectedGenres,
     setLoading,
@@ -57,7 +59,7 @@ export default function Results() {
     setTracks(selectedTracksOnly);
     const newSongs = await fetchSongs(
       parseInt(bpm, 10),
-      5,
+      parseInt(bpmTolerance, 10),
       allowExplicit,
       Object.keys(selectedGenres),
       token
