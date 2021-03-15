@@ -41,7 +41,7 @@ export default function Home() {
     targetDuration: [targetDuration, setTargetDuration],
     allowExplicit: [allowExplicit, setAllowExplicit],
     selectedGenres: [selectedGenres, setSelectedGenres],
-    shownOption: [shownOption, setShownOption],
+    optionsBarOtpion: [optionsBarOption, setOptionsBarOption],
   } = useContext(SettingsContext);
 
   async function handleSubmission(e: FormEvent) {
@@ -51,7 +51,7 @@ export default function Home() {
   }
 
   let displayOption: any = null;
-  switch (shownOption) {
+  switch (optionsBarOption) {
     case "GENRE":
       displayOption = (
         <GenreOptions
@@ -77,8 +77,8 @@ export default function Home() {
   const inputForm = (
     <FormStyle onSubmit={handleSubmission}>
       <OptionsSelectBar
-        shownOption={shownOption}
-        setShownOption={setShownOption}
+        shownOption={optionsBarOption}
+        setShownOption={setOptionsBarOption}
       />
       {displayOption}
       <input type="submit" value="Search" />

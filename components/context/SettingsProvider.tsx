@@ -11,11 +11,11 @@ interface ContextProps {
     Record<string, boolean>,
     React.Dispatch<React.SetStateAction<Record<string, boolean>>>
   ];
-  selectedOption: [
+  bpmSelectionOption: [
     OptionType,
     React.Dispatch<React.SetStateAction<OptionType>>
   ];
-  shownOption: [string, React.Dispatch<React.SetStateAction<string>>];
+  optionsBarOtpion: [string, React.Dispatch<React.SetStateAction<string>>];
 }
 
 export const SettingsContext = React.createContext<ContextProps>({
@@ -23,8 +23,8 @@ export const SettingsContext = React.createContext<ContextProps>({
   targetDuration: [30 * 60 * 1000, () => {}],
   allowExplicit: [true, () => {}],
   selectedGenres: [{}, () => {}],
-  selectedOption: ["RUNNING", () => {}],
-  shownOption: ["PACE", () => {}],
+  bpmSelectionOption: ["RUNNING", () => {}],
+  optionsBarOtpion: ["PACE", () => {}],
 });
 
 interface SettingsProviderProps {
@@ -38,8 +38,10 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   const [selectedGenres, setSelectedGenres] = useState<Record<string, boolean>>(
     {}
   );
-  const [selectedOption, setSelectedOption] = useState<OptionType>("RUNNING");
-  const [shownOption, setShownOption] = useState<string>("PACE");
+  const [bpmSelectionOption, setBpmSelectionOption] = useState<OptionType>(
+    "RUNNING"
+  );
+  const [optionsBarOption, setOptionsBarOption] = useState<string>("PACE");
 
   return (
     <SettingsContext.Provider
@@ -48,8 +50,8 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
         targetDuration: [targetDuration, setTargetDuration],
         allowExplicit: [allowExplicit, setAllowExplict],
         selectedGenres: [selectedGenres, setSelectedGenres],
-        selectedOption: [selectedOption, setSelectedOption],
-        shownOption: [shownOption, setShownOption],
+        bpmSelectionOption: [bpmSelectionOption, setBpmSelectionOption],
+        optionsBarOtpion: [optionsBarOption, setOptionsBarOption],
       }}
     >
       {children}

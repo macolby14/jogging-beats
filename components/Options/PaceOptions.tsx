@@ -83,7 +83,7 @@ export function PaceOptions({
   setAllowExplicit,
 }: PaceOptionsProps) {
   const {
-    selectedOption: [selectedOption, setSelectedOption],
+    bpmSelectionOption: [bpmSelectionOption, setBpmSelectionOption],
   } = useContext(SettingsContext);
   const [runningMin, setRunningMin] = useState(
     `${Math.trunc(bpmToRunningTime(parseInt(bpm, 10)) / 60)}`
@@ -135,11 +135,11 @@ export function PaceOptions({
   }
 
   function optionChangeHandler(e: React.ChangeEvent<HTMLSelectElement>) {
-    setSelectedOption(e.target.value as OptionType);
+    setBpmSelectionOption(e.target.value as OptionType);
   }
 
   function paceInputOptions() {
-    switch (selectedOption) {
+    switch (bpmSelectionOption) {
       case "RUNNING":
         return (
           <FlexRowStyle>
