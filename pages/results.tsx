@@ -52,10 +52,10 @@ export default function Results() {
   const [tracks, setTracks] = useState<TrackData[]>([]);
   const [loading, setLoading] = useState(false);
   const [playlistTitle, setPlaylistTitle] = useState(
-    "My Jogging Beats Playlist"
+    `My Jogging Beats Playlist - ${bpm} bpm`
   );
   const [playlistDescription, setPlaylistDescription] = useState(
-    "My playlist from joggingbeats.com"
+    `Playlist genereated from joggingbeats.com for ${bpm} bpm`
   );
   const { selectedTracks, selectedTracksDuration, setSelectedHandler} = useSelectedTracks({ tracks, targetDuration }); // prettier-ignore
   const { tempos } = useTempos({ tracks });
