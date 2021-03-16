@@ -12,6 +12,15 @@ import { useMediaQuery } from "../utils/useMediaQuery";
 import { Spacer } from "../components/Spacer";
 
 const ResultsStyle = styled.div`
+  label {
+    font-weight: var(--font-weight-semi-bold);
+  }
+
+  input,
+  textarea {
+    font-weight: var(--font-weight-normal);
+  }
+
   @media (max-width: 768px) {
     label {
       font-size: var(--text-size-5);

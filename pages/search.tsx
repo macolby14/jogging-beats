@@ -23,7 +23,7 @@ const FormStyle = styled.form`
   gap: 16px;
   border: 2px solid var(--dark);
   width: 60vw;
-
+  font-weight: var(--font-weight-semi-bold);
   @media (max-width: 1000px) {
     width: 80vw;
   }

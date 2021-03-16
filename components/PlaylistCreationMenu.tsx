@@ -61,7 +61,7 @@ export function PlaylistCreationMenu({
           alignItems: "center",
         }}
       >
-        <Heading level={5} mobileLevel={6}>
+        <Heading level={5} mobileLevel={6} weight={600}>
           <span className="desktop-only">Playlist&nbsp;</span>Length:
         </Heading>
         <Spacer size={4} />
@@ -69,7 +69,7 @@ export function PlaylistCreationMenu({
           {durationFormat(selectedTracksDuration)}
         </Heading>
         <Spacer size={16} />
-        <Heading level={5} mobileLevel={6}>
+        <Heading level={5} mobileLevel={6} weight={600}>
           <span className="desktop-only">Number of&nbsp;</span> Tracks:
         </Heading>
         <Spacer size={4} />

@@ -42,6 +42,8 @@ const TrackStyle = styled.div<TrackStyleProps>`
   .name {
     grid-area: name;
     ${centerVertically}
+    font-weight: var(--font-weight-semi-bold);
+    font-size: var(--text-size-5);
   }
 
   .artist {
