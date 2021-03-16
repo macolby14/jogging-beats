@@ -7,6 +7,7 @@ import { GenreOptions } from "../components/Options/GenreOptions";
 import { OptionsSelectBar } from "../components/Options/OptionsSelectBar";
 import { PaceOptions } from "../components/Options/PaceOptions";
 import { Spacer } from "../components/Spacer";
+import { Heading } from "../components/Heading";
 
 const Style = styled.div`
   width: 100%;
@@ -79,7 +80,7 @@ export default function Home() {
   }
 
   const inputForm = (
-    <FormStyle onSubmit={handleSubmission}>
+    <FormStyle onSubmit={handleSubmission} id="inputForm">
       <OptionsSelectBar
         shownOption={optionsBarOption}
         setShownOption={setOptionsBarOption}
@@ -94,14 +95,35 @@ export default function Home() {
     <div>Loading...</div>
   ) : (
     <>
-      <div style={{ maxWidth: "800px", width: "80%" }}>
-        <Image
-          layout="responsive"
-          src="/home-pic-1100px-688px.jpg"
-          alt="Man running"
-          height={688}
-          width={1100}
-        />
+      <div
+        style={{
+          maxWidth: "700px",
+          width: "80%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}
+      >
+        <div style={{ width: "100%" }}>
+          <Image
+            layout="responsive"
+            src="/home-pic-1100px-688px.jpg"
+            alt="Man running"
+            height={688}
+            width={1100}
+          />
+        </div>
+        <Spacer size={16} />
+        <Heading level={5} textAlign="left">
+          Syncing your run, ride, or workout can help you go further and faster.
+        </Heading>
+        <Spacer size={8} />
+        <Heading level={5} textAlign="left">
+          We can help you create a music playlist at the right tempo for your
+          workout.
+        </Heading>
+        <Spacer size={16} />
+        <Heading level={4}>Let&apos;s get started ▼</Heading>
       </div>
       {inputForm}
     </>
