@@ -8,12 +8,17 @@ const HeroBoxStyle = styled.div`
   display: flex;
   flex-direction: row;
   gap: 32px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const FlexColumnStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  gap: 32px;
 `;
 
 export function HeroBox() {
