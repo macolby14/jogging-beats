@@ -20,6 +20,9 @@ const notSelectedStyle = css`
   background-color: rgba(80, 37, 18, 0.2);
   opacity: 0.6;
   border: 1px solid rgba(80, 37, 18, 1);
+
+  // ! Originally not selected tracks were shown, but were grayed out and could be selected. Changed to not shown
+  display: none;
 `;
 
 const TrackStyle = styled.div<TrackStyleProps>`
@@ -72,7 +75,6 @@ const TrackStyle = styled.div<TrackStyleProps>`
     ${center}
   }
 
-  ${(props) => (props.selected ? selectedStyle : notSelectedStyle)}
   padding: 8px 16px;
   max-width: 800px;
   width: 100%;
@@ -84,6 +86,7 @@ const TrackStyle = styled.div<TrackStyleProps>`
   grid-template-areas:
     "play-preview pic name time select"
     "play-spotify pic artist tempo select";
+  ${(props) => (props.selected ? selectedStyle : notSelectedStyle)}
 
   @media (max-width: 768px) {
     grid-template-columns: 100px 1fr 50px;
