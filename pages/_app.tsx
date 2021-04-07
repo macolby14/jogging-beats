@@ -32,8 +32,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <TokenProvider>
           <SettingsProvider>
             <Spacer size={16} />
+            <PageHeader />
+            <Spacer size={16} />
             <Box size={1280} gap={16}>
-              <PageHeader />
               <Component {...pageProps} />
             </Box>
             <Spacer size={16} />
