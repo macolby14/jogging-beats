@@ -10,6 +10,10 @@ const Style = styled.div`
   .tiltRight {
     transform: rotate(15deg);
   }
+
+  padding-bottom: 8px;
+  border-bottom: 8px solid var(--light);
+  margin-bottom: 16px;
 `;
 
 export function PageHeader() {
