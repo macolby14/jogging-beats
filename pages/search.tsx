@@ -3,8 +3,6 @@ import React, { FormEvent, useContext, useState } from "react"; // eslint-disabl
 import styled from "styled-components";
 
 import { SettingsContext } from "../components/context/SettingsProvider";
-import { GenreOptions } from "../components/Options/GenreOptions";
-import { OptionsSelectBar } from "../components/Options/OptionsSelectBar";
 import { PaceOptions } from "../components/Options/PaceOptions";
 import { Spacer } from "../components/Spacer";
 
@@ -21,7 +19,7 @@ const FormStyle = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  border: 2px solid var(--dark);
+  /* border: 2px solid var(--dark); */
   width: 60vw;
   font-weight: var(--font-weight-semi-bold);
   @media (max-width: 1000px) {
@@ -43,7 +41,7 @@ export default function Search() {
     targetDuration: [targetDuration, setTargetDuration],
     allowExplicit: [allowExplicit, setAllowExplicit],
     selectedGenres: [selectedGenres, setSelectedGenres],
-    optionsBarOtpion: [optionsBarOption, setOptionsBarOption],
+    // optionsBarOtpion: [optionsBarOption, setOptionsBarOption],
   } = useContext(SettingsContext);
 
   async function handleSubmission(e: FormEvent) {
@@ -52,38 +50,21 @@ export default function Search() {
     router.push(`/results`);
   }
 
-  let displayOption: any = null;
-  switch (optionsBarOption) {
-    case "GENRE":
-      displayOption = (
-        <GenreOptions
-          selectedGenres={selectedGenres}
-          setSelectedGenres={setSelectedGenres}
-        />
-      );
-      break;
-    case "PACE":
-    default:
-      displayOption = (
-        <PaceOptions
-          bpm={bpm}
-          setBpm={setBpm}
-          bpmTolerance={bpmTolerance}
-          setBpmTolerance={setBpmTolerance}
-          targetDuration={targetDuration}
-          setTargetDuration={setTargetDuration}
-          allowExplicit={allowExplicit}
-          setAllowExplicit={setAllowExplicit}
-        />
-      );
-  }
+  const displayOption = (
+    <PaceOptions
+      bpm={bpm}
+      setBpm={setBpm}
+      bpmTolerance={bpmTolerance}
+      setBpmTolerance={setBpmTolerance}
+      targetDuration={targetDuration}
+      setTargetDuration={setTargetDuration}
+      allowExplicit={allowExplicit}
+      setAllowExplicit={setAllowExplicit}
+    />
+  );
 
   const inputForm = (
     <FormStyle onSubmit={handleSubmission} id="inputForm">
-      <OptionsSelectBar
-        shownOption={optionsBarOption}
-        setShownOption={setOptionsBarOption}
-      />
       {displayOption}
       <input type="submit" value="Search" />
       <Spacer size={16} />
