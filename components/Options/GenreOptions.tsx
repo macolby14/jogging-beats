@@ -2,6 +2,8 @@ import React from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 import { getAllGenres } from "../../utils/results/genreUtils";
 
+// TODO: Remove this entire file. Previously used when genres was a a separate file
+
 const GenreOptionStyle = styled.div`
   display: flex;
   flex-direction: row;

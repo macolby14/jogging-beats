@@ -6,6 +6,7 @@ import {
   intensityToBpm,
   runningTimeToBpm,
 } from "../../utils/options/paceToBpm";
+import { getNGenres } from "../../utils/results/genreUtils";
 import { SettingsContext, OptionType } from "../context/SettingsProvider";
 import { Spacer } from "../Spacer";
 
@@ -28,6 +29,11 @@ const PaceOptionsStyle = styled.div`
 
   select {
     width: auto;
+  }
+
+  select,
+  option {
+    text-transform: capitalize;
   }
 
   label {
@@ -214,6 +220,8 @@ export function PaceOptions({
     }
   }
 
+  const genres = getNGenres(10);
+
   return (
     <PaceOptionsStyle>
       <label htmlFor="paceOptions">
@@ -238,7 +246,15 @@ export function PaceOptions({
           setTargetDuration(parseInt(e.target.value, 10) * 60 * 1000)
         }
       />
-
+      <label htmlFor="genreField">Genre</label>
+      <select onChange={() => {}}>
+        <option value="">Any</option>
+        {genres.map((genre) => (
+          <option key={genre} value={genre}>
+            {genre}
+          </option>
+        ))}
+      </select>
       <label htmlFor="allowExplicit">Allow Explicit Songs?</label>
       <FlexCheckbox>
         <Spacer size={8} />
