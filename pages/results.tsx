@@ -57,6 +57,8 @@ export default function Results() {
   const [playlistDescription, setPlaylistDescription] = useState(
     `Playlist genereated from joggingbeats.com for ${bpm} bpm`
   );
+
+  // useSelectedTracks hooks hide non-selected songs and only shows targetDuration worth of songs
   const { selectedTracks, selectedTracksDuration, setSelectedHandler} = useSelectedTracks({ tracks, targetDuration }); // prettier-ignore
   const { tempos } = useTempos({ tracks });
   const isMobile = useMediaQuery(768);
