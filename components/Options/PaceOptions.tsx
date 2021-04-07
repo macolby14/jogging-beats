@@ -224,7 +224,7 @@ export function PaceOptions({
     }
   }
 
-  const genres = getNGenres(10);
+  const genres = getNGenres(16);
 
   return (
     <PaceOptionsStyle>
