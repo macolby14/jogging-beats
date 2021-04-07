@@ -8,6 +8,11 @@ const HeroBoxStyle = styled.div`
   display: flex;
   flex-direction: row;
   gap: 32px;
+
+  img {
+    border-radius: 8px;
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     width: 100%;
