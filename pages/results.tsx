@@ -78,10 +78,10 @@ export default function Results() {
   }
 
   async function refreshSongs() {
-    const selectedTracksOnly = tracks.filter((track) =>
-      Boolean(selectedTracks[track.id])
-    );
-    setTracks(selectedTracksOnly);
+    // const selectedTracksOnly = tracks.filter((track) =>
+    //   Boolean(selectedTracks[track.id])
+    // );
+    // setTracks(selectedTracksOnly);
     const newSongs = await fetchSongs(
       parseInt(bpm, 10),
       parseInt(bpmTolerance, 10),
@@ -89,7 +89,7 @@ export default function Results() {
       selectedGenre,
       token
     );
-    setTracks(selectedTracksOnly.concat(newSongs));
+    setTracks(newSongs);
   }
 
   const playlistContent = (
