@@ -7,7 +7,7 @@ interface Props {
   bpm: number;
   bpmTolerance: number;
   allowExplicit: boolean;
-  selectedGenres: Record<string, boolean>;
+  selectedGenre: string;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setTracks: React.Dispatch<React.SetStateAction<TrackData[]>>;
 }
@@ -16,7 +16,7 @@ export function useInitialLoadSongs({
   bpm,
   bpmTolerance,
   allowExplicit,
-  selectedGenres,
+  selectedGenre,
   setLoading,
   setTracks,
 }: Props) {
@@ -27,15 +27,11 @@ export function useInitialLoadSongs({
       return;
     }
     setLoading(true);
-    fetchSongs(
-      bpm,
-      bpmTolerance,
-      allowExplicit,
-      Object.keys(selectedGenres),
-      token
-    ).then((results: TrackData[]) => {
-      setTracks(results);
-      setLoading(false);
-    });
+    fetchSongs(bpm, bpmTolerance, allowExplicit, selectedGenre, token).then(
+      (results: TrackData[]) => {
+        setTracks(results);
+        setLoading(false);
+      }
+    );
   }, [token]);
 }

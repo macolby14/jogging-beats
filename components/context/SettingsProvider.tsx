@@ -8,10 +8,7 @@ interface ContextProps {
   bpmTolerance: [string, React.Dispatch<React.SetStateAction<string>>];
   targetDuration: [number, React.Dispatch<React.SetStateAction<number>>];
   allowExplicit: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-  selectedGenres: [
-    Record<string, boolean>,
-    React.Dispatch<React.SetStateAction<Record<string, boolean>>>
-  ];
+  selectedGenre: [string, React.Dispatch<React.SetStateAction<string>>];
   bpmSelectionOption: [
     OptionType,
     React.Dispatch<React.SetStateAction<OptionType>>
@@ -24,7 +21,7 @@ export const SettingsContext = React.createContext<ContextProps>({
   bpmTolerance: ["5", () => {}],
   targetDuration: [30 * 60 * 1000, () => {}],
   allowExplicit: [true, () => {}],
-  selectedGenres: [{}, () => {}],
+  selectedGenre: ["", () => {}],
   bpmSelectionOption: ["RUNNING", () => {}],
   optionsBarOtpion: ["PACE", () => {}],
 });
@@ -38,9 +35,7 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   const [bpmTolerance, setBpmTolearnce] = useState("5");
   const [targetDuration, setTargetDuration] = useState(30 * 60 * 1000);
   const [allowExplicit, setAllowExplict] = useState(true);
-  const [selectedGenres, setSelectedGenres] = useState<Record<string, boolean>>(
-    {}
-  );
+  const [selectedGenre, setSelectedGenre] = useState("any");
   const [bpmSelectionOption, setBpmSelectionOption] = useState<OptionType>(
     "RUNNING"
   );
@@ -53,7 +48,7 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
         bpmTolerance: [bpmTolerance, setBpmTolearnce],
         targetDuration: [targetDuration, setTargetDuration],
         allowExplicit: [allowExplicit, setAllowExplict],
-        selectedGenres: [selectedGenres, setSelectedGenres],
+        selectedGenre: [selectedGenre, setSelectedGenre],
         bpmSelectionOption: [bpmSelectionOption, setBpmSelectionOption],
         optionsBarOtpion: [optionsBarOption, setOptionsBarOption],
       }}

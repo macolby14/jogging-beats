@@ -44,7 +44,7 @@ export default function Results() {
   const {
     bpm: [bpm],
     bpmTolerance: [bpmTolerance],
-    selectedGenres: [selectedGenres],
+    selectedGenre: [selectedGenre],
     allowExplicit: [allowExplicit],
     targetDuration: [targetDuration],
   } = useContext(SettingsContext);
@@ -64,7 +64,7 @@ export default function Results() {
     bpm: parseInt(bpm, 10),
     bpmTolerance: parseInt(bpmTolerance, 10),
     allowExplicit,
-    selectedGenres,
+    selectedGenre,
     setLoading,
     setTracks,
   });
@@ -86,7 +86,7 @@ export default function Results() {
       parseInt(bpm, 10),
       parseInt(bpmTolerance, 10),
       allowExplicit,
-      Object.keys(selectedGenres),
+      selectedGenre,
       token
     );
     setTracks(selectedTracksOnly.concat(newSongs));

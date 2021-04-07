@@ -7,25 +7,20 @@ export async function fetchSongs(
   bpm: number,
   bpmTolerance: number,
   allowExplicit: boolean,
-  selectedGenres: string[],
+  selectedGenre: string,
   token: string
 ): Promise<TrackData[]> {
   const seedSongsFromGenres: string[] = [];
   const randomSeedSongs: string[] = [];
   const genreSeeds: string[] = [];
-  if (selectedGenres.length === 1) {
-    for (let i = 0; i < 5; i += 1) {
-      seedSongsFromGenres.push(...getSeedSongsFromGenres(selectedGenres, 1));
-    }
-  } else if (selectedGenres.length === 2) {
-    for (let i = 0; i < 2; i += 1) {
-      seedSongsFromGenres.push(...getSeedSongsFromGenres(selectedGenres, 2));
-    }
-  } else if (selectedGenres.length > 2) {
-    seedSongsFromGenres.push(...getSeedSongsFromGenres(selectedGenres, 5));
-  } else {
+
+  if (selectedGenre === "any") {
     randomSeedSongs.push(...getRandomSpotifyTrackIds(4));
     genreSeeds.push("work-out");
+  } else {
+    for (let i = 0; i < 5; i += 1) {
+      seedSongsFromGenres.push(...getSeedSongsFromGenres([selectedGenre], 1));
+    }
   }
 
   const seedTracks = seedSongsFromGenres.concat(randomSeedSongs);

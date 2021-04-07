@@ -40,8 +40,7 @@ export default function Search() {
     bpmTolerance: [bpmTolerance, setBpmTolerance],
     targetDuration: [targetDuration, setTargetDuration],
     allowExplicit: [allowExplicit, setAllowExplicit],
-    selectedGenres: [selectedGenres, setSelectedGenres],
-    // optionsBarOtpion: [optionsBarOption, setOptionsBarOption],
+    selectedGenre: [selectedGenre, setSelectedGenre],
   } = useContext(SettingsContext);
 
   async function handleSubmission(e: FormEvent) {
@@ -60,6 +59,8 @@ export default function Search() {
       setTargetDuration={setTargetDuration}
       allowExplicit={allowExplicit}
       setAllowExplicit={setAllowExplicit}
+      selectedGenre={selectedGenre}
+      setSelectedGenre={setSelectedGenre}
     />
   );
 

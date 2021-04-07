@@ -81,6 +81,8 @@ interface PaceOptionsProps {
   setTargetDuration: React.Dispatch<React.SetStateAction<number>>;
   allowExplicit: boolean;
   setAllowExplicit: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedGenre: string;
+  setSelectedGenre: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function PaceOptions({
@@ -92,6 +94,8 @@ export function PaceOptions({
   setTargetDuration,
   allowExplicit,
   setAllowExplicit,
+  selectedGenre,
+  setSelectedGenre,
 }: PaceOptionsProps) {
   const {
     bpmSelectionOption: [bpmSelectionOption, setBpmSelectionOption],
@@ -247,8 +251,13 @@ export function PaceOptions({
         }
       />
       <label htmlFor="genreField">Genre</label>
-      <select onChange={() => {}}>
-        <option value="">Any</option>
+      <select
+        value={selectedGenre}
+        onChange={(e) => {
+          setSelectedGenre(e.target.value);
+        }}
+      >
+        <option value="any">Any</option>
         {genres.map((genre) => (
           <option key={genre} value={genre}>
             {genre}
