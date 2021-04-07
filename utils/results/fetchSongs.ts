@@ -14,10 +14,13 @@ export async function fetchSongs(
   const randomSeedSongs: string[] = [];
   const genreSeeds: string[] = [];
 
+  // * If the user selects any, the seeds for the Spotify API Call are work-out and 4 random songs from popular work-out playlists
   if (selectedGenre === "any") {
     randomSeedSongs.push(...getRandomSpotifyTrackIds(4));
     genreSeeds.push("work-out");
-  } else {
+  }
+  // * If the user chooses a specific genre, the seed is the genre they choose and
+  else {
     for (let i = 0; i < 5; i += 1) {
       seedSongsFromGenres.push(...getSeedSongsFromGenres([selectedGenre], 1));
     }
