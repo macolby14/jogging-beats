@@ -1,5 +1,5 @@
 import { useRouter } from "next/dist/client/router";
-import React, { FormEvent, useContext, useState } from "react"; // eslint-disable-line no-use-before-define
+import React, { FormEvent, useContext } from "react"; // eslint-disable-line no-use-before-define
 import styled from "styled-components";
 
 import { SettingsContext } from "../components/context/SettingsProvider";
@@ -33,7 +33,6 @@ const FormStyle = styled.form`
 
 export default function Search() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
   const {
     bpm: [bpm, setBpm],
@@ -45,7 +44,6 @@ export default function Search() {
 
   async function handleSubmission(e: FormEvent) {
     e.preventDefault();
-    setLoading(true);
     router.push(`/results`);
   }
 
@@ -72,7 +70,5 @@ export default function Search() {
     </FormStyle>
   );
 
-  const display = loading ? <div>Loading...</div> : <>{inputForm}</>;
-
-  return <Style>{display}</Style>;
+  return <Style>{inputForm}</Style>;
 }
