@@ -6,6 +6,7 @@ import { authFetch } from "../utils/authFetch";
 import { durationFormat } from "../utils/durationFormat";
 import { ImplicitAuthContext } from "./context/ImplicitAuthProvider";
 import { Heading } from "./Heading";
+import { LoadingIcon } from "./LoadingIcon";
 import { TrackData } from "./Track";
 
 Modal.setAppElement("#__next");
@@ -203,7 +204,7 @@ export function ConfirmationModal({
       style={modalStyles}
       contentLabel="Confirmation of Tracks Modal"
     >
-      {loading ? "Loading..." : content}
+      {loading ? <LoadingIcon /> : content}
     </Modal>
   );
 }

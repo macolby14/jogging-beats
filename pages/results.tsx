@@ -10,6 +10,7 @@ import { fetchSongs } from "../utils/results/fetchSongs";
 import { TokenContext } from "../components/context/TokenProvider";
 import { useMediaQuery } from "../utils/useMediaQuery";
 import { Spacer } from "../components/Spacer";
+import { LoadingIcon } from "../components/LoadingIcon";
 
 const ResultsStyle = styled.div`
   label {
@@ -127,7 +128,7 @@ export default function Results() {
     </>
   );
 
-  const spinner = <div>Loading...</div>;
+  const spinner = <LoadingIcon />;
 
   return (
     <ResultsStyle>
