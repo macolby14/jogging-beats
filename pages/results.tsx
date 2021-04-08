@@ -59,7 +59,6 @@ export default function Results() {
   );
 
   async function getMoreSongs() {
-    console.log("Fetching more songs from server");
     const newSongs = await fetchSongs(
       parseInt(bpm, 10),
       parseInt(bpmTolerance, 10),

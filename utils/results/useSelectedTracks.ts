@@ -17,12 +17,18 @@ export function useSelectedTracks({
   const [selectedTracks, setSelectedTracks] = useState<TrackData[]>([]);
   const [unusedSongs, setUnusedSongs] = useState<TrackData[]>([]);
 
+  // Exists as a cache to make sure we don't re-add the same songs twice
+  const [seenSongs, setSeenSongs] = useState<Record<string, TrackData>>({});
+
   useEffect(() => {
     let length = 0;
     const newSelectedTracks: typeof selectedTracks = [];
     const newUnusedSongs: TrackData[] = [];
+    const newSeenSongs = { ...seenSongs };
 
     for (let i = 0; i < tracks.length; i += 1) {
+      newSeenSongs[tracks[i].id] = tracks[i];
+
       if (length > targetDuration) {
         newUnusedSongs.push(tracks[i]);
       } else {
@@ -32,6 +38,7 @@ export function useSelectedTracks({
     }
     setSelectedTracks(newSelectedTracks);
     setUnusedSongs(newUnusedSongs);
+    setSeenSongs(seenSongs);
   }, [loadingTracks, targetDuration]);
 
   // This function did toggle the song selection
@@ -48,12 +55,23 @@ export function useSelectedTracks({
       newSelectedTracks[indexToReplace] = songToUse;
     }
 
-    setSelectedTracks(newSelectedTracks);
+    // convert to set and back to remove duplicates
+    setSelectedTracks([...new Set(newSelectedTracks)]);
 
     // * If the unused songs is about to run out, get more songs from the server so we will never wait to swap songs
     if (newUnusedSongs.length <= 4) {
       const newFetchedSongs = await getMoreSongs();
-      setUnusedSongs([...newUnusedSongs, ...newFetchedSongs]);
+      const filteredFetchedSongs = newFetchedSongs.filter(
+        (track) => !(track.id in seenSongs)
+      );
+      setUnusedSongs([...newUnusedSongs, ...filteredFetchedSongs]);
+
+      const newSeenSongs = { ...seenSongs };
+
+      filteredFetchedSongs.forEach((track) => {
+        newSeenSongs[track.id] = track;
+      });
+      setSeenSongs(newSeenSongs);
     } else {
       setUnusedSongs(newUnusedSongs);
     }
