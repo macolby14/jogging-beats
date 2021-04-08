@@ -105,7 +105,7 @@ const ButtonsStyle = styled.div`
 interface Props {
   isOpen: boolean;
   setIsOpen: Function;
-  selectedTracks: Record<string, TrackData>;
+  selectedTracks: TrackData[];
   duration: number;
   title: string;
   description: string;
@@ -122,8 +122,6 @@ export function ConfirmationModal({
   const router = useRouter();
   const { userId, userToken } = useContext(ImplicitAuthContext);
   const [loading, setLoading] = useState(false);
-
-  const tracksArray = Object.values(selectedTracks);
 
   async function createPlaylist() {
     const {
@@ -145,9 +143,7 @@ export function ConfirmationModal({
     }).then((resp) => resp.json());
 
     const tracksToAdd = encodeURIComponent(
-      Object.values(selectedTracks)
-        .map((track) => track.uri)
-        .join(",")
+      selectedTracks.map((track) => track.uri).join(",")
     );
 
     await authFetch({
@@ -168,9 +164,9 @@ export function ConfirmationModal({
       <div>
         <p>Playlist Title: {title}</p>
         <p>Length: {durationFormat(duration)}</p>
-        <p>Number of Songs: {tracksArray.length}</p>
+        <p>Number of Songs: {selectedTracks.length}</p>
       </div>
-      <TracksList tracks={tracksArray} />
+      <TracksList tracks={selectedTracks} />
       <ButtonsStyle>
         <button
           type="button"

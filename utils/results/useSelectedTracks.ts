@@ -12,21 +12,19 @@ export function useSelectedTracks({
   targetDuration,
   loading: loadingTracks,
 }: useSelectedTracksProps) {
-  const [selectedTracks, setSelectedTracks] = useState<
-    Record<string, TrackData>
-  >({});
+  const [selectedTracks, setSelectedTracks] = useState<TrackData[]>([]);
   const [unusedSongs, setUnusedSongs] = useState<TrackData[]>([]);
 
   useEffect(() => {
     let length = 0;
-    const newSelectedTracks: typeof selectedTracks = {};
+    const newSelectedTracks: typeof selectedTracks = [];
     const newUnusedSongs: TrackData[] = [];
 
     for (let i = 0; i < tracks.length; i += 1) {
       if (length > targetDuration) {
         newUnusedSongs.push(tracks[i]);
       } else {
-        newSelectedTracks[tracks[i].id] = tracks[i];
+        newSelectedTracks.push(tracks[i]);
         length += tracks[i].duration_ms;
       }
     }
@@ -36,16 +34,16 @@ export function useSelectedTracks({
 
   // This function did toggle the song selection
   // Now it removes replaces a song with unusedSong
-  function setSelectedHandler(track: TrackData) {
-    const newSelectedTracks: typeof selectedTracks = { ...selectedTracks };
+  function replaceSelectedAtIndex(indexToReplace: number) {
+    const newSelectedTracks: TrackData[] = [...selectedTracks];
     const newUnusedSongs = [...unusedSongs];
     const songToUse = newUnusedSongs.shift();
 
     if (!songToUse) {
       console.warn("Cannot replace song in useSelectedTracks"); // eslint-disable-line no-console
-      delete newSelectedTracks[track.id];
+      newSelectedTracks.splice(indexToReplace, 1);
     } else {
-      newSelectedTracks[track.id] = songToUse;
+      newSelectedTracks[indexToReplace] = songToUse;
     }
 
     // if (!isSelected) {
@@ -63,5 +61,5 @@ export function useSelectedTracks({
     0
   );
 
-  return { selectedTracks, selectedTracksDuration, setSelectedHandler };
+  return { selectedTracks, selectedTracksDuration, replaceSelectedAtIndex };
 }

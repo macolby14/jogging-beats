@@ -7,7 +7,7 @@ import { LoginRequiredModal } from "./LoginRequiredModal";
 import { ConfirmationModal } from "./ConfirmationModal";
 
 interface Props {
-  selectedTracks: Record<string, TrackData>;
+  selectedTracks: TrackData[];
   duration: number;
   title: string;
   description: string;

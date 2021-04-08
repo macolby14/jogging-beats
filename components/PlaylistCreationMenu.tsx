@@ -8,7 +8,7 @@ import { Tooltip } from "./Tooltip";
 import { TrackData } from "./Track";
 
 interface PlaylistCreationButtonProps {
-  selectedTracks: Record<string, TrackData>;
+  selectedTracks: TrackData[];
   selectedTracksDuration: number;
   playlistTitle: string;
   playlistDescription: string;
@@ -74,7 +74,7 @@ export function PlaylistCreationMenu({
         </Heading>
         <Spacer size={4} />
         <Heading level={5} mobileLevel={6}>
-          {Object.keys(selectedTracks).length}
+          {selectedTracks.length}
         </Heading>
       </div>
       <PlaylistCreationButton
