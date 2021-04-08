@@ -83,7 +83,11 @@ export function PlaylistCreationMenu({
         title={playlistTitle}
         description={playlistDescription}
       />
-      <Tooltip direction="top" text="Change out the unselected songs">
+      <Tooltip
+        direction="right"
+        text="Swap out all the songs"
+        style={{ marginTop: "30%", marginLeft: "4px" }}
+      >
         <RefreshStyle
           xmlns="http://www.w3.org/2000/svg"
           height={isMobile ? "50" : "100"}

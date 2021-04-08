@@ -134,13 +134,22 @@ interface TooltipProps {
   text: string;
   direction: TooltipDirections;
   gap?: number;
+  style?: any;
 }
 
-export function Tooltip({ children, text, direction, gap = 0 }: TooltipProps) {
+export function Tooltip({
+  children,
+  text,
+  direction,
+  gap = 0,
+  style = null,
+}: TooltipProps) {
   return (
     <ToolTipStyles dir={direction} gap={gap}>
       {children}
-      <span className="tooltiptext">{text}</span>
+      <span className="tooltiptext" style={style}>
+        {text}
+      </span>
     </ToolTipStyles>
   );
 }
