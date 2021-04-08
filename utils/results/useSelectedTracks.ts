@@ -38,8 +38,8 @@ export function useSelectedTracks({
   // Now it removes replaces a song with unusedSong
   function setSelectedHandler(track: TrackData) {
     const newSelectedTracks: typeof selectedTracks = { ...selectedTracks };
-    const newUnsusedSongs = [...unusedSongs];
-    const songToUse = unusedSongs.shift();
+    const newUnusedSongs = [...unusedSongs];
+    const songToUse = newUnusedSongs.shift();
 
     if (!songToUse) {
       console.warn("Cannot replace song in useSelectedTracks"); // eslint-disable-line no-console
@@ -55,7 +55,7 @@ export function useSelectedTracks({
     // }
     console.log({ newSelectedTracks });
     setSelectedTracks(newSelectedTracks);
-    setUnusedSongs(newUnsusedSongs);
+    setUnusedSongs(newUnusedSongs);
   }
 
   const selectedTracksDuration = Object.values(selectedTracks).reduce(
