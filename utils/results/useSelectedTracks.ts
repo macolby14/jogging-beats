@@ -4,11 +4,13 @@ import { TrackData } from "../../components/Track";
 interface useSelectedTracksProps {
   tracks: TrackData[];
   targetDuration: number;
+  loading: boolean;
 }
 
 export function useSelectedTracks({
   tracks,
   targetDuration,
+  loading: loadingTracks,
 }: useSelectedTracksProps) {
   const [selectedTracks, setSelectedTracks] = useState<
     Record<string, TrackData>
@@ -26,7 +28,7 @@ export function useSelectedTracks({
       length += tracks[i].duration_ms;
     }
     setSelectedTracks(newSelectedTracks);
-  }, [tracks, targetDuration]);
+  }, [loadingTracks, targetDuration]);
 
   function setSelectedHandler(track: TrackData) {
     const isSelected = selectedTracks[track.id];

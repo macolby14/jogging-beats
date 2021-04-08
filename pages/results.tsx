@@ -59,7 +59,7 @@ export default function Results() {
   );
 
   // useSelectedTracks hooks hide non-selected songs and only shows targetDuration worth of songs
-  const { selectedTracks, selectedTracksDuration, setSelectedHandler} = useSelectedTracks({ tracks, targetDuration }); // prettier-ignore
+  const { selectedTracks, selectedTracksDuration, setSelectedHandler} = useSelectedTracks({ tracks, targetDuration, loading }); // prettier-ignore
   const { tempos } = useTempos({ tracks });
   const isMobile = useMediaQuery(768);
   useInitialLoadSongs({
@@ -80,10 +80,7 @@ export default function Results() {
   }
 
   async function refreshSongs() {
-    // const selectedTracksOnly = tracks.filter((track) =>
-    //   Boolean(selectedTracks[track.id])
-    // );
-    // setTracks(selectedTracksOnly);
+    setLoading(true);
     const newSongs = await fetchSongs(
       parseInt(bpm, 10),
       parseInt(bpmTolerance, 10),
@@ -92,6 +89,12 @@ export default function Results() {
       token
     );
     setTracks(newSongs);
+    setLoading(false);
+  }
+
+  function removeTrack(trackToRemove: TrackData) {
+    const newTracks = tracks.filter((track) => track !== trackToRemove);
+    setTracks(newTracks);
   }
 
   const playlistContent = (
@@ -114,6 +117,8 @@ export default function Results() {
               {...track} // eslint-disable-line react/jsx-props-no-spreading
               selected={isSelected}
               selectHandler={() => {
+                removeTrack(track);
+                // removes from the selected array
                 setSelectedHandler(track);
               }}
             />
