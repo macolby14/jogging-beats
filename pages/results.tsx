@@ -59,6 +59,7 @@ export default function Results() {
   );
 
   async function getMoreSongs() {
+    console.log("Fetching more songs from server");
     const newSongs = await fetchSongs(
       parseInt(bpm, 10),
       parseInt(bpmTolerance, 10),
@@ -70,7 +71,7 @@ export default function Results() {
   }
 
   // useSelectedTracks hooks hide non-selected songs and only shows targetDuration worth of songs
-  const { selectedTracks, selectedTracksDuration, replaceSelectedAtIndex} = useSelectedTracks({ tracks, targetDuration, loading }); // prettier-ignore
+  const { selectedTracks, selectedTracksDuration, replaceSelectedAtIndex} = useSelectedTracks({ tracks, targetDuration, loading, getMoreSongs }); // prettier-ignore
   const { tempos } = useTempos({ tracks });
   const isMobile = useMediaQuery(768);
   useInitialLoadSongs({

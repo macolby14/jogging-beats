@@ -5,12 +5,14 @@ interface useSelectedTracksProps {
   tracks: TrackData[];
   targetDuration: number;
   loading: boolean;
+  getMoreSongs: () => Promise<TrackData[]>;
 }
 
 export function useSelectedTracks({
   tracks,
   targetDuration,
   loading: loadingTracks,
+  getMoreSongs,
 }: useSelectedTracksProps) {
   const [selectedTracks, setSelectedTracks] = useState<TrackData[]>([]);
   const [unusedSongs, setUnusedSongs] = useState<TrackData[]>([]);
@@ -34,26 +36,29 @@ export function useSelectedTracks({
 
   // This function did toggle the song selection
   // Now it removes replaces a song with unusedSong
-  function replaceSelectedAtIndex(indexToReplace: number) {
+  async function replaceSelectedAtIndex(indexToReplace: number) {
     const newSelectedTracks: TrackData[] = [...selectedTracks];
     const newUnusedSongs = [...unusedSongs];
     const songToUse = newUnusedSongs.shift();
 
     if (!songToUse) {
-      console.warn("Cannot replace song in useSelectedTracks"); // eslint-disable-line no-console
+      console.error("Cannot replace song in useSelectedTracks"); // eslint-disable-line no-console
       newSelectedTracks.splice(indexToReplace, 1);
     } else {
       newSelectedTracks[indexToReplace] = songToUse;
     }
 
-    // if (!isSelected) {
-    //   newSelectedTracks[track.id] = track;
-    // } else {
-    //   delete newSelectedTracks[track.id];
-    // }
-    console.log({ newSelectedTracks });
     setSelectedTracks(newSelectedTracks);
-    setUnusedSongs(newUnusedSongs);
+
+    // * If the unused songs is about to run out, get more songs from the server so we will never wait to swap songs
+    if (newUnusedSongs.length <= 4) {
+      const newFetchedSongs = await getMoreSongs();
+      setUnusedSongs([...newUnusedSongs, ...newFetchedSongs]);
+    } else {
+      setUnusedSongs(newUnusedSongs);
+    }
+
+    console.log(`Unused songs left: ${newUnusedSongs.length}`);
   }
 
   const selectedTracksDuration = Object.values(selectedTracks).reduce(
