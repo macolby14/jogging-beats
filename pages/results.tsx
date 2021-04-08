@@ -79,6 +79,17 @@ export default function Results() {
     setPlaylistDescription(e.target.value);
   }
 
+  async function getMoreSongs() {
+    const newSongs = await fetchSongs(
+      parseInt(bpm, 10),
+      parseInt(bpmTolerance, 10),
+      allowExplicit,
+      selectedGenre,
+      token
+    );
+    return newSongs;
+  }
+
   async function refreshSongs() {
     setLoading(true);
     const newSongs = await fetchSongs(
@@ -100,22 +111,18 @@ export default function Results() {
   const playlistContent = (
     <>
       <ResultsGrid>
-        {tracks.map((track) => {
-          const isSelected = Boolean(selectedTracks[track.id]);
-          return (
-            <Track
-              tempo={tempos[track.id]}
-              key={track.id}
-              {...track} // eslint-disable-line react/jsx-props-no-spreading
-              selected={isSelected}
-              selectHandler={() => {
-                removeTrack(track);
-                // removes from the selected array
-                setSelectedHandler(track);
-              }}
-            />
-          );
-        })}
+        {Object.values(selectedTracks).map((track) => (
+          <Track
+            tempo={tempos[track.id]}
+            key={track.id}
+            {...track} // eslint-disable-line react/jsx-props-no-spreading
+            selectHandler={() => {
+              removeTrack(track);
+              // removes from the selected array
+              setSelectedHandler(track);
+            }}
+          />
+        ))}
       </ResultsGrid>
     </>
   );

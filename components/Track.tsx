@@ -1,31 +1,22 @@
 /* eslint-disable camelcase */
 import React from "react"; // eslint-disable-line no-use-before-define
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { center, centerVertically } from "../styles/globalCss";
 import { durationFormat } from "../utils/durationFormat";
 import { AudioPreviewButton } from "./AudioPreviewButton";
 import SpotifyPlayButton from "./SpotifyPlayButton";
 import { TrackSelect } from "./TrackSelect";
 
-interface TrackStyleProps {
-  selected: boolean;
-}
+// const notSelectedStyle = css`
+//   background-color: rgba(80, 37, 18, 0.2);
+//   opacity: 0.6;
+//   border: 1px solid rgba(80, 37, 18, 1);
 
-const selectedStyle = css`
-  border: 3px solid var(--light);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-`;
+//   // ! Originally not selected tracks were shown, but were grayed out and could be selected. Changed to not shown
+//   display: none;
+// `;
 
-const notSelectedStyle = css`
-  background-color: rgba(80, 37, 18, 0.2);
-  opacity: 0.6;
-  border: 1px solid rgba(80, 37, 18, 1);
-
-  // ! Originally not selected tracks were shown, but were grayed out and could be selected. Changed to not shown
-  display: none;
-`;
-
-const TrackStyle = styled.div<TrackStyleProps>`
+const TrackStyle = styled.div`
   .play-preview {
     grid-area: play-preview;
   }
@@ -86,7 +77,10 @@ const TrackStyle = styled.div<TrackStyleProps>`
   grid-template-areas:
     "play-preview pic name time select"
     "play-spotify pic artist tempo select";
-  ${(props) => (props.selected ? selectedStyle : notSelectedStyle)}
+
+  // * Previously selected style
+  border: 3px solid var(--light);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 
   @media (max-width: 768px) {
     grid-template-columns: 100px 1fr 50px;
@@ -113,7 +107,6 @@ export interface TrackData {
 }
 
 type TrackProps = TrackData & {
-  selected: boolean;
   selectHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void; // eslint-disable-line no-unused-vars
   tempo: number | null;
 };
@@ -125,12 +118,11 @@ export function Track({
   album,
   preview_url,
   external_urls: { spotify: spotifyLink },
-  selected = false,
   selectHandler,
   tempo = null,
 }: TrackProps) {
   return (
-    <TrackStyle selected={selected}>
+    <TrackStyle>
       <AudioPreviewButton url={preview_url} className="play-preview" />
       <SpotifyPlayButton link={spotifyLink} className="play-spotify" />
       <div className="pic">
@@ -146,11 +138,7 @@ export function Track({
       <div className="tempo">
         {tempo ? `${Math.round(tempo)} bpm` : "Loading..."}
       </div>
-      <TrackSelect
-        className="select"
-        selected={selected}
-        selectHandler={selectHandler}
-      />
+      <TrackSelect className="select" selectHandler={selectHandler} />
     </TrackStyle>
   );
 }
