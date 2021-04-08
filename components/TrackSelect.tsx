@@ -18,11 +18,11 @@ export function TrackSelect({
   selectHandler,
 }: TrackSelectProps) {
   const selectIcon = (
-    <Tooltip direction="right" gap={5} text="Remove from your playlist">
+    <Tooltip direction="right" gap={5} text="Swap out this song">
       <IconStyle
-        src="/remove_circle_outline-24px.svg"
+        src="/swap_circle_24dp.svg"
         alt="
-        Add Track to Playlist"
+        Swap out this song"
       />
     </Tooltip>
   );
