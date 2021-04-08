@@ -99,14 +99,6 @@ export default function Results() {
 
   const playlistContent = (
     <>
-      <PlaylistCreationMenu
-        selectedTracks={selectedTracks}
-        selectedTracksDuration={selectedTracksDuration}
-        playlistTitle={playlistTitle}
-        playlistDescription={playlistDescription}
-        handleSongRefresh={refreshSongs}
-      />
-      <Spacer size={16} />
       <ResultsGrid>
         {tracks.map((track) => {
           const isSelected = Boolean(selectedTracks[track.id]);
@@ -145,6 +137,14 @@ export default function Results() {
           onChange={handleDescriptionChange}
         />
       </label>
+      <PlaylistCreationMenu
+        selectedTracks={selectedTracks}
+        selectedTracksDuration={selectedTracksDuration}
+        playlistTitle={playlistTitle}
+        playlistDescription={playlistDescription}
+        handleSongRefresh={refreshSongs}
+      />
+      <Spacer size={16} />
       {loading ? spinner : playlistContent}
     </ResultsStyle>
   );
