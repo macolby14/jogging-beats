@@ -1,10 +1,9 @@
 {
-    // Prettier as formatter and auto-format on save
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    // tell the ESLint plugin to run on save
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true
-    },
+  // Prettier as formatter and auto-format on save
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  // tell the ESLint plugin to run on save
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
   }
-  
+}
