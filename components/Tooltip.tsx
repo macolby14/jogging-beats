@@ -12,11 +12,7 @@ function isTouchDevice() {
   if (typeof window === "undefined") {
     return true;
   }
-  return (
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    navigator.msMaxTouchPoints > 0
-  );
+  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
 }
 
 const ToolTipStyles = styled.div<TooltipsStylesProps>`
